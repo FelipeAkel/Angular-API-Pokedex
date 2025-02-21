@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { Empty } from './empty/empty';
-import { HomeComponent } from './home/home.component';
+import { PokedexComponent } from './pokedex/pokedex.component';
 
 export default [
     { path: 'empty', component: Empty },
-    { path: 'home', component: HomeComponent },
+    { path: 'pokedex', component: PokedexComponent },
 ] as Routes;

@@ -19,9 +19,9 @@ export class AppMenu {
                 label: 'Home',
                 items: [
                     { 
-                        label: 'Home', 
+                        label: 'Pokedex', 
                         icon: 'pi pi-fw pi-home', 
-                        routerLink: ['/pages/home'] 
+                        routerLink: ['/pages/pokedex'] 
                     }
                 ]
             },{
