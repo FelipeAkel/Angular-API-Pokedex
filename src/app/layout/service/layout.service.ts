@@ -26,11 +26,12 @@ interface MenuChangeEvent {
     providedIn: 'root'
 })
 export class LayoutService {
+    // Configurações Iniciais do Sistema: Cores, Temas, Predefinições, Modo de Menu
     _config: layoutConfig = {
-        preset: 'Aura',
-        primary: 'emerald',
-        surface: null,
-        darkTheme: false,
+        preset: 'Nora',
+        primary: 'violet',
+        surface: 'viva',
+        darkTheme: true,
         menuMode: 'static'
     };
 
