@@ -1,23 +1,6 @@
 <div class="card">
     <div class="font-semibold text-xl mb-4">Pokedex</div>
-    <p-toolbar>
-        
-        <ng-template #start></ng-template>
-
-        <ng-template #center>
-            <p-iconfield>
-                <p-inputicon>
-                    <i class="pi pi-search"></i>
-                </p-inputicon>
-                <input pInputText placeholder="Pesquisar" />
-            </p-iconfield>
-        </ng-template>
-
-        <ng-template #end>
-
-        </ng-template>
-
-    </p-toolbar>
+    <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
 </div>
 
-
+<app-pokedex-filter></app-pokedex-filter>

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { ToolbarModule } from 'primeng/toolbar';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+
+import { PokedexFilterComponent } from "./components/pokedex-filter/pokedex-filter.component";
 
 
 @Component({
@@ -11,13 +12,14 @@ import { InputTextModule } from 'primeng/inputtext';
   imports: [
     CommonModule,
     ToolbarModule,
-    IconFieldModule,
-    InputIconModule,
-    InputTextModule,
-  ],
+    BreadcrumbModule,
+    PokedexFilterComponent
+],
   templateUrl: './pokedex.component.html',
   styleUrl: './pokedex.component.scss'
 })
 export class PokedexComponent {
+
+  public breadcrumbItems = [{ label: 'Home'}, { icon: 'pi pi-home', label: 'Pokedex'}];
 
 }
