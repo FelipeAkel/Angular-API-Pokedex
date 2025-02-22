@@ -28,6 +28,8 @@ import { TypePokemonModel } from '../../../../models/pokedex-model';
 })
 export class PokedexFilterComponent {
 
+  public loading: boolean = false;
+
   public typePokemons: Array<TypePokemonModel> = [
     { value: 'bug', name: 'Inseto', class: 'bug' },
     { value: 'dark', name: 'Sombrio', class: 'dark' },
@@ -50,5 +52,13 @@ export class PokedexFilterComponent {
   ];
 
   // public typePokemon = null;
+
+  onLoad() {
+    this.loading = true;
+
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
+  }
 
 }

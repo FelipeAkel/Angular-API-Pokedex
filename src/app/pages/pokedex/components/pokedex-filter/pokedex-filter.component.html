@@ -39,10 +39,22 @@
             </div>
 
             <div class="flex flex-row flex-wrap">
-                <p-button class="m-2" label="Pesquisar" [rounded]="true" icon="pi pi-search"/> <!-- [loading]="loading" (onClick)="load()" -->
-                <p-button class="m-2" label="Limpar" [rounded]="true" icon="pi pi-trash" severity="secondary" />
+                <p-button class="m-2" 
+                    label="Pesquisar" 
+                    [rounded]="true" 
+                    [loading]="loading"
+                    icon="pi pi-search"
+                    (onClick)="onLoad()"
+                />
+                <p-button 
+                    class="m-2" 
+                    label="Limpar" 
+                    [rounded]="true" 
+                    icon="pi pi-trash" 
+                    severity="secondary" 
+                />
             </div>
-            
+
         </div>
     </div>
 </p-fluid>
