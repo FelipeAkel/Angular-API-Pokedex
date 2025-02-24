@@ -4,9 +4,8 @@ export interface TypePokemonModel {
     class: string;
 }
 
-export interface TesteModel {
-
-    id: number,
+export interface ListPokemonModel {
+    id: number | string,
     name: string,
     description: string,
     image: string,

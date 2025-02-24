@@ -4,7 +4,7 @@
     <div class="card">
         <div class="font-semibold text-xl">Lista Pokemons</div>
         
-        <p-dataview [value]="pokemons" [layout]="layout">
+        <p-dataview [value]="listPokemons" [layout]="layout">
             <ng-template #header>
                 <div class="flex justify-end">
                     <p-select-button [(ngModel)]="layout" [options]="options" [allowEmpty]="false">

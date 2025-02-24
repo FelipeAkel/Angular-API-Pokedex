@@ -6,13 +6,14 @@ import { signal } from '@angular/core';
 import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { SelectButton } from 'primeng/selectbutton';
+import { ListPokemonModel } from '../../model/pokedex-model';
 
 @Component({
   selector: 'app-pokedex-list',
   imports: [
     CommonModule,
     FormsModule,
-    
+
     DataView,
     ButtonModule,
     SelectButton,
@@ -24,7 +25,8 @@ export class PokedexListComponent {
 
   public layout: 'list' | 'grid' = 'grid';
   public options = ['list', 'grid'];
-  public pokemons = ([
+  // TODO - ListPokemonModel
+  public listPokemons = ([
     {
       id: '1',
       name: 'Bamboo Watch',
