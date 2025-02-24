@@ -9,7 +9,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 
-import { TypePokemonModel } from '../../../../models/pokedex-model';
+import { TypePokemonModel } from '../../model/pokedex-model';
 
 @Component({
   selector: 'app-pokedex-filter',

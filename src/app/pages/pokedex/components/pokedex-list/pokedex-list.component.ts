@@ -1,86 +1,60 @@
 import { Component } from '@angular/core';
-// import { Product } from '@/domain/product';
-// import { ProductService } from '@/service/productservice';
-import { DataView } from 'primeng/dataview';
-import { Tag } from 'primeng/tag';
-import { Rating } from 'primeng/rating';
-import { ButtonModule } from 'primeng/button';
-import { SelectButton } from 'primeng/selectbutton';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
 
+import { DataView } from 'primeng/dataview';
+import { ButtonModule } from 'primeng/button';
+import { SelectButton } from 'primeng/selectbutton';
+
 @Component({
   selector: 'app-pokedex-list',
   imports: [
-    DataView,
-    Tag,
-    Rating,
-    ButtonModule,
     CommonModule,
+    FormsModule,
+    
+    DataView,
+    ButtonModule,
     SelectButton,
-    FormsModule
   ],
   templateUrl: './pokedex-list.component.html',
   styleUrl: './pokedex-list.component.scss'
 })
 export class PokedexListComponent {
 
-  layout: string = 'grid';
-
-  products = signal<any>([
-
+  public layout: 'list' | 'grid' = 'grid';
+  public options = ['list', 'grid'];
+  public pokemons = ([
     {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5
+      id: '1',
+      name: 'Bamboo Watch',
+      description: 'Product Description',
+      image: 'bamboo-watch.jpg',
+      typePokemon: 'Fogo, Água',
     },
     {
-        id: '1000',
-        code: 'f230fh0g3',
-        name: 'Bamboo Watch',
-        description: 'Product Description',
-        image: 'bamboo-watch.jpg',
-        price: 65,
-        category: 'Accessories',
-        quantity: 24,
-        inventoryStatus: 'INSTOCK',
-        rating: 5
+      id: '2',
+      name: 'Bamboo Watch',
+      description: 'Product Description',
+      image: 'bamboo-watch.jpg',
+      typePokemon: 'Fogo, Água',
+    },
+    {
+      id: '3',
+      name: 'Bamboo Watch',
+      description: 'Product Description',
+      image: 'bamboo-watch.jpg',
+      typePokemon: 'Fogo, Água',
+    },
+    {
+      id: '4',
+      name: 'Bamboo Watch',
+      description: 'Product Description',
+      image: 'bamboo-watch.jpg',
+      typePokemon: 'Fogo, Água',
     },
   ]);
 
-  options = ['list', 'grid'];
+  constructor() {}
 
-  constructor(
-    // private productService: ProductService
-  ) {}
-
-  ngOnInit() {
-    // this.productService.getProducts().then((data) => {
-    //   this.products.set([...data.slice(0,12)]);
-    // });
-  }
-
-  getSeverity(product: any) {
-    switch (product.inventoryStatus) {
-      case 'INSTOCK':
-        return 'success';
-
-      case 'LOWSTOCK':
-        return 'warn';
-
-      case 'OUTOFSTOCK':
-        return 'danger';
-
-      default:
-        return null;
-    }
-  }
 }
