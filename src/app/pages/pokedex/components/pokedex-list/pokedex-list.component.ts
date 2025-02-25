@@ -6,20 +6,28 @@ import { signal } from '@angular/core';
 import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { SelectButton } from 'primeng/selectbutton';
+import { DialogService } from 'primeng/dynamicdialog';
+import { TooltipModule } from 'primeng/tooltip';
+
 import { PokedexApiService } from '../../../../services/pokedex-api.service';
+import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
 
 @Component({
   selector: 'app-pokedex-list',
   imports: [
     CommonModule,
     FormsModule,
-
+    
     DataView,
     ButtonModule,
     SelectButton,
-  ],
+    TooltipModule, 
+    
+    PokemonDetailsComponent,
+],
   templateUrl: './pokedex-list.component.html',
-  styleUrl: './pokedex-list.component.scss'
+  styleUrl: './pokedex-list.component.scss',
+  providers: [DialogService]
 })
 export class PokedexListComponent implements OnInit {
 
@@ -29,7 +37,8 @@ export class PokedexListComponent implements OnInit {
   public getListPokemons: any; 
 
   constructor(
-    private pokedexApiService: PokedexApiService
+    private pokedexApiService: PokedexApiService,
+    private dialogService: DialogService,
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +64,16 @@ export class PokedexListComponent implements OnInit {
   }
 
   details(id: number) {
-    console.log('details', id);
+    // console.log('details', id);
+    this.dialogService.open(PokemonDetailsComponent, {
+      data: { id },
+      header: 'Detalhes do Pokemon',
+      width: '60%',
+      closable: true,                     // Icone fechar modal
+      modal: true,                        // Background mais escuro
+      dismissableMask: true,              // Clicar fora do modal fecha o dialog
+      maskStyleClass: 'backdrop-blur-sm', // Background esfumaçado 
+    });
   }
 
 }
