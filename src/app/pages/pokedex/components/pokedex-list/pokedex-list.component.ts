@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
@@ -6,7 +6,7 @@ import { signal } from '@angular/core';
 import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { SelectButton } from 'primeng/selectbutton';
-import { ListPokemonModel } from '../../model/pokedex-model';
+import { PokedexApiService } from '../../../../services/pokedex-api.service';
 
 @Component({
   selector: 'app-pokedex-list',
@@ -21,42 +21,37 @@ import { ListPokemonModel } from '../../model/pokedex-model';
   templateUrl: './pokedex-list.component.html',
   styleUrl: './pokedex-list.component.scss'
 })
-export class PokedexListComponent {
+export class PokedexListComponent implements OnInit {
 
   public layout: 'list' | 'grid' = 'grid';
   public options = ['list', 'grid'];
-  // TODO - ListPokemonModel
-  public listPokemons = ([
-    {
-      id: '1',
-      name: 'Bamboo Watch',
-      description: 'Product Description',
-      image: 'bamboo-watch.jpg',
-      typePokemon: 'Fogo, Água',
-    },
-    {
-      id: '2',
-      name: 'Bamboo Watch',
-      description: 'Product Description',
-      image: 'bamboo-watch.jpg',
-      typePokemon: 'Fogo, Água',
-    },
-    {
-      id: '3',
-      name: 'Bamboo Watch',
-      description: 'Product Description',
-      image: 'bamboo-watch.jpg',
-      typePokemon: 'Fogo, Água',
-    },
-    {
-      id: '4',
-      name: 'Bamboo Watch',
-      description: 'Product Description',
-      image: 'bamboo-watch.jpg',
-      typePokemon: 'Fogo, Água',
-    },
-  ]);
+  // TODO - GetListPokemonsModel
+  public getListPokemons: any; 
 
-  constructor() {}
+  constructor(
+    private pokedexApiService: PokedexApiService
+  ) {}
+
+  ngOnInit(): void {
+    this.pokedexApiService.getListAllPokemons.subscribe(
+      res => {
+        this.getListPokemons = res.results;
+        console.warn('getListPokemons', this.getListPokemons);
+      }
+      // {
+      // next: (v) => console.log('next', v),
+      // error: (e) => console.error('error', e),
+      // complete: () => console.info('complete') 
+      // }
+    );
+  }
+
+  formattedTypes(item: any): string {
+    return item.status?.types
+      ?.map((type: any) => 
+        type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1).toLowerCase()
+      )
+      .join(', ') || '';
+  }
 
 }
