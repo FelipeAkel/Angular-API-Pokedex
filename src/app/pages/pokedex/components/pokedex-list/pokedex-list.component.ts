@@ -54,4 +54,8 @@ export class PokedexListComponent implements OnInit {
       .join(', ') || '';
   }
 
+  details(id: number) {
+    console.log('details', id);
+  }
+
 }

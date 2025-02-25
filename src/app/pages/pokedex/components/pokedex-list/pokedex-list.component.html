@@ -39,8 +39,17 @@
                                 </div>
                                 <div class="flex flex-col md:items-end gap-8">
                                     <div class="flex flex-row-reverse md:flex-row gap-2">
-                                        <p-button icon="pi pi-heart" styleClass="h-full" [outlined]="true"></p-button>
-                                        <p-button icon="pi pi-address-book" label="Detalhes" styleClass="flex-auto md:flex-initial whitespace-nowrap"></p-button>
+                                        <p-button 
+                                            icon="pi pi-heart" 
+                                            styleClass="h-full" 
+                                            [outlined]="true"
+                                        ></p-button>
+                                        <p-button 
+                                            icon="pi pi-address-book"
+                                            label="Detalhes" 
+                                            styleClass="flex-auto md:flex-initial whitespace-nowrap"
+                                            (click)="details(item?.status?.id)"
+                                        ></p-button>
                                     </div>
                                 </div>
                             </div>
@@ -69,14 +78,24 @@
                                             {{ formattedTypes(item) }}
                                         </span>
                                         <div class="text-lg font-medium mt-1">
-                                            {{ item.name.toUpperCase() }} {{ item.status.id }}
+                                            {{ item.name.toUpperCase() }} {{ item?.status?.id }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="flex flex-col gap-6 mt-6">
                                     <div class="flex gap-2">
-                                        <p-button icon="pi pi-address-book" label="Detalhes" class="flex-auto whitespace-nowrap" styleClass="w-full"></p-button>
-                                        <p-button icon="pi pi-heart" styleClass="h-full" [outlined]="true"></p-button>
+                                        <p-button 
+                                            icon="pi pi-address-book" 
+                                            label="Detalhes" 
+                                            class="flex-auto whitespace-nowrap" 
+                                            styleClass="w-full"
+                                            (click)="details(item?.status?.id)"
+                                        ></p-button>
+                                        <p-button 
+                                            icon="pi pi-heart" 
+                                            styleClass="h-full" 
+                                            [outlined]="true"
+                                        ></p-button>
                                     </div>
                                 </div>
                             </div>
