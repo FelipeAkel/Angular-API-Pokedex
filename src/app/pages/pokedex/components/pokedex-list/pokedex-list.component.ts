@@ -23,7 +23,6 @@ import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.comp
     SelectButton,
     TooltipModule, 
     
-    PokemonDetailsComponent,
 ],
   templateUrl: './pokedex-list.component.html',
   styleUrl: './pokedex-list.component.scss',

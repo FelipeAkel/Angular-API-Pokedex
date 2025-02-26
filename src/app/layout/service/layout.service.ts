@@ -28,7 +28,7 @@ interface MenuChangeEvent {
 export class LayoutService {
     // Configurações Iniciais do Sistema: Cores, Temas, Predefinições, Modo de Menu
     _config: layoutConfig = {
-        preset: 'Nora',
+        preset: 'Lara',
         primary: 'violet',
         surface: 'viva',
         darkTheme: true,

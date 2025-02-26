@@ -4,56 +4,83 @@
 
             <div class="font-semibold text-xl">Filtros</div>
 
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="flex flex-wrap gap-2 w-full">
-                    <label for="in-name-pokemon">Pesquisar Pokemon</label>
-                    <input pInputText id="in-name-pokemon" type="text" />
-                </div>
-                <div class="flex flex-wrap gap-2 w-full">
-                    <label for="in-tipo-pokemon">Tipos de Pokemon</label>
-                    <!-- [(ngModel)]="typePokemon"  -->
-                    <p-select 
-                        id="in-tipo-pokemon" 
-                        [options]="typePokemons" 
-                        optionLabel="name" 
-                        [filter]="true" 
-                        filterBy="name" 
-                        showClear="true" 
-                        placeholder="Selecione" 
-                        class="w-full"
-                    >
-                        <ng-template #selectedItem let-selectedOption>
-                            <div class="flex items-center gap-2">
-                                <div [class]="'icon ' + selectedOption.class"></div>
-                                <div>{{ selectedOption.name }}</div>
-                            </div>
-                        </ng-template>
-                        <ng-template let-selectedOption2 #item>
-                            <div class="flex items-center gap-2">
-                                <div [class]="'icon ' + selectedOption2.class"></div>
-                                <div>{{ selectedOption2.name }}</div>
-                            </div>
-                        </ng-template>
-                    </p-select>
-                </div>
-            </div>
+            <form [formGroup]="pokedexFormFilter" >
 
-            <div class="flex flex-row flex-wrap">
-                <p-button class="m-2" 
-                    label="Pesquisar" 
-                    [rounded]="true" 
-                    [loading]="loading"
-                    icon="pi pi-search"
-                    (onClick)="onLoad()"
-                />
-                <p-button 
-                    class="m-2" 
-                    label="Limpar" 
-                    [rounded]="true" 
-                    icon="pi pi-trash" 
-                    severity="secondary" 
-                />
-            </div>
+                <div class="flex flex-col md:flex-row gap-6">
+
+                    <div class="flex flex-wrap gap-2 w-full">
+                        <label for="inNamePokemon">Pesquisar Pokemon</label>
+                        <input 
+                            pInputText 
+                            type="text" 
+                            id="inNamePokemon" 
+                            formControlName="inNamePokemon"
+                            [ngClass]="{ 'p-invalid' : isFieldInvalid('inNamePokemon') }"
+                        />
+                        <p-message *ngIf="isFieldInvalid('inNamePokemon')" severity="error" variant="simple" size="small">
+                            {{ getErrorMessage('inNamePokemon') }}
+                        </p-message>
+                    </div>
+                    <div class="flex flex-wrap gap-2 w-full">
+                        <label for="inTypePokemon">Tipos de Pokemon</label>
+                        <!-- [(ngModel)]="typePokemon"  -->
+                        <p-select 
+                            id="inTypePokemon"
+                            formControlName="inTypePokemon"
+                            [options]="typePokemons" 
+                            optionLabel="name" 
+                            [filter]="true" 
+                            filterBy="name" 
+                            showClear="true" 
+                            placeholder="Selecione" 
+                            class="w-full"
+                            [ngClass]="{ 'ng-invalid' : isFieldInvalid('inTypePokemon') }"
+                        >
+                            <ng-template #selectedItem let-selectedOption>
+                                <div class="flex items-center gap-2">
+                                    <div [class]="'icon ' + selectedOption.class"></div>
+                                    <div>{{ selectedOption.name }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-selectedOption2 #item>
+                                <div class="flex items-center gap-2">
+                                    <div [class]="'icon ' + selectedOption2.class"></div>
+                                    <div>{{ selectedOption2.name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-select>
+                        <p-message *ngIf="isFieldInvalid('inTypePokemon')" severity="error" variant="simple" size="small">
+                            {{ getErrorMessage('inTypePokemon') }}
+                        </p-message>
+                    </div>
+                </div>
+                
+                <div class="flex flex-row flex-wrap mt-5">
+                    <p-button class="m-2" 
+                        label="Pesquisar" 
+                        [rounded]="true" 
+                        [loading]="loading"
+                        icon="pi pi-search"
+                        (onClick)="onSubmitPokedexFormFilter()"
+                    />
+                    <p-button 
+                        class="m-2" 
+                        label="Limpar" 
+                        [rounded]="true" 
+                        icon="pi pi-trash" 
+                        severity="secondary" 
+                        (onClick)="onClearFormFilter()"
+                    />
+                </div>
+
+            </form>
+
+            <pre>
+                {{ this.pokedexFormFilter.value | json }}
+                {{ this.pokedexFormFilter.valid | json }}
+
+            </pre>
+
 
         </div>
     </div>

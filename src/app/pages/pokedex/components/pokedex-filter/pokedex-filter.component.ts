@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -8,13 +10,18 @@ import { FluidModule } from 'primeng/fluid';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
+import { MessageModule } from 'primeng/message';
 
 import { TypePokemonModel } from '../../../../model/pokedex-model';
+import { FormValidationService } from '../../../../services/form-validation.service';
 
 @Component({
   selector: 'app-pokedex-filter',
   imports: [
     FormsModule, 
+    ReactiveFormsModule,
+    CommonModule,
+
     IconFieldModule,
     InputIconModule,
     InputTextModule,
@@ -22,6 +29,7 @@ import { TypePokemonModel } from '../../../../model/pokedex-model';
     SelectModule,
     ButtonModule,
     ToolbarModule,
+    MessageModule,
   ],
   templateUrl: './pokedex-filter.component.html',
   styleUrl: './pokedex-filter.component.scss'
@@ -53,12 +61,45 @@ export class PokedexFilterComponent {
 
   // public typePokemon = null;
 
-  onLoad() {
-    this.loading = true;
+  public pokedexFormFilter: FormGroup;
 
-    setTimeout(() => {
-      this.loading = false;
-    }, 2000);
+  constructor(
+    private formBuilder: FormBuilder,
+    private formValidation: FormValidationService,
+  ){
+    this.pokedexFormFilter = this.formBuilder.group({
+      inNamePokemon: ['', [Validators.required, Validators.minLength(10)]],
+      inTypePokemon: [null, [Validators.required]],
+    })
+  }
+
+  isFieldInvalid(field: string): boolean | undefined {
+    return (
+      this.pokedexFormFilter.get(field)?.invalid &&
+      (this.pokedexFormFilter.get(field)?.dirty || this.pokedexFormFilter.get(field)?.touched)
+    );
+  }
+
+  getErrorMessage(field: string, labelName?: string): string {
+    return this.formValidation.getErrorMessage(this.pokedexFormFilter.get(field), labelName);
+  }
+
+  onSubmitPokedexFormFilter() {
+    if(this.pokedexFormFilter.valid) {
+      this.loading = true;
+  
+      setTimeout(() => {
+        this.loading = false;
+      }, 2000);
+
+    } else {
+      this.pokedexFormFilter.markAllAsTouched();
+    }
+  }
+
+  onClearFormFilter()
+  {
+    this.pokedexFormFilter.reset()
   }
 
 }
