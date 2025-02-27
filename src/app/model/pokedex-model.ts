@@ -4,6 +4,15 @@ export interface TypePokemonModel {
     class: string;
 }
 
+export interface PokedexFormFilterModel {
+    inNamePokemon: string;
+    inTypePokemon: {
+        value: string;
+        name: string;
+        class: string;
+    }
+}
+
 export interface GetListAllPokemonsModel {
     count: string,
     next: string

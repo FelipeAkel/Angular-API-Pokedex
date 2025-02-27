@@ -11,9 +11,12 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
-import { TypePokemonModel } from '../../../../model/pokedex-model';
+import { PokedexFormFilterModel, TypePokemonModel } from '../../../../model/pokedex-model';
 import { FormValidationService } from '../../../../services/form-validation.service';
+import { PokedexStateService } from '../../../../services/pokedex-state.service';
 
 @Component({
   selector: 'app-pokedex-filter',
@@ -30,13 +33,15 @@ import { FormValidationService } from '../../../../services/form-validation.serv
     ButtonModule,
     ToolbarModule,
     MessageModule,
+    ToastModule,
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './pokedex-filter.component.html',
-  styleUrl: './pokedex-filter.component.scss'
+  styleUrl: './pokedex-filter.component.scss',
 })
 export class PokedexFilterComponent {
-
-  public loading: boolean = false;
 
   public typePokemons: Array<TypePokemonModel> = [
     { value: 'bug', name: 'Inseto - Bug', class: 'bug' },
@@ -59,17 +64,17 @@ export class PokedexFilterComponent {
     { value: 'water', name: 'Água - Water', class: 'water' },
   ];
 
-  // public typePokemon = null;
-
   public pokedexFormFilter: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private formValidation: FormValidationService,
+    private pokedexState: PokedexStateService,
+    private msnToast: MessageService,
   ){
     this.pokedexFormFilter = this.formBuilder.group({
-      inNamePokemon: ['', [Validators.required, Validators.minLength(10)]],
-      inTypePokemon: [null, [Validators.required]],
+      inNamePokemon: [null, [Validators.nullValidator]],
+      inTypePokemon: [null, [Validators.nullValidator]],
     })
   }
 
@@ -84,22 +89,19 @@ export class PokedexFilterComponent {
     return this.formValidation.getErrorMessage(this.pokedexFormFilter.get(field), labelName);
   }
 
-  onSubmitPokedexFormFilter() {
+  onSubmitPokedexFormFilter(values: PokedexFormFilterModel) {
     if(this.pokedexFormFilter.valid) {
-      this.loading = true;
-  
-      setTimeout(() => {
-        this.loading = false;
-      }, 2000);
-
+      this.pokedexState.setPokedexFormFilterState(values);
+      this.msnToast.add({ severity: 'success', summary: 'Lista de Pokemons', detail: 'Registros de pokemons foram atualizados.', life: 4000 });
     } else {
       this.pokedexFormFilter.markAllAsTouched();
     }
   }
 
-  onClearFormFilter()
-  {
-    this.pokedexFormFilter.reset()
+  onClearFormFilter() {
+    this.pokedexFormFilter.reset();
+    this.pokedexState.resetPokedexFormFilterState();
+    this.msnToast.add({ severity: 'info', summary: 'Lista de Pokemons', detail: 'Registros foram resetados.', life: 4000 });
   }
 
 }
