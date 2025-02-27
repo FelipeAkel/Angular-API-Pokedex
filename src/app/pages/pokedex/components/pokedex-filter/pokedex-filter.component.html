@@ -13,6 +13,7 @@
                             type="text" 
                             id="inNamePokemon" 
                             formControlName="inNamePokemon"
+                            placeholder="Nome"
                             [ngClass]="{ 'p-invalid' : isFieldInvalid('inNamePokemon') }"
                         />
                         <p-message *ngIf="isFieldInvalid('inNamePokemon')" severity="error" variant="simple" size="small">

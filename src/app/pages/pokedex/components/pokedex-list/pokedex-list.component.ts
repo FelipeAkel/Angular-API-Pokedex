@@ -11,6 +11,8 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { PokedexApiService } from '../../../../services/pokedex-api.service';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
+import { PokedexFormFilterModel } from '../../../../model/pokedex-model';
+import { PokedexStateService } from '../../../../services/pokedex-state.service';
 
 @Component({
   selector: 'app-pokedex-list',
@@ -30,21 +32,42 @@ import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.comp
 })
 export class PokedexListComponent implements OnInit {
 
+  public pokedexFormFilter: PokedexFormFilterModel = {
+    inNamePokemon: '',
+    inTypePokemon: {
+      value: '',
+      name: '',
+      class: '',
+    }
+  };
   public layout: 'list' | 'grid' = 'grid';
   public options = ['list', 'grid'];
-  // TODO - GetListPokemonsModel
+  // TODO - GetListAllPokemonsModel
   public getListPokemons: any; 
 
   constructor(
     private pokedexApiService: PokedexApiService,
     private dialogService: DialogService,
+    private pokedexState: PokedexStateService
   ) {}
 
   ngOnInit(): void {
+    this.pokedexState.pokedexFormFilterState$.subscribe(
+      values => {
+        this.pokedexFormFilter = values;        
+        if(Object.keys(this.pokedexFormFilter).length === 0) {
+          this.getListAllPokemons();
+        } else {
+          this.getFormFilter(this.pokedexFormFilter);
+        }
+      }
+    )
+  }
+
+  getListAllPokemons() {
     this.pokedexApiService.getListAllPokemons.subscribe(
       res => {
         this.getListPokemons = res.results;
-        console.warn('getListPokemons', this.getListPokemons);
       }
       // {
       // next: (v) => console.log('next', v),
@@ -53,6 +76,22 @@ export class PokedexListComponent implements OnInit {
       // }
     );
   }
+
+getFormFilter(valuesFilter: PokedexFormFilterModel) {
+  this.getListPokemons = this.getListPokemons.filter((res: any) => {
+    const nameMatch = valuesFilter.inNamePokemon
+      ? res.name.toLowerCase().includes(valuesFilter.inNamePokemon.toLowerCase())
+      : true;
+
+    const typeMatch = valuesFilter.inTypePokemon?.value
+      ? res.status.types.some((type: any) =>
+          type.type.name.toLowerCase().includes(valuesFilter.inTypePokemon.value.toLowerCase())
+        )
+      : true;
+
+    return nameMatch && typeMatch;
+  });
+}
 
   formattedTypes(item: any): string {
     return item.status?.types
@@ -63,7 +102,6 @@ export class PokedexListComponent implements OnInit {
   }
 
   details(id: number) {
-    // console.log('details', id);
     this.dialogService.open(PokemonDetailsComponent, {
       data: { id },
       header: 'Detalhes do Pokemon',
