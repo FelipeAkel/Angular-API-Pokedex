@@ -1,13 +1,49 @@
 <span class="p-text-secondary block mb-8">Abaixo as informações sobre o pokemon selecionado: </span>
-<div class="flex items-center gap-4 mb-4">
-    <label for="username" class="font-semibold w-24">Username</label>
-    <input pInputText id="username" class="flex-auto" autocomplete="off" />
-</div>
-<div class="flex items-center gap-4 mb-8">
-    <label for="email" class="font-semibold w-24">Email</label>
-    <input pInputText id="email" class="flex-auto" autocomplete="off" />
-</div>
-<div class="flex justify-end gap-2">
-    <p-button label="Cancel" severity="secondary" (onClick)="closeDialog()" />
-    <p-button label="Save" />
-</div>
+
+<p-tabs value="0" *ngIf="loading == false" >
+    <p-tablist>
+        <p-tab value="0">Dados Gerais</p-tab>
+        <p-tab value="1">Estatísticas</p-tab>
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel value="0">
+            <p-card [style]="{overflow: 'hidden'}">
+                <ng-template #header >
+                    <div class="card flex justify-center">
+                        <!-- <img [src]="dataPokemon[0].sprites?.other?.dream_world?.front_default" [alt]="dataPokemon[1].name.toUpperCase()" /> -->
+                        <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
+                            <ng-template #left>
+                                <img [src]="dataPokemon[0].sprites.other.home.front_default" [alt]="dataPokemon[1].name.toUpperCase()"  />
+                            </ng-template>
+                            <ng-template #right>
+                                <img [src]="dataPokemon[0].sprites.other.home.front_shiny" [alt]="dataPokemon[1].name.toUpperCase()" />
+                            </ng-template>
+                        </p-imagecompare>
+                    </div>
+                </ng-template>
+                <ng-template #title> <span class="font-color"><b>{{ dataPokemon[1].name.toUpperCase() }}</b></span>  </ng-template>
+                <ng-template #subtitle>{{ dataPokemon[1].names[9].name.toUpperCase() }} </ng-template>
+                <p-divider />
+                <p>
+                    <span class="font-color"><b>HABITATE</b></span> - {{ dataPokemon[1].habitat.name }}
+                </p>
+                <p-divider />
+                <p>
+                    <span class="font-color"><b>TIPO DE POKEMON</b></span> - 
+                    <span class="font-medium text-surface-500 dark:text-surface-400">
+                        {{ formattedTypes(dataPokemon[0]) }}
+                    </span>
+                </p>
+            </p-card>
+
+        </p-tabpanel>
+        <p-tabpanel value="1">
+            <div *ngFor="let stats of dataPokemon[0].stats">
+                <p-divider />
+                <p>
+                    <span class="font-color"><b>{{ stats.stat.name.toUpperCase() }}</b></span> - {{ stats.base_stat }}
+                </p>
+            </div>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>

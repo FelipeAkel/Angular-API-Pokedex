@@ -9,14 +9,16 @@ import { GetListAllPokemonsModel, ResultsModel } from '../model/pokedex-model';
 })
 export class PokedexApiService {
 
-  private url: string = 'https://pokeapi.co/api/v2/pokemon/?limit=18';
+  private urlAll: string = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151'; // 1º Geração
+  private urlId: string = 'https://pokeapi.co/api/v2/pokemon/';
+  private urlSpeciesId: string = 'https://pokeapi.co/api/v2/pokemon-species/';
 
   constructor(
     private httpClient: HttpClient,
   ) { }
 
   get getListAllPokemons(): Observable<any>{    // GetListAllPokemonsModel
-    return this.httpClient.get<any>(this.url).pipe(
+    return this.httpClient.get<any>(this.urlAll).pipe(
       tap( res => res ),
       tap( res => {
         res.results.map( (resPokemons: any) => { // ResultsModel
@@ -30,10 +32,18 @@ export class PokedexApiService {
     );
   } 
 
-  public apiGetPokemon( url: string ):Observable<any>{
-    return this.httpClient.get<any>( url ).pipe(
+  public apiGetPokemon( urlAll: string ):Observable<any>{
+    return this.httpClient.get<any>( urlAll ).pipe(
       map( res => res)
     );
+  }
+
+  public apiGetPokemonId( id: number ): Observable<any>{
+    return this.httpClient.get<any>( this.urlId + id );
+  }
+
+  public apiGetPokemonSpeciesId( id: number ): Observable<any>{
+    return this.httpClient.get<any>( this.urlSpeciesId + id );
   }
 
 }

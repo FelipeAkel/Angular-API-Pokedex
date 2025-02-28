@@ -1,28 +1,70 @@
 import { Component, OnInit } from '@angular/core';
+import { TabsModule } from 'primeng/tabs';
+import { CommonModule } from '@angular/common';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from 'primeng/card';
+import { ImageCompareModule } from 'primeng/imagecompare';
+import { DividerModule } from 'primeng/divider';
+
+import { PokedexApiService } from '../../../../services/pokedex-api.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon-details',
-  imports: [ButtonModule, InputTextModule],
+  imports: [
+    CommonModule,
+    TabsModule,
+    CardModule,
+    ButtonModule, 
+    ImageCompareModule,
+    DividerModule,
+  ],
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.scss'
 })
 export class PokemonDetailsComponent implements OnInit {
 
-  public pokemonId: number | null = null;
+  public pokemonId: number;
+  public dataPokemon: any;
+  public loading: boolean = true;
 
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
+    private pokedexApiService: PokedexApiService
   ) {
     this.pokemonId = config.data.id;
   }
 
   ngOnInit(): void {
-      console.warn('teste ID ', this.pokemonId);
+    this.getPokemon();
+  }
+
+  public getPokemon() {
+    const pokemon = this.pokedexApiService.apiGetPokemonId(this.pokemonId);
+    const species = this.pokedexApiService.apiGetPokemonSpeciesId(this.pokemonId);
+
+    return forkJoin([pokemon, species]).subscribe(
+      res => {
+        this.dataPokemon = res;     
+        this.loading = false;
+      }
+    );
+  }
+
+  formattedTypes(item: any): string {
+    
+    // TODO - É normal executar variaves vezes esse código mesmo chamando somente uma vez! console.log('item');
+    // TODO - É normal executar variaves vezes esse código mesmo chamando somente uma vez! console.log('item');
+    // TODO - É normal executar variaves vezes esse código mesmo chamando somente uma vez! console.log('item');
+
+    return item.types
+      ?.map((type: any) => 
+        type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1).toLowerCase()
+      )
+      .join(', ') || '';
   }
 
   closeDialog()

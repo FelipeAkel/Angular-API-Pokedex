@@ -42,7 +42,8 @@ export class PokedexListComponent implements OnInit {
   };
   public layout: 'list' | 'grid' = 'grid';
   public options = ['list', 'grid'];
-  // TODO - GetListAllPokemonsModel
+
+  private setListPokemons: any; 
   public getListPokemons: any; 
 
   constructor(
@@ -67,6 +68,7 @@ export class PokedexListComponent implements OnInit {
   getListAllPokemons() {
     this.pokedexApiService.getListAllPokemons.subscribe(
       res => {
+        this.setListPokemons = res.results;
         this.getListPokemons = res.results;
       }
       // {
@@ -78,7 +80,7 @@ export class PokedexListComponent implements OnInit {
   }
 
 getFormFilter(valuesFilter: PokedexFormFilterModel) {
-  this.getListPokemons = this.getListPokemons.filter((res: any) => {
+  this.getListPokemons = this.setListPokemons.filter((res: any) => {
     const nameMatch = valuesFilter.inNamePokemon
       ? res.name.toLowerCase().includes(valuesFilter.inNamePokemon.toLowerCase())
       : true;
