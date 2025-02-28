@@ -4,6 +4,8 @@
     <div class="card">
         <div class="font-semibold text-xl">Lista de Pokemons</div>
         
+
+
         <p-dataview [value]="getListPokemons" [layout]="layout">
             <ng-template #header>
                 <div class="flex justify-end">
@@ -48,6 +50,7 @@
                                             icon="pi pi-heart" 
                                             styleClass="h-full" 
                                             [outlined]="true"
+                                            disabled="true"
                                         ></p-button>
                                         <p-button 
                                             icon="pi pi-address-book"
@@ -115,6 +118,16 @@
                 </div>
             </ng-template>
         </p-dataview>
+
+        <div *ngIf="apiError === true" class="img-error">
+            <!-- <p-image 
+                src="/src/assets/image/error.png" 
+                alt="Erro ao carregar dados do pokemon" 
+                width="100%" 
+            /> -->
+        </div>
+
     </div>
 
 </div>
+

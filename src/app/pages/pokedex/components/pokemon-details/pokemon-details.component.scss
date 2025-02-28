@@ -1,3 +1,10 @@
 .font-color {
     color: var(--primary-color);
 }
+
+.img-error {
+    background-image: url('../../../../../assets/image/error.png');
+    background-size: cover;
+    width: 593px;
+    height: 247px;
+}

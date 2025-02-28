@@ -45,6 +45,7 @@ export class PokedexListComponent implements OnInit {
 
   private setListPokemons: any; 
   public getListPokemons: any; 
+  public apiError: boolean = false;
 
   constructor(
     private pokedexApiService: PokedexApiService,
@@ -70,6 +71,9 @@ export class PokedexListComponent implements OnInit {
       res => {
         this.setListPokemons = res.results;
         this.getListPokemons = res.results;
+      }, 
+      error => {
+        this.apiError = true;
       }
       // {
       // next: (v) => console.log('next', v),

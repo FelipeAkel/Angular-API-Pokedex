@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ImageCompareModule } from 'primeng/imagecompare';
 import { DividerModule } from 'primeng/divider';
+import { ImageModule } from 'primeng/image';
 
 import { PokedexApiService } from '../../../../services/pokedex-api.service';
 import { forkJoin } from 'rxjs';
@@ -20,6 +21,7 @@ import { forkJoin } from 'rxjs';
     ButtonModule, 
     ImageCompareModule,
     DividerModule,
+    ImageModule,
   ],
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.scss'
@@ -29,6 +31,7 @@ export class PokemonDetailsComponent implements OnInit {
   public pokemonId: number;
   public dataPokemon: any;
   public loading: boolean = true;
+  public apiError: boolean = false;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -50,6 +53,9 @@ export class PokemonDetailsComponent implements OnInit {
       res => {
         this.dataPokemon = res;     
         this.loading = false;
+      },
+      error => {
+        this.apiError = true;
       }
     );
   }
