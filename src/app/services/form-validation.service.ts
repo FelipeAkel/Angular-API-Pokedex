@@ -35,7 +35,7 @@ export class FormValidationService {
     }
 
     if(control.hasError('max')) {
-      return `O nvalor máximo permitido é ${control.errors?.['max'].max}.`;
+      return `O valor máximo permitido é ${control.errors?.['max'].max}.`;
     }
 
     if(control.hasError('email')) {
