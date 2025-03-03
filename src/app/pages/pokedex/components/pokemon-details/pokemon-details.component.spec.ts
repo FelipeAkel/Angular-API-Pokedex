@@ -86,7 +86,7 @@ describe('PokemonDetailsComponent', () => {
     component.formattedTypes(mockItem);
 
     expect(component.formattedTypes(mockItem)).toBe('');
-  })
+  });
   
   it(`(U) ao executar closeDialog(), deveria fechar o DynamicDialogRef`, () => {
     

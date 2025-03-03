@@ -2,19 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PokedexFilterComponent } from './pokedex-filter.component';
 import { Validators } from '@angular/forms';
+import { mockPokedexFormFilter } from '../../../../services/mocks/mock-pokedex-data';
 
 describe('PokedexFilterComponent', () => {
   let component: PokedexFilterComponent;
   let fixture: ComponentFixture<PokedexFilterComponent>;
-
-  const mockPokedexFormFilter = {
-    inNamePokemon: 'pikachu',
-    inTypePokemon: {
-        value: 'electric', 
-        name: 'Elétrico - Electric', 
-        class: 'electric',
-    }
-  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
