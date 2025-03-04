@@ -1,15 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { PokedexStateService } from './pokedex-state.service';
-
-const mockPokedexFormFilter = {
-  inNamePokemon: 'pikachu',
-  inTypePokemon: {
-      value: 'electric', 
-      name: 'Elétrico - Electric', 
-      class: 'electric',
-  }
-}
+import { mockPokedexFormFilter } from './pokedex-api.mock';
 
 describe('PokedexStateService', () => {
   let service: PokedexStateService;

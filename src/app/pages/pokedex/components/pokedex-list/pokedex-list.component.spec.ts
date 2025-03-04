@@ -4,7 +4,7 @@ import { PokedexListComponent } from './pokedex-list.component';
 import { PokedexApiService } from '../../../../services/pokedex-api.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
-import { mockSetListPokemon } from '../../../../services/mocks/mock-pokedex-data';
+import { mockSetListPokemon } from '../../../../services/pokedex-api.mock';
 import { PokedexFormFilterModel } from '../../../../model/pokedex-model';
 
 describe('PokedexListComponent', () => {
