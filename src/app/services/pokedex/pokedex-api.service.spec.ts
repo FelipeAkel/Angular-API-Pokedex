@@ -62,4 +62,26 @@ describe('PokedexApiService', () => {
     expect(req.request.method).toEqual('GET');
   });
 
+  // it(`(U) ao executar apiGetPokemon(), deveria retornar os dados de status do Pokémon`, (done) => {
+
+  //   const mockPokemonData = {
+  //     types: [
+  //       { type: { name: 'fire' } }
+  //     ]
+  //   };
+
+  //   const pokemonUrl = 'https://pokeapi.co/api/v2/pokemon/4/'; // Exemplo: Charmander
+
+  //   service.apiGetPokemon(pokemonUrl).subscribe((res) => {
+  //     expect(res.types.length).toBe(1);
+  //     expect(res.types[0].type.name).toEqual('fire');
+  //     done();
+  //   });
+
+  //   const req = httpTestingController.expectOne(pokemonUrl);
+  //   expect(req.request.method).toBe('GET');
+
+  //   req.flush(mockPokemonData); // Simula resposta da API
+  // });
+  
 });
