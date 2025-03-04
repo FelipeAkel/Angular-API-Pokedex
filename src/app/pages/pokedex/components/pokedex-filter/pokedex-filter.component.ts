@@ -16,7 +16,7 @@ import { MessageService } from 'primeng/api';
 
 import { PokedexFormFilterModel, TypePokemonModel } from '../../../../model/pokedex-model';
 import { FormValidationService } from '../../../../services/form-validation.service';
-import { PokedexStateService } from '../../../../services/pokedex-state.service';
+import { PokedexStateService } from '../../../../services/pokedex/pokedex-state.service';
 
 @Component({
   selector: 'app-pokedex-filter',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { PokedexFormFilterModel } from '../model/pokedex-model';
+import { PokedexFormFilterModel } from '../../model/pokedex-model';
 
 @Injectable({
   providedIn: 'root'

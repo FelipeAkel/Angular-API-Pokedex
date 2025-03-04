@@ -9,7 +9,7 @@ import { ImageCompareModule } from 'primeng/imagecompare';
 import { DividerModule } from 'primeng/divider';
 import { ImageModule } from 'primeng/image';
 
-import { PokedexApiService } from '../../../../services/pokedex-api.service';
+import { PokedexApiService } from '../../../../services/pokedex/pokedex-api.service';
 import { forkJoin } from 'rxjs';
 
 @Component({

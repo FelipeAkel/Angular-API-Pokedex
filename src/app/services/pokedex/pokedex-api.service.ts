@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { GetListAllPokemonsModel, ResultsModel } from '../model/pokedex-model';
+import { GetListAllPokemonsModel, ResultsModel } from '../../model/pokedex-model';
 
 @Injectable({
   providedIn: 'root'

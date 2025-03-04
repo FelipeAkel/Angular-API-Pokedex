@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { mockApiSetListPokemon } from './pokedex-api.mock';
 import { of } from 'rxjs';
 
-fdescribe('PokedexApiService', () => {
+describe('PokedexApiService', () => {
   let service: PokedexApiService;
   let httpTestingController: HttpTestingController;
   let httpCliente: HttpClient

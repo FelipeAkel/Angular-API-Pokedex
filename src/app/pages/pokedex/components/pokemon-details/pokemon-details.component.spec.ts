@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PokemonDetailsComponent } from './pokemon-details.component';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { PokedexApiService } from '../../../../services/pokedex-api.service';
+import { PokedexApiService } from '../../../../services/pokedex/pokedex-api.service';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';  // Importando o módulo para simular requisições HTTP
 

@@ -9,10 +9,10 @@ import { SelectButton } from 'primeng/selectbutton';
 import { DialogService } from 'primeng/dynamicdialog';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { PokedexApiService } from '../../../../services/pokedex-api.service';
+import { PokedexApiService } from '../../../../services/pokedex/pokedex-api.service';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
 import { PokedexFormFilterModel } from '../../../../model/pokedex-model';
-import { PokedexStateService } from '../../../../services/pokedex-state.service';
+import { PokedexStateService } from '../../../../services/pokedex/pokedex-state.service';
 
 @Component({
   selector: 'app-pokedex-list',
