@@ -1,6 +1,6 @@
 <div class="layout-topbar">
     <div class="layout-topbar-logo-container">
-        <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
+        <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()" >
             <i class="pi pi-bars"></i>
         </button>
         <a class="layout-topbar-logo" routerLink="/">
@@ -11,7 +11,15 @@
     <div class="layout-topbar-actions">
         <div class="layout-config-menu">
 
-            <p-chip label="Felipe Akel" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Imagem usuário" />
+            <button
+                pButton (click)="visible = true"
+            >
+                <p-chip 
+                label="Felipe Akel" 
+                image="https://media.licdn.com/dms/image/v2/D4D03AQEcOzbQ6UXKaQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674767037364?e=1746662400&v=beta&t=H-gw6JdDcGFH9eX-URl24Bq_Jok-wtkOok3oCHKN570" 
+                alt="Imagem usuário" />
+
+            </button>
 
             <button type="button" class="layout-topbar-action" (click)="toggleDarkMode()">
                 <i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
@@ -25,6 +33,7 @@
                     leaveToClass="hidden"
                     leaveActiveClass="animate-fadeout"
                     [hideOnOutsideClick]="true"
+                    
                 >
                     <i class="pi pi-palette"></i>
                 </button>
@@ -33,3 +42,36 @@
         </div>
     </div>
 </div>
+
+<p-drawer [(visible)]="visible" [closable]="false" position="right">
+    <ng-template #header>
+        <div class="flex items-center gap-2">
+            <p-avatar image="https://media.licdn.com/dms/image/v2/D4D03AQEcOzbQ6UXKaQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674767037364?e=1746662400&v=beta&t=H-gw6JdDcGFH9eX-URl24Bq_Jok-wtkOok3oCHKN570" shape="circle" />
+            <span class="font-bold">Felipe Akel Carvalho Florentino</span>
+        </div>
+    </ng-template>
+    
+    <p-divider />
+    <h5 class="text-title">Apresentação</h5>
+    <p>
+        Olá! Eu sou Felipe Akel, sou profissional que desenvolveu este programa em <a href="https://v19.angular.dev/" class="text-link" target="_blank" >Angular v.19x</a> 
+        utilizando a arquitetura e template inicial do 
+        <a href="https://sakai.primeng.org/documentation" class="text-link" target="_blank">Sakai</a> de código-fonte, <i>open source</i>, código aberto, 
+        os quais contém recursos de layout responsivo e com arquitetura de fácil compreensão e manutenção.
+    </p>
+
+    <p-divider />
+    <h5 class="text-title">Bibliotecas Utilizadas</h5>
+    <ul>
+        <li>- <a href="https://primeng.org/" class="text-link" target="_blank" >PrimeNG</a></li>
+        <li>- <a href="https://primeflex.org/" class="text-link" target="_blank" >PrimeFlex</a></li>
+    </ul>
+
+    <p-divider />
+    <h5 class="text-title">APIs</h5>
+    <ul>
+        <li>
+            - <a href="https://pokeapi.co" class="text-link" target="_blank" >PokéApi REST</a>
+        </li>
+    </ul>
+</p-drawer>
