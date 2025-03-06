@@ -10,15 +10,15 @@
             <p-card [style]="{overflow: 'hidden'}">
                 <ng-template #header >
                     <div class="card flex justify-center">
-                        <img [src]="dataPokemon[0].sprites?.other?.dream_world?.front_default" [alt]="dataPokemon[1].name.toUpperCase()" />
-                        <!-- <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
+                        <!-- <img [src]="dataPokemon[0].sprites?.other?.dream_world?.front_default" [alt]="dataPokemon[1].name.toUpperCase()" /> -->
+                        <p-imagecompare class="sm:!w-96 shadow-lg rounded-2xl">
                             <ng-template #left>
                                 <img [src]="dataPokemon[0].sprites.other.home.front_default" [alt]="dataPokemon[1].name.toUpperCase()"  />
                             </ng-template>
                             <ng-template #right>
                                 <img [src]="dataPokemon[0].sprites.other.home.front_shiny" [alt]="dataPokemon[1].name.toUpperCase()" />
                             </ng-template>
-                        </p-imagecompare> -->
+                        </p-imagecompare>
                     </div>
                 </ng-template>
                 <ng-template #title> <span class="font-color"><b>{{ dataPokemon[1].name.toUpperCase() }}</b></span>  </ng-template>
