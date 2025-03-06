@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
     selector: 'app-empty',
     standalone: true,
     template: ` <div class="card">
-        <div class="font-semibold text-xl mb-4">Empty Page</div>
-        <p>Use this page to start from scratch and place your custom content.</p>
+        <div class="font-semibold text-xl mb-4">Página em branco</div>
+        <p>Use esta página para começar do zero e inserir seu conteúdo personalizado.</p>
     </div>`
 })
 export class Empty {}

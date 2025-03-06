@@ -30,7 +30,7 @@ export class AppMenu {
                 routerLink: ['/pages'],
                 items: [
                     {
-                        label: 'Empty Page',
+                        label: 'Página em branco',
                         icon: 'pi pi-fw pi-circle-off',
                         routerLink: ['/pages/empty']
                     }
