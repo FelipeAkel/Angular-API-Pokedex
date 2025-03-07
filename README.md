@@ -1,62 +1,57 @@
-# Angular API Pokedex
+<p align="center"><img src="src/assets/image/readme/angular-api-pokedex.png" width="400"></p>
 
-> [!WARNING]
-> Projeto em desenvolvimento
+<p align="center"><a href="https://felipeakel.github.io/Angular-API-Pokedex/" target="_blank" >GitHub Pages</a></p>
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+## :rocket: Sobre o API Pokedex em Angular
 
-## Development server
+O API Pokedex trata-se de um website desenvolvido no framework front-end, Angular, com o objetivo consumir dados de uma API REST com arquitetura de componentes modularizados e escalavel. Dessa forma, padrões de boas práticas e Teste Unitário foram importantes para atingir essa qualidade.
 
-To start a local development server, run:
+Destaca-se, que o sistema é composto de bibliotecas consolidadas no mercado de trabalho e compatíveis com as últimas versões do Angular. Dessa forma, garantes uma uniformidade dos templates dos componentes criados e a confiabilidade de layouts responsivos para dispositivos módeis e desktops.
 
-```bash
-ng serve
-```
+### :small_blue_diamond: Layout Sistema
+- [Pokedex](src/assets/image/readme/Pag-Pokedex.png)
+- [Detalhes Pokemon](src/assets/image/readme/Pag-Detalhes.png)
+- [MSN Erro de API](src/assets/image/readme/Pag-Detalhes-Error.png)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### :small_blue_diamond: Cobertura de Testes Unitários
+- [All files](src/assets//image//readme/Angular-API-Pokedex-Testes.png)
+- Statements   : 90.9% ( 90/99 )
+- Branches     : 90.62% ( 29/32 )
+- Functions    : 85% ( 34/40 )
+- Lines        : 90.72% ( 88/97 )
 
-## Code scaffolding
+## :computer: Tecnologias utilizadas
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### :small_blue_diamond: Angular
+[Angular Versão 19](https://v19.angular.dev/)
 
-```bash
-ng generate component component-name
-```
+### :small_blue_diamond: PrimeNG
+[PrimeNG](https://primeng.org/) biblioteca de componentes UI - User Interface.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### :small_blue_diamond: Tema área administrativa: Bootstrap
+[PrimeFlex](https://primeflex.org/) biblioteca de utilitários CSS.
 
-```bash
-ng generate --help
-```
+## :white_check_mark: Construção do Ambiente Local
 
-## Building
+Primeiramente, é essencial clonar o repositório para sua máquina e abrir o terminal, prompt de comando, no diretório na pasta do projeto. Com isso, podemos seguir o passo a passo a seguir:
 
-To build the project run:
+### :one: Configurando o Ambiente
 
-```bash
-ng build
-```
+1. No terminal execute ```npm install```;
+2. No terminal execute ```ng serve```;
+3. Pronto! Você deve conseguir acessar o endereço criado (```http://localhost:4200/```) ou na porta configurada.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### :two: Para executar os Testes Unitários
 
-## Running unit tests
+Para executar os Testes Unitários do sistema.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+1. No terminal execute ```ng test --code-coverage```
+2. Pronto! Você deve conseguir acessar o endereço criado (```http://localhost:9876/```) ou na porta configurada.
 
-```bash
-ng test
-```
+## :unlock: Vulnerabilidades de segurança
 
-## Running end-to-end tests
+Se você descobrir uma vulnerabilidade de segurança do sistema, envie uma mensagem para Felipe Akel via [Linkedin](https://www.linkedin.com/in/felipe-akel-carvalho-florentino-009412135/). Todas as vulnerabilidades de segurança serão verificadas. Obrigado!
 
-For end-to-end (e2e) testing, run:
+## :page_facing_up: Licença
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este Portfólio desenvolvido em Angular utiliza a licença MIT.
