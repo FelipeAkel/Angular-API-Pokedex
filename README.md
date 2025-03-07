@@ -1,12 +1,12 @@
 <p align="center"><img src="src/assets/image/readme/angular-api-pokedex.png" width="400"></p>
 
-<p align="center"><a href="https://felipeakel.github.io/Angular-API-Pokedex/" target="_blank" >GitHub Pages</a></p>
+<p align="center"><a href="https://felipeakel.github.io/Angular-API-Pokedex/" target="_blank" >Visualize o sistema com o GitHub Pages</a></p>
 
 ## :rocket: Sobre o API Pokedex em Angular
 
-O API Pokedex trata-se de um website desenvolvido no framework front-end, Angular, com o objetivo consumir dados de uma API REST com arquitetura de componentes modularizados e escalavel. Dessa forma, padrões de boas práticas e Teste Unitário foram importantes para atingir essa qualidade.
+O API Pokedex trata-se de um website desenvolvido no framework front-end, Angular, com o objetivo consumir dados de uma API REST. O sistema contém uma arquitetura de componentes modularizados e escalavel. Dessa forma, padrões de boas práticas e Teste Unitário foram importantes para atingir essa qualidade.
 
-Destaca-se, que o sistema é composto de bibliotecas consolidadas no mercado de trabalho e compatíveis com as últimas versões do Angular. Dessa forma, garantes uma uniformidade dos templates dos componentes criados e a confiabilidade de layouts responsivos para dispositivos módeis e desktops.
+Destaca-se, que o sistema é composto de bibliotecas consolidadas no mercado de trabalho e compatíveis com as últimas versões do Angular. Dessa forma, garantes uma uniformidade de templates dos componentes criados e a confiabilidade de layouts responsivos para dispositivos módeis e desktops.
 
 ### :small_blue_diamond: Layout Sistema
 - [Pokedex](src/assets/image/readme/Pag-Pokedex.png)
@@ -15,10 +15,10 @@ Destaca-se, que o sistema é composto de bibliotecas consolidadas no mercado de 
 
 ### :small_blue_diamond: Cobertura de Testes Unitários
 - [All files](src/assets//image//readme/Angular-API-Pokedex-Testes.png)
-- Statements   : 90.9% ( 90/99 )
-- Branches     : 90.62% ( 29/32 )
-- Functions    : 85% ( 34/40 )
-- Lines        : 90.72% ( 88/97 )
+    - Statements   : 90.9% ( 90/99 )
+    - Branches     : 90.62% ( 29/32 )
+    - Functions    : 85% ( 34/40 )
+    - Lines        : 90.72% ( 88/97 )
 
 ## :computer: Tecnologias utilizadas
 
