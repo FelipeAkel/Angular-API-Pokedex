@@ -28,7 +28,7 @@ Destaca-se, que o sistema é composto de bibliotecas consolidadas no mercado de 
 ### :small_blue_diamond: PrimeNG
 [PrimeNG](https://primeng.org/) biblioteca de componentes UI - User Interface.
 
-### :small_blue_diamond: Tema área administrativa: Bootstrap
+### :small_blue_diamond: PrimeFlex
 [PrimeFlex](https://primeflex.org/) biblioteca de utilitários CSS.
 
 ## :white_check_mark: Construção do Ambiente Local
