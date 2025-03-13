@@ -5,6 +5,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PokedexApiService } from '../../../../services/pokedex/pokedex-api.service';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';  // Importando o módulo para simular requisições HTTP
+import { mockItem, mockItemVazio } from '../../../../services/pokedex/pokedex-api.mock';
 
 class MockDynamicDialogConfig {
   data = { id: 1 };  // Simulando que o dialog está recebendo o ID 1
@@ -43,53 +44,16 @@ describe('PokemonDetailsComponent', () => {
   });
 
   it(`(U) ao executar formattedTypes(), deveria pegar os valores do array e retornar uma string separado por virgula`, () => {
-    const mockItem = {
-      types: [
-        {
-          slot: 1,
-          type: {
-            name: "grass",
-          }
-        },
-        {
-          slot: 2,
-          type: {
-            name: "poison",
-          }
-        },
-        {
-          slot: 3,
-          type: {
-            name: "normal",
-          }
-        }
-      ]
-    };
-
-    component.formattedTypes(mockItem);
-
-    expect(component.formattedTypes(mockItem)).toBe('Grass, Poison, Normal');
+    const returnText = component.formattedTypes(mockItem.status);
+    expect(returnText).toBe('Grass, Poison, Normal');
   });
 
   it(`(U) ao executar formattedTypes(), deveria caso array vazio retornar vazio`, () => {
-    const mockItem = {
-      types: [
-        {
-          slot: 1,
-          type: {
-            name: "",
-          }
-        },
-      ]
-    };
-
-    component.formattedTypes(mockItem);
-
-    expect(component.formattedTypes(mockItem)).toBe('');
+    const returnText = component.formattedTypes(mockItemVazio);
+    expect(returnText).toBe('');
   });
   
   it(`(U) ao executar closeDialog(), deveria fechar o DynamicDialogRef`, () => {
-    
     component.closeDialog();
 
     expect(dynamicDialogRefSpy.close).toHaveBeenCalled();

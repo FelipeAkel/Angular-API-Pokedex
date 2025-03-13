@@ -96,3 +96,41 @@ export const mockApiSetListPokemon = {
         }
     ]
 };
+
+export const mockItem = {
+    status: {
+        types: [
+            {
+                slot: 1,
+                type: {
+                name: "grass",
+                }
+            },
+            {
+                slot: 2,
+                type: {
+                name: "poison",
+                }
+            },
+            {
+                slot: 3,
+                type: {
+                name: "normal",
+                }
+            }
+        ]
+    }
+};
+
+export const mockItemVazio = {
+    status: {
+    types: [
+        {
+        slot: 1,
+        type: {
+            name: "",
+        }
+        },
+    ]
+    }
+};

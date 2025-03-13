@@ -4,7 +4,7 @@ import { PokedexListComponent } from './pokedex-list.component';
 import { PokedexApiService } from '../../../../services/pokedex/pokedex-api.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
-import { mockApiSetListPokemon } from '../../../../services/pokedex/pokedex-api.mock';
+import { mockApiSetListPokemon, mockItem, mockItemVazio } from '../../../../services/pokedex/pokedex-api.mock';
 import { PokedexFormFilterModel } from '../../../../model/pokedex-model';
 
 describe('PokedexListComponent', () => {
@@ -88,53 +88,13 @@ describe('PokedexListComponent', () => {
   });
 
   it(`(U) ao executar formattedTypes(), deveria transformar os dados de um array em uma string seprada por virgula`, () => {
-    const mockItem = {
-      status: {
-        types: [
-          {
-            slot: 1,
-            type: {
-              name: "grass",
-            }
-          },
-          {
-            slot: 2,
-            type: {
-              name: "poison",
-            }
-          },
-          {
-            slot: 3,
-            type: {
-              name: "normal",
-            }
-          }
-        ]
-      }
-    };
-
     const returnText = component.formattedTypes(mockItem);
-
     expect(returnText).toEqual('Grass, Poison, Normal');
   });
 
   it(`(U) ao executar formattedTypes(), deveria caso array vazio retornar vazio`, () => {
-    const mockItem = {
-      status: {
-        types: [
-          {
-            slot: 1,
-            type: {
-              name: "",
-            }
-          },
-        ]
-      }
-    };
-
-    component.formattedTypes(mockItem);
-
-    expect(component.formattedTypes(mockItem)).toEqual('');
+    const returnText = component.formattedTypes(mockItemVazio);
+    expect(returnText).toEqual('');
   });
 
   it(`(U) ao executar details(), deveria abrir um modal`, () => {
