@@ -4,7 +4,7 @@ import { PokedexListComponent } from './pokedex-list.component';
 import { PokedexApiService } from '../../../../services/pokedex/pokedex-api.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
-import { mockSetListPokemon } from '../../../../services/pokedex/pokedex-api.mock';
+import { mockApiSetListPokemon } from '../../../../services/pokedex/pokedex-api.mock';
 import { PokedexFormFilterModel } from '../../../../model/pokedex-model';
 
 describe('PokedexListComponent', () => {
@@ -32,11 +32,11 @@ describe('PokedexListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`(U) ao executar getListAllPokemons(), deveria filtrar os pokemons pelo tipo`, () => {
+  it(`(U) ao executar getFormFilter(), deveria filtrar os pokemons pelo tipo`, () => {
 
-    component['setListPokemons'] = mockSetListPokemon;
+    component['setListPokemons'] = mockApiSetListPokemon.results;
 
-    const filter: PokedexFormFilterModel = { 
+    const mockfiltros: PokedexFormFilterModel = { 
       inNamePokemon: '', 
       inTypePokemon: {
         value: 'flying',
@@ -44,18 +44,18 @@ describe('PokedexListComponent', () => {
         class: 'flying',
       }
     };
-    component.getFormFilter(filter);
+    component.getFormFilter(mockfiltros);
 
     expect(component.getListPokemons.length).toBe(1);
     expect(component.getListPokemons.map((p: any) => p.name)).toEqual(['charizard']);
   });
 
 
-  it(`(U) ao executar getListAllPokemons(), deveria filtrar os pokemons pelo nome`, () => {
+  it(`(U) ao executar getFormFilter(), deveria filtrar os pokemons pelo nome`, () => {
 
-    component['setListPokemons'] = mockSetListPokemon;
+    component['setListPokemons'] = mockApiSetListPokemon.results;
 
-    const filtros: PokedexFormFilterModel = { 
+    const mockfiltros: PokedexFormFilterModel = { 
       inNamePokemon: 'char', inTypePokemon: {
         value: '',
         name: '',
@@ -63,10 +63,28 @@ describe('PokedexListComponent', () => {
       } 
     };
 
-    component.getFormFilter(filtros);
+    component.getFormFilter(mockfiltros);
 
     expect(component.getListPokemons.length).toBe(3);
     expect(component.getListPokemons.map((p: any) => p.name)).toEqual(['charmander', 'charmeleon', 'charizard']);
+  });
+
+  it(`(U) ao executar getFormFilter(), com o setListPokemons undefaild`, () => {
+    const mockfiltros: PokedexFormFilterModel = { 
+      inNamePokemon: 'char', inTypePokemon: {
+        value: '',
+        name: '',
+        class: '',
+      } 
+    };
+
+    spyOn(component, 'getListAllPokemons');
+
+    component['setListPokemons'] = undefined;
+
+    component.getFormFilter(mockfiltros);
+
+    expect(component.getListAllPokemons).toHaveBeenCalled();
   });
 
   it(`(U) ao executar formattedTypes(), deveria transformar os dados de um array em uma string seprada por virgula`, () => {
