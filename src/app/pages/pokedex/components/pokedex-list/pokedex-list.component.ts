@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { signal } from '@angular/core';
 
 import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
@@ -43,8 +42,8 @@ export class PokedexListComponent implements OnInit {
   public layout: 'list' | 'grid' = 'grid';
   public options = ['list', 'grid'];
 
-  private setListPokemons: any; 
-  public getListPokemons: any; 
+  private setListPokemons: any;
+  public getListPokemons: any;
   public apiError: boolean = false;
 
   constructor(
@@ -84,6 +83,11 @@ export class PokedexListComponent implements OnInit {
   }
 
 getFormFilter(valuesFilter: PokedexFormFilterModel) {
+  if(!this.setListPokemons) {
+    this.getListAllPokemons();
+    return;
+  }
+
   this.getListPokemons = this.setListPokemons.filter((res: any) => {
     const nameMatch = valuesFilter.inNamePokemon
       ? res.name.toLowerCase().includes(valuesFilter.inNamePokemon.toLowerCase())

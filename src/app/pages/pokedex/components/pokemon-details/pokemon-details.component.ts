@@ -61,11 +61,9 @@ export class PokemonDetailsComponent implements OnInit {
   }
 
   formattedTypes(item: any): string {
-    
-    // TODO - É normal executar variaves vezes esse código mesmo chamando somente uma vez! console.log('item');
-    // TODO - É normal executar variaves vezes esse código mesmo chamando somente uma vez! console.log('item');
-    // TODO - É normal executar variaves vezes esse código mesmo chamando somente uma vez! console.log('item');
 
+    console.warn('teste', item);
+    
     return item.types
       ?.map((type: any) => 
         type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1).toLowerCase()

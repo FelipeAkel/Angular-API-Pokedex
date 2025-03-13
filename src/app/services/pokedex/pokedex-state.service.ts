@@ -10,8 +10,6 @@ export class PokedexStateService {
   private pokedexFormFilterState = new BehaviorSubject<any>({});
   pokedexFormFilterState$ = this.pokedexFormFilterState.asObservable();
 
-  constructor() { }
-
   setPokedexFormFilterState(value: PokedexFormFilterModel): void {
     this.pokedexFormFilterState.next(value);    
   }

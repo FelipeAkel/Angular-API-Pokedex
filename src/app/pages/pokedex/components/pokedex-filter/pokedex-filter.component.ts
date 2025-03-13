@@ -43,7 +43,7 @@ import { PokedexStateService } from '../../../../services/pokedex/pokedex-state.
 })
 export class PokedexFilterComponent {
 
-  public typePokemons: Array<TypePokemonModel> = [
+  public typePokemons: TypePokemonModel[] = [
     { value: 'bug', name: 'Inseto - Bug', class: 'bug' },
     { value: 'dark', name: 'Sombrio - Dark', class: 'dark' },
     { value: 'dragon', name: 'Dragão - Dragon', class: 'dragon' },

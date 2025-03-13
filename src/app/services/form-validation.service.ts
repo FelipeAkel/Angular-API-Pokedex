@@ -6,8 +6,6 @@ import { AbstractControl } from '@angular/forms';
 })
 export class FormValidationService {
 
-  constructor() { }
-
   getErrorMessage(control: AbstractControl | null, labelName?: string): string {
 
     if(!control) return '';
