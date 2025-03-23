@@ -30,10 +30,26 @@ export class AppMenu {
                 routerLink: ['/pages'],
                 items: [
                     {
+                        label: 'Tarefas',
+                        icon: 'pi pi-fw pi-address-book',
+                        items: [
+                            {
+                                label: 'Cadastrar Tarefa',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/pages/tasks/create-task'],
+                            },
+                            {
+                                label: 'Listar Tarefas',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['/pages/tasks/list-tasks'],
+                            }
+                        ]
+                    },
+                    {
                         label: 'Página em branco',
                         icon: 'pi pi-fw pi-circle-off',
-                        routerLink: ['/pages/empty']
-                    }
+                        routerLink: ['/pages/empty'],
+                    },
                 ]
             }
         ];
