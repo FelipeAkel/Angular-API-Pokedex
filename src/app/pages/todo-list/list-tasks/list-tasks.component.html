@@ -1,4 +1,56 @@
 <div class="card">
     <div class="font-semibold text-xl mb-4">Listar Tarefas</div>
+    <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+</div>
+
+<div class="card">
+    <div class="font-semibold text-xl mb-4">Filtros</div>
+    <app-form-list-filter></app-form-list-filter>
+</div>
+
+<div class="card">
+    <div class="font-semibold text-xl mb-4">Registros</div>
+    
+    <p-table [value]="products" showGridlines [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template #header>
+        <tr>
+            <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+            <th style="width: 180px;">
+                Ações
+            </th>
+            <th pSortableColumn="code" >
+                Code <p-sortIcon field="code" />
+            </th>
+            <th pSortableColumn="name" >
+                Name <p-sortIcon field="name" />
+            </th>
+            <th pSortableColumn="category" >
+                Category <p-sortIcon field="category" />
+            </th>
+            <th pSortableColumn="quantity" >
+                Quantity <p-sortIcon field="quantity" />
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>
+                <p-tableCheckbox [value]="product" />
+            </td>
+            <td>
+                <div class="flex flex-wrap gap-1">
+                    <p-button icon="pi pi-file-o" severity="info" [rounded]="true" />
+                    <p-button icon="pi pi-file-edit" severity="warn" [rounded]="true" />
+                    <p-button icon="pi pi-trash" severity="danger" [rounded]="true" />
+                </div>
+            </td>
+            <td>{{product.code}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.quantity}}</td>
+        </tr>
+    </ng-template>
+</p-table>
 
 </div>
+
