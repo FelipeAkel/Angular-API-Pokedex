@@ -113,17 +113,18 @@
             <textarea 
                 class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 type="text" 
-                rows="2" 
+                rows="4" 
                 id="inDescription" 
                 formControlName="inDescription"
+                maxlength="1000"
             ></textarea>
-            <small id="username-help">Limite de 1000 caracteres</small>
+            <small id="description-help">Limite de {{ countCaracteresDescription }} caracteres</small>
             <p-message *ngIf="isFieldInvalid('inDescription')" severity="error" variant="simple" size="small">
                 {{ getErrorMessage('inDescription') }}
             </p-message>
         </div>
 
-        <div class="field col-12 mt-2 mb-0">
+        <div class="field col-12 mt-2 mb-0" *ngIf="formTask.invalid === true && formTask.touched">
             <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Preencher os campos do formulário corretamente</p-message>
         </div>
 
@@ -141,14 +142,13 @@
                 [rounded]="true" 
                 icon="pi pi-trash" 
                 severity="secondary" 
+                (onClick)="onClear()"
             />
         </div>
-
-        <pre>
-            {{ formTask?.value | json }}
-        </pre>
 
     </div>
 </form>
 
-
+<pre>
+    {{ formTask.value | json }}
+</pre>

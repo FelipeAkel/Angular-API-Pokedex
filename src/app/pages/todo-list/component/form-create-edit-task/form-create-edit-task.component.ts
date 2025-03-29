@@ -6,7 +6,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { FluidModule } from 'primeng/fluid';
 import { ButtonModule } from 'primeng/button';
 import { RadioButton } from 'primeng/radiobutton';
-import { FormValidationService } from '../../../../services/form-validation.service';
+import { FormValidationService, validatorBoolean, validatorDate } from '../../../../services/form-validation.service';
 import { distinctUntilChanged } from 'rxjs';
 import { TasksModel } from '../../../../model/todo-list-model';
 
@@ -30,26 +30,27 @@ export class FormCreateEditTaskComponent implements OnInit {
   public formTask: FormGroup;
   public checked: boolean = false;
   public dtExpiration: Date | undefined;
+  public countCaracteresDescription: number = 1000;
 
   constructor(
     private formBilder: FormBuilder,
     private formValidation: FormValidationService,
   ){
     this.formTask = this.formBilder.group({
-      inName: ['', [Validators.required]],
+      inName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
       inPriority: ['', [Validators.required]],
       inStatus: ['', [Validators.required]],
-      inDtExpiration: ['', [Validators.required]],
-      inResponsibleUser: ['', [Validators.required]],
-      inDependencie: [false, [Validators.required]],
+      inDtExpiration: ['', [validatorDate()]],
+      inResponsibleUser: ['', [Validators.maxLength(70)]],
+      inDependencie: [false, [Validators.required, validatorBoolean()]],
       inYesTaskDependencie: [''],
-      inDescription: ['', [Validators.required]],
+      inDescription: ['', [Validators.required, Validators.maxLength(1000)]],
     });
   };
 
   ngOnInit(): void {
 
-    // Caso inDependencie mude de valor validações serão adicionadas/excluidas
+    // Caso inDependencie mude de valor validações serão alteradas
     this.formTask.controls['inDependencie'].valueChanges
       .pipe(distinctUntilChanged())
       .subscribe((value: boolean) => {
@@ -63,6 +64,12 @@ export class FormCreateEditTaskComponent implements OnInit {
         this.formTask.get('inYesTaskDependencie')?.updateValueAndValidity({ emitEvent: false });
 
       });
+
+    this.formTask.controls['inDescription'].valueChanges.subscribe((value: string) => {
+      const countInDescription = value ? value.length : 0;
+      this.countCaracteresDescription = 1000 - countInDescription;
+    });
+
   }
 
   isFieldInvalid(field: string): boolean | undefined {
@@ -78,13 +85,19 @@ export class FormCreateEditTaskComponent implements OnInit {
 
   onSubmitFormTask(values: TasksModel){
 
+    console.warn('values', values);
+    console.warn('form.valid', this.formTask.valid);
+    
+    
     if(this.formTask.valid){
-      console.warn('values', values);
-      console.warn('form.valid', this.formTask.valid);
     } else {
       this.formTask.markAllAsTouched();
     }
 
+  }
+
+  onClear(){
+    this.formTask.reset();
   }
 
 }

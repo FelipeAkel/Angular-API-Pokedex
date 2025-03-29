@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,34 @@ export class FormValidationService {
         : `O campo precisa ser um email válido.`
     }
 
+    if(control.hasError('invalidDate')) {
+      return `Data inválida.`;
+    }
+
+    if(control.hasError('invalidBoolean')) {
+      return `O valor dever ser um boolean.`;
+    }
+
     return '';
   }
 
+}
+
+export function validatorDate(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if(!control.value) {
+      return null; 
+    }
+
+    const isValidDate = !isNaN(Date.parse(control.value));
+
+    return isValidDate ? null : { invalidDate: true };
+  }
+}
+
+export function validatorBoolean(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    return typeof value === 'boolean' ? null : { invalidBoolean: true };
+  }
 }
