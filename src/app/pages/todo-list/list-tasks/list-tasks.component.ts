@@ -5,6 +5,8 @@ import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { TasksModel } from '../../../model/todo-list-model';
 
 @Component({
   selector: 'app-list-tasks',
@@ -15,6 +17,7 @@ import { ButtonModule } from 'primeng/button';
     FormsModule, 
     CommonModule,
     ButtonModule,
+    SplitButtonModule,
   ],
   templateUrl: './list-tasks.component.html',
   styleUrl: './list-tasks.component.scss'
@@ -32,37 +35,34 @@ export class ListTasksComponent {
       icon: 'pi pi-fw pi-list', label: 'Listar Tarefas',
     }
   ];
-
-  products!: any[];
-
-  selectedProducts!: any;
-
+  public tasks!: TasksModel[];
+  public selectedTasks!: any;
   public data = [
-        {
-          id: '1000',
-          code: 'f230fh0g3',
-          name: 'Bamboo Watch AAA',
-          description: 'Product Description',
-          image: 'bamboo-watch.jpg',
-          price: 65,
-          category: 'Accessories',
-          quantity: 24,
-          inventoryStatus: 'INSTOCK',
-          rating: 5
-        },
-        {
-          id: '1050',
-          code: 'f230fh050',
-          name: 'Bamboo Watch BB',
-          description: 'Product Description',
-          image: 'bamboo-watch.jpg',
-          price: 65,
-          category: 'Accessories SSS',
-          quantity: 5,
-          inventoryStatus: 'INSTOCK',
-          rating: 5
-        },
-      ];
+    {
+      id: 1,
+      code: 'abc123',
+      name: 'Criar Formulário',
+      priority: 'Média',
+      status: 'Em Andamento',
+      dtExpiration: '28/03/2025',
+      responsibleUser: 'Felipe Akel Carvalho Florentino',
+      dependencie: false,
+      yesTaskDependencie: undefined,
+      description: 'Descrição criar formulário'
+    },
+    {
+      id: 2,
+      code: 'ddd456',
+      name: 'Editar Formulário',
+      priority: 'Alta',
+      status: 'Pendente',
+      dtExpiration: '05/04/2025',
+      responsibleUser: 'Ciclano da Silva',
+      dependencie: true,
+      yesTaskDependencie: 'abc123',
+      description: 'Descrição editar formulário'
+    },
+  ];
 
   constructor(
     // private productService: ProductService
@@ -70,7 +70,7 @@ export class ListTasksComponent {
 
   ngOnInit() {
       // this.productService.getProductsMini().then((data) => {
-          this.products = this.data;
+          this.tasks = this.data;
       // });
   }
 
