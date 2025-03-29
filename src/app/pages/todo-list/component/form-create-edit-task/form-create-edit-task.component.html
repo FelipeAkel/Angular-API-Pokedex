@@ -1,85 +1,127 @@
 
-<div class="formgrid grid">
-    <div class="field col-12 md:col-3">
-        <label for="inNameTask" class="required" >Nome da Tarefa</label>
-        <input 
-            class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            id="inNameTask" 
-            type="text" 
-        >
-        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-    </div>
-    <div class="field col-12 md:col-3">
-        <label for="inPriority" class="required" >Prioridade</label>
-        <select 
-            class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
-            id="inPriority" 
-            style="appearance: auto"
-        >
-            <option></option>
-            <option value="Baixa" >Baixa</option>
-            <option value="Média" >Média</option>
-            <option value="Alta" >Alta</option>
-        </select>
-        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-    </div>
-    <div class="field col-12 md:col-3">
-        <label for="inStatus" class="required" >Status</label>
-        <select 
-            class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
-            id="inStatus" 
-            style="appearance: auto"
-        >
-            <option></option>
-            <option value="Pendente" >Pendente</option>
-            <option value="Em Andamento" >Em Andamento</option>
-            <option value="Concluída" >Concluída</option>
-        </select>
-        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-    </div>
-    <div class="field col-12 md:col-3">
-        <label for="inDtExpiration">Data de vencimento</label>
-        <br>
-        <p-datepicker 
-            [(ngModel)]="date2" 
-            [iconDisplay]="'input'" 
-            [showIcon]="true" 
-            inputId="inDtExpiration" 
-            dateFormat="dd/mm/yy"
-        />
-        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-    </div>
-    <div class="field col-12">
-        <label for="inDescription" >Descrição</label>
-        <textarea 
-            class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            id="inDescription" 
-            type="text" 
-            rows="2" 
-        ></textarea>
-        <small id="username-help">Limite de 1000 caracteres</small>
-        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-    </div>
+<form class="flex items-center gap-1" > <!-- [formGroup]="formGroup" -->
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-3">
+            <label for="inName" class="required" >Nome da Tarefa</label>
+            <input 
+                class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                id="inName" 
+                type="text" 
+            >
+            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        </div>
+        <div class="field col-12 md:col-3">
+            <label for="inPriority" class="required" >Prioridade</label>
+            <select 
+                class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
+                id="inPriority" 
+                style="appearance: auto"
+            >
+                <option></option>
+                <option value="Baixa" >Baixa</option>
+                <option value="Média" >Média</option>
+                <option value="Alta" >Alta</option>
+                <option value="Urgente">Urgente</option>
+            </select>
+            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        </div>
+        <div class="field col-12 md:col-3">
+            <label for="inStatus" class="required" >Status</label>
+            <select 
+                class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
+                id="inStatus" 
+                style="appearance: auto"
+            >
+                <option></option>
+                <option value="Pendente" >Pendente</option>
+                <option value="Em Andamento" >Em Andamento</option>
+                <option value="Concluída" >Concluída</option>
+            </select>
+            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        </div>
+        <div class="field col-12 md:col-3">
+            <label for="inDtExpiration">Data de vencimento</label>
+            <br>
+            <p-datepicker 
+                [(ngModel)]="dtExpiration" 
+                [iconDisplay]="'input'" 
+                [showIcon]="true" 
+                inputId="inDtExpiration" 
+                dateFormat="dd/mm/yy"
+            />
+            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        </div>
 
-    <div class="field col-12 mt-2 mb-0">
-        <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Preencher os campos do formulário corretamente</p-message>
-    </div>
+        <div class="field col-12 md:col-3">
+            <label for="inResponsibleUser" >Usuário responsável</label>
+            <input 
+                class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                id="inResponsibleUser" 
+                type="text" 
+            >
+            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        </div>
+        <div class="field col-12 md:col-3">
+            <label for="inNoDependencie" class="required" >Dependência de uma tarefa cadastrada? </label>
 
-    <div class="flex flex-row flex-wrap mt-2">
-        <p-button 
-            class="m-2" 
-            label="Cadastrar" 
-            [rounded]="true" 
-            icon="pi pi-save"
-        />
-        <p-button 
-            class="m-2" 
-            label="Limpar" 
-            [rounded]="true" 
-            icon="pi pi-trash" 
-            severity="secondary" 
-        />
+            <div class="flex items-center">
+                <p-radiobutton name="inDependencie" value="false" [(ngModel)]="checked" inputId="inNoDependencie" />
+                <label for="inNoDependencie" class="ml-2">Não</label>
+            </div>
+            <div class="flex items-center">
+                <p-radiobutton name="inDependencie" value="true" [(ngModel)]="checked" inputId="inYesDependencie" />
+                <label for="inYesDependencie" class="ml-2">Sim</label>
+            </div>
+
+            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        </div>
+        <div class="field col-12 md:col-3">
+            <label for="outTasks" class="required" >Tarefas cadastradas</label>
+            <select 
+                class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
+                id="outTasks" 
+                style="appearance: auto"
+            >
+                <option></option>
+                <option value="Tarefa 1" >Tarefa 1</option>
+                <option value="Tarefa 2" >Tarefa 2</option>
+                <option value="Tarefa 3" >Tarefa 3</option>
+            </select>
+            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        </div>
+
+        <div class="field col-12">
+            <label for="inDescription" >Descrição</label>
+            <textarea 
+                class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                id="inDescription" 
+                type="text" 
+                rows="2" 
+            ></textarea>
+            <small id="username-help">Limite de 1000 caracteres</small>
+            <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+        </div>
+
+        <div class="field col-12 mt-2 mb-0">
+            <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Preencher os campos do formulário corretamente</p-message>
+        </div>
+
+        <div class="flex flex-row flex-wrap mt-2">
+            <p-button 
+                class="m-2" 
+                label="Cadastrar" 
+                [rounded]="true" 
+                icon="pi pi-save"
+            />
+            <p-button 
+                class="m-2" 
+                label="Limpar" 
+                [rounded]="true" 
+                icon="pi pi-trash" 
+                severity="secondary" 
+            />
+        </div>
     </div>
-</div>
+</form>
 
 
