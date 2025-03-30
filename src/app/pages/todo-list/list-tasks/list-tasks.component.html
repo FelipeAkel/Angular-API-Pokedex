@@ -11,18 +11,18 @@
 <div class="card">
     <div class="font-semibold text-xl mb-4">Registros</div>
     
-    <p-table [value]="tasks" showGridlines [(selection)]="selectedTasks" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+    <p-table [value]="tasks" showGridlines [(selection)]="selectedTasks" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
     <ng-template #header>
         <tr>
             <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
             <th style="width: 180px;">
                 Ações
             </th>
-            <th pSortableColumn="code" >
-                Código <p-sortIcon field="code" />
+            <th pSortableColumn="id" >
+                ID <p-sortIcon field="id" />
             </th>
-            <th pSortableColumn="task" >
-                Tarefa <p-sortIcon field="task" />
+            <th pSortableColumn="name" >
+                Tarefa <p-sortIcon field="name" />
             </th>
             <th pSortableColumn="priority" >
                 Prioridade <p-sortIcon field="priority" />
@@ -47,7 +47,7 @@
                     <p-button icon="pi pi-trash" severity="danger" [rounded]="true" />
                 </div>
             </td>
-            <td>{{task.code}}</td>
+            <td>{{task.id}}</td>
             <td>{{task.name}}</td>
             <td>{{task.priority}}</td>
             <td>{{task.status}}</td>

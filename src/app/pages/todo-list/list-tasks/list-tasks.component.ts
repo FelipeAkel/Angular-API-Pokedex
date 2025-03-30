@@ -6,7 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { TasksModel } from '../../../model/todo-list-model';
+import { ListTasksModel } from '../../../model/todo-list-model';
+import { TodoListStateService } from '../../../services/todo-list/todo-list-state.service';
 
 @Component({
   selector: 'app-list-tasks',
@@ -35,43 +36,17 @@ export class ListTasksComponent {
       icon: 'pi pi-fw pi-list', label: 'Listar Tarefas',
     }
   ];
-  public tasks!: TasksModel[];
+  public tasks!: ListTasksModel[];
   public selectedTasks!: any;
-  public data = [
-    {
-      id: 1,
-      code: 'abc123',
-      name: 'Criar Formulário',
-      priority: 'Média',
-      status: 'Em Andamento',
-      dtExpiration: '28/03/2025',
-      responsibleUser: 'Felipe Akel Carvalho Florentino',
-      dependencie: false,
-      yesTaskDependencie: undefined,
-      description: 'Descrição criar formulário'
-    },
-    {
-      id: 2,
-      code: 'ddd456',
-      name: 'Editar Formulário',
-      priority: 'Alta',
-      status: 'Pendente',
-      dtExpiration: '05/04/2025',
-      responsibleUser: 'Ciclano da Silva',
-      dependencie: true,
-      yesTaskDependencie: 'abc123',
-      description: 'Descrição editar formulário'
-    },
-  ];
 
   constructor(
-    // private productService: ProductService
+    private todoListState: TodoListStateService
   ) {}
 
   ngOnInit() {
-      // this.productService.getProductsMini().then((data) => {
-          this.tasks = this.data;
-      // });
+    this.todoListState.listTasksState$.subscribe((values) => {
+      this.tasks = values;
+    });
   }
 
 }

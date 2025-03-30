@@ -1,6 +1,4 @@
-export interface TasksModel {
-    id: number,
-    code: string,
+export interface FormTaskCreateModel {
     name: string,
     priority: string,
     status: string,
@@ -9,4 +7,8 @@ export interface TasksModel {
     dependencie: boolean,
     yesTaskDependencie?: string,
     description: string
+};
+
+export interface ListTasksModel extends FormTaskCreateModel {
+    id: string,
 };

@@ -2,24 +2,24 @@
 <form class="flex items-center gap-1" [formGroup]="formTask" > 
     <div class="formgrid grid">
         <div class="field col-12 md:col-3">
-            <label for="inName" class="required" >Nome da Tarefa</label>
+            <label for="name" class="required" >Nome da Tarefa</label>
             <input 
                 class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 type="text" 
-                id="inName" 
-                formControlName="inName"
+                id="name" 
+                formControlName="name"
             >
-            <p-message *ngIf="isFieldInvalid('inName')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('inName') }}
+            <p-message *ngIf="isFieldInvalid('name')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('name') }}
             </p-message>
         </div>
         <div class="field col-12 md:col-3">
-            <label for="inPriority" class="required" >Prioridade</label>
+            <label for="priority" class="required" >Prioridade</label>
             <select 
                 class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
                 style="appearance: auto"
-                id="inPriority" 
-                formControlName="inPriority"
+                id="priority" 
+                formControlName="priority"
             >
                 <option></option>
                 <option value="Baixa" >Baixa</option>
@@ -27,100 +27,100 @@
                 <option value="Alta" >Alta</option>
                 <option value="Urgente">Urgente</option>
             </select>
-            <p-message *ngIf="isFieldInvalid('inPriority')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('inPriority') }}
+            <p-message *ngIf="isFieldInvalid('priority')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('priority') }}
             </p-message>
         </div>
         <div class="field col-12 md:col-3">
-            <label for="inStatus" class="required" >Status</label>
+            <label for="status" class="required" >Status</label>
             <select 
                 class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
                 style="appearance: auto"
-                id="inStatus" 
-                formControlName="inStatus"
+                id="status" 
+                formControlName="status"
             >
                 <option></option>
                 <option value="Pendente" >Pendente</option>
                 <option value="Em Andamento" >Em Andamento</option>
                 <option value="Concluída" >Concluída</option>
             </select>
-            <p-message *ngIf="isFieldInvalid('inStatus')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('inStatus') }}
+            <p-message *ngIf="isFieldInvalid('status')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('status') }}
             </p-message>
         </div>
         <div class="field col-12 md:col-3">
-            <label for="inDtExpiration">Data de vencimento</label>
+            <label for="dtExpiration">Data de vencimento</label>
             <br>
             <p-datepicker 
                 [(ngModel)]="dtExpiration" 
                 [iconDisplay]="'input'" 
                 [showIcon]="true" 
-                inputId="inDtExpiration" 
-                formControlName="inDtExpiration" 
+                inputId="dtExpiration" 
+                formControlName="dtExpiration" 
                 dateFormat="dd/mm/yy"
             />
-            <p-message *ngIf="isFieldInvalid('inDtExpiration')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('inDtExpiration') }}
+            <p-message *ngIf="isFieldInvalid('dtExpiration')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('dtExpiration') }}
             </p-message>
         </div>
 
         <div class="field col-12 md:col-3">
-            <label for="inResponsibleUser" >Usuário responsável</label>
+            <label for="responsibleUser" >Usuário responsável</label>
             <input 
                 class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 type="text" 
-                id="inResponsibleUser" 
-                formControlName="inResponsibleUser"
+                id="responsibleUser" 
+                formControlName="responsibleUser"
             >
-            <p-message *ngIf="isFieldInvalid('inResponsibleUser')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('inResponsibleUser') }}
+            <p-message *ngIf="isFieldInvalid('responsibleUser')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('responsibleUser') }}
             </p-message>
         </div>
         <div class="field col-12 md:col-3">
-            <label for="inNoDependencie" class="required" >Dependência de uma tarefa cadastrada? </label>
+            <label for="noDependencie" class="required" >Dependência de uma tarefa cadastrada? </label>
             <div class="flex items-center">
-                <p-radiobutton formControlName="inDependencie" [value]="false" [(ngModel)]="checked" inputId="inNoDependencie" />
-                <label for="inNoDependencie" class="ml-2">Não</label>
+                <p-radiobutton formControlName="dependencie" [value]="false" [(ngModel)]="checked" inputId="noDependencie" />
+                <label for="noDependencie" class="ml-2">Não</label>
             </div>
             <div class="flex items-center">
-                <p-radiobutton formControlName="inDependencie" [value]="true" [(ngModel)]="checked" inputId="inYesDependencie" />
-                <label for="inYesDependencie" class="ml-2">Sim</label>
+                <p-radiobutton formControlName="dependencie" [value]="true" [(ngModel)]="checked" inputId="yesDependencie" />
+                <label for="yesDependencie" class="ml-2">Sim</label>
             </div>
-            <p-message *ngIf="isFieldInvalid('inDependencie')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('inDependencie') }}
+            <p-message *ngIf="isFieldInvalid('dependencie')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('dependencie') }}
             </p-message>
         </div>
-        <div class="field col-12 md:col-3" *ngIf="formTask.get('inDependencie')?.value === true" >
-            <label for="inYesTaskDependencie" class="required" >Tarefas cadastradas</label>
+        <div class="field col-12 md:col-3" *ngIf="formTask.get('dependencie')?.value === true" >
+            <label for="yesTaskDependencie" class="required" >Tarefas cadastradas</label>
             <select 
                 class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
                 style="appearance: auto"
-                id="inYesTaskDependencie" 
-                formControlName="inYesTaskDependencie"
+                id="yesTaskDependencie" 
+                formControlName="yesTaskDependencie"
             >
                 <option></option>
                 <option value="Tarefa 1" >Tarefa 1</option>
                 <option value="Tarefa 2" >Tarefa 2</option>
                 <option value="Tarefa 3" >Tarefa 3</option>
             </select>
-            <p-message *ngIf="isFieldInvalid('inYesTaskDependencie')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('inYesTaskDependencie') }}
+            <p-message *ngIf="isFieldInvalid('yesTaskDependencie')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('yesTaskDependencie') }}
             </p-message>
         </div>
 
         <div class="field col-12">
-            <label for="inDescription" >Descrição</label>
+            <label for="description" >Descrição</label>
             <textarea 
                 class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 type="text" 
                 rows="4" 
-                id="inDescription" 
-                formControlName="inDescription"
+                id="description" 
+                formControlName="description"
                 maxlength="1000"
             ></textarea>
             <small id="description-help">Limite de {{ countCaracteresDescription }} caracteres</small>
-            <p-message *ngIf="isFieldInvalid('inDescription')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('inDescription') }}
+            <p-message *ngIf="isFieldInvalid('description')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('description') }}
             </p-message>
         </div>
 
@@ -134,7 +134,7 @@
                 label="Cadastrar" 
                 [rounded]="true" 
                 icon="pi pi-save"
-                (onClick)="onSubmitFormTask(this.formTask.value)"
+                (onClick)="onSubmitFormTaskCreate(this.formTask.value)"
             />
             <p-button 
                 class="m-2" 

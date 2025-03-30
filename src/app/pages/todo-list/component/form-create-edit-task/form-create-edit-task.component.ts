@@ -8,7 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormValidationService, validatorBoolean, validatorDate } from '../../../../services/form-validation.service';
 import { distinctUntilChanged } from 'rxjs';
-import { TasksModel } from '../../../../model/todo-list-model';
+import { FormTaskCreateModel } from '../../../../model/todo-list-model';
+import { TodoListStateService } from '../../../../services/todo-list/todo-list-state.service';
 
 @Component({
   selector: 'app-form-create-edit-task',
@@ -35,39 +36,40 @@ export class FormCreateEditTaskComponent implements OnInit {
   constructor(
     private formBilder: FormBuilder,
     private formValidation: FormValidationService,
+    private todoListState: TodoListStateService,
   ){
     this.formTask = this.formBilder.group({
-      inName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
-      inPriority: ['', [Validators.required]],
-      inStatus: ['', [Validators.required]],
-      inDtExpiration: ['', [validatorDate()]],
-      inResponsibleUser: ['', [Validators.maxLength(70)]],
-      inDependencie: [false, [Validators.required, validatorBoolean()]],
-      inYesTaskDependencie: [''],
-      inDescription: ['', [Validators.required, Validators.maxLength(1000)]],
+      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
+      priority: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      dtExpiration: ['', [validatorDate()]],
+      responsibleUser: ['', [Validators.maxLength(70)]],
+      dependencie: [false, [Validators.required, validatorBoolean()]],
+      yesTaskDependencie: [''],
+      description: ['', [Validators.maxLength(1000)]],
     });
   };
 
   ngOnInit(): void {
 
-    // Caso inDependencie mude de valor validações serão alteradas
-    this.formTask.controls['inDependencie'].valueChanges
+    // Caso dependencie mude de valor validações serão alteradas
+    this.formTask.controls['dependencie'].valueChanges
       .pipe(distinctUntilChanged())
       .subscribe((value: boolean) => {
         if(value === true){
-          this.formTask.get('inYesTaskDependencie')?.setValidators([Validators.required]);
+          this.formTask.get('yesTaskDependencie')?.setValidators([Validators.required]);
         } else {
-          this.formTask.get('inYesTaskDependencie')?.clearValidators();
-          this.formTask.get('inYesTaskDependencie')?.reset('', { emitEvent: false });
+          this.formTask.get('yesTaskDependencie')?.clearValidators();
+          this.formTask.get('yesTaskDependencie')?.reset('', { emitEvent: false });
         }
         
-        this.formTask.get('inYesTaskDependencie')?.updateValueAndValidity({ emitEvent: false });
+        this.formTask.get('yesTaskDependencie')?.updateValueAndValidity({ emitEvent: false });
 
       });
 
-    this.formTask.controls['inDescription'].valueChanges.subscribe((value: string) => {
-      const countInDescription = value ? value.length : 0;
-      this.countCaracteresDescription = 1000 - countInDescription;
+    this.formTask.controls['description'].valueChanges.subscribe((value: string) => {
+      const countDescription = value ? value.length : 0;
+      this.countCaracteresDescription = 1000 - countDescription;
     });
 
   }
@@ -83,13 +85,16 @@ export class FormCreateEditTaskComponent implements OnInit {
     return this.formValidation.getErrorMessage(this.formTask.get(field), labelName);
   }
 
-  onSubmitFormTask(values: TasksModel){
+  onSubmitFormTaskCreate(values: FormTaskCreateModel){
 
     console.warn('values', values);
     console.warn('form.valid', this.formTask.valid);
     
     
     if(this.formTask.valid){
+
+      this.todoListState.setListTasksState(values);
+
     } else {
       this.formTask.markAllAsTouched();
     }
