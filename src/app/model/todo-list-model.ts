@@ -12,3 +12,8 @@ export interface FormTaskCreateModel {
 export interface ListTasksModel extends FormTaskCreateModel {
     id: string,
 };
+
+export interface FormSelect {
+    id: string,
+    name: string,
+};

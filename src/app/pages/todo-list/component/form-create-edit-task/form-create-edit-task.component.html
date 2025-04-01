@@ -21,7 +21,7 @@
                 id="priority" 
                 formControlName="priority"
             >
-                <option></option>
+                <option value="" disabled selected ></option>
                 <option value="Baixa" >Baixa</option>
                 <option value="Média" >Média</option>
                 <option value="Alta" >Alta</option>
@@ -39,7 +39,7 @@
                 id="status" 
                 formControlName="status"
             >
-                <option></option>
+                <option value="" disabled selected ></option>
                 <option value="Pendente" >Pendente</option>
                 <option value="Em Andamento" >Em Andamento</option>
                 <option value="Concluída" >Concluída</option>
@@ -91,20 +91,21 @@
             </p-message>
         </div>
         <div class="field col-12 md:col-3" *ngIf="formTask.get('dependencie')?.value === true" >
-            <label for="yesTaskDependencie" class="required" >Tarefas cadastradas</label>
+            <label for="yesIdTaskDependencie" class="required" >Tarefas cadastradas</label>
             <select 
                 class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
                 style="appearance: auto"
-                id="yesTaskDependencie" 
-                formControlName="yesTaskDependencie"
+                id="yesIdTaskDependencie" 
+                formControlName="yesIdTaskDependencie"
             >
-                <option></option>
-                <option value="Tarefa 1" >Tarefa 1</option>
-                <option value="Tarefa 2" >Tarefa 2</option>
-                <option value="Tarefa 3" >Tarefa 3</option>
+                <option value="" disabled selected ></option>
+                <option *ngFor="let task of listTasks" [value]="task.id" > {{task.name}} </option>
             </select>
-            <p-message *ngIf="isFieldInvalid('yesTaskDependencie')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('yesTaskDependencie') }}
+            <p-message *ngIf="listTasks.length === 0" severity="warn" variant="simple" size="small" icon="pi pi-exclamation-circle">
+                Nenhuma tarefa cadastrada.
+            </p-message>
+            <p-message *ngIf="isFieldInvalid('yesIdTaskDependencie')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('yesIdTaskDependencie') }}
             </p-message>
         </div>
 

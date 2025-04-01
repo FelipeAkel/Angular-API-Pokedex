@@ -7,8 +7,8 @@ import { FluidModule } from 'primeng/fluid';
 import { ButtonModule } from 'primeng/button';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormValidationService, validatorBoolean, validatorDate } from '../../../../services/form-validation.service';
-import { distinctUntilChanged } from 'rxjs';
-import { FormTaskCreateModel } from '../../../../model/todo-list-model';
+import { distinctUntilChanged, take } from 'rxjs';
+import { FormSelect, FormTaskCreateModel } from '../../../../model/todo-list-model';
 import { TodoListStateService } from '../../../../services/todo-list/todo-list-state.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -36,6 +36,7 @@ export class FormCreateEditTaskComponent implements OnInit {
   public checked: boolean = false;
   public dtExpiration: Date | undefined;
   public countCaracteresDescription: number = 1000;
+  public listTasks: FormSelect[] = [];
 
   constructor(
     private formBilder: FormBuilder,
@@ -50,32 +51,33 @@ export class FormCreateEditTaskComponent implements OnInit {
       dtExpiration: ['', [validatorDate()]],
       responsibleUser: ['', [Validators.maxLength(70)]],
       dependencie: [false, [Validators.required, validatorBoolean()]],
-      yesTaskDependencie: [''],
+      yesIdTaskDependencie: [''],
       description: ['', [Validators.maxLength(1000)]],
     });
   };
 
   ngOnInit(): void {
 
-    // Caso dependencie mude de valor validações serão alteradas
+    // Caso Dependência mude de valor validações serão alteradas
     this.formTask.controls['dependencie'].valueChanges
       .pipe(distinctUntilChanged())
       .subscribe((value: boolean) => {
         if(value === true){
-          this.formTask.get('yesTaskDependencie')?.setValidators([Validators.required]);
+          this.formTask.get('yesIdTaskDependencie')?.setValidators([Validators.required]);
         } else {
-          this.formTask.get('yesTaskDependencie')?.clearValidators();
-          this.formTask.get('yesTaskDependencie')?.reset('', { emitEvent: false });
+          this.formTask.get('yesIdTaskDependencie')?.clearValidators();
+          this.formTask.get('yesIdTaskDependencie')?.reset('', { emitEvent: false });
         }
         
-        this.formTask.get('yesTaskDependencie')?.updateValueAndValidity({ emitEvent: false });
-
+        this.formTask.get('yesIdTaskDependencie')?.updateValueAndValidity({ emitEvent: false });
       });
 
     this.formTask.controls['description'].valueChanges.subscribe((value: string) => {
       const countDescription = value ? value.length : 0;
       this.countCaracteresDescription = 1000 - countDescription;
     });
+
+    this.onListTasks();
 
   }
 
@@ -95,6 +97,7 @@ export class FormCreateEditTaskComponent implements OnInit {
       this.todoListState.setListTasksState(values);
       this.formTask.reset();
       this.msnToast.add({ severity: 'success', summary: 'Tarefa Cadastrada', detail: 'Registros de tarefas foram cadastrados.', life: 4000 });
+      this.onListTasks();
     } else {
       this.formTask.markAllAsTouched();
     }
@@ -102,6 +105,14 @@ export class FormCreateEditTaskComponent implements OnInit {
 
   onClear(){
     this.formTask.reset();
+  }
+
+  onListTasks() {
+    this.todoListState.listTasksState$
+      .pipe(take(1))
+      .subscribe((values: FormSelect[]) => {
+        this.listTasks = values;
+    });
   }
 
 }
