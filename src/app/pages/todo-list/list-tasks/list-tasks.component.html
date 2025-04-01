@@ -12,53 +12,54 @@
     <div class="font-semibold text-xl mb-4">Registros</div>
     
     <p-table [value]="tasks" showGridlines [(selection)]="selectedTasks" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template #header>
-        <tr>
-            <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
-            <th style="width: 180px;">
-                Ações
-            </th>
-            <th pSortableColumn="id" >
-                ID <p-sortIcon field="id" />
-            </th>
-            <th pSortableColumn="name" >
-                Tarefa <p-sortIcon field="name" />
-            </th>
-            <th pSortableColumn="priority" >
-                Prioridade <p-sortIcon field="priority" />
-            </th>
-            <th pSortableColumn="status" >
-                Status <p-sortIcon field="status" />
-            </th>
-            <th pSortableColumn="dtExpiration" >
-                Data de vencimento <p-sortIcon field="dtExpiration" />
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-task>
-        <tr>
-            <td>
-                <p-tableCheckbox [value]="task" />
-            </td>
-            <td>
-                <div class="flex flex-wrap gap-1">
-                    <p-button icon="pi pi-file-o" severity="info" [rounded]="true" />
-                    <p-button icon="pi pi-file-edit" severity="warn" [rounded]="true" />
-                    <p-button icon="pi pi-trash" severity="danger" [rounded]="true" />
-                </div>
-            </td>
-            <td>{{task.id}}</td>
-            <td>{{task.name}}</td>
-            <td>{{task.priority}}</td>
-            <td>{{task.status}}</td>
-            <td>{{task.dtExpiration}}</td>
-        </tr>
-    </ng-template>
-</p-table>
+        <ng-template #header>
+            <tr>
+                <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+                <th style="width: 180px;">
+                    Ações
+                </th>
+                <th pSortableColumn="id" >
+                    ID <p-sortIcon field="id" />
+                </th>
+                <th pSortableColumn="name" >
+                    Tarefa <p-sortIcon field="name" />
+                </th>
+                <th pSortableColumn="priority" >
+                    Prioridade <p-sortIcon field="priority" />
+                </th>
+                <th pSortableColumn="status" >
+                    Status <p-sortIcon field="status" />
+                </th>
+                <th pSortableColumn="dtExpiration" >
+                    Data de vencimento <p-sortIcon field="dtExpiration" />
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-task>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="task" />
+                </td>
+                <td>
+                    <div class="flex flex-wrap gap-1">
+                        <p-button icon="pi pi-file-o" severity="info" [rounded]="true" />
+                        <p-button icon="pi pi-file-edit" severity="warn" [rounded]="true" />
+                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" />
+                    </div>
+                </td>
+                <td>{{task.id}}</td>
+                <td>{{task.name}}</td>
+                <td>{{task.priority}}</td>
+                <td>
+                    <p-tag [icon]="getIcon(task.status)" [value]="task.status" [severity]="getStatus(task.status)" [rounded]="true" />
+                </td>
+                <td>{{task.dtExpiration}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
 
-<pre>
-    {{ selectedTasks | json }}
-</pre>
+    <pre>
+        {{ selectedTasks | json }}
+    </pre>
 
 </div>
-

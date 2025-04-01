@@ -10,6 +10,8 @@ import { FormValidationService, validatorBoolean, validatorDate } from '../../..
 import { distinctUntilChanged } from 'rxjs';
 import { FormTaskCreateModel } from '../../../../model/todo-list-model';
 import { TodoListStateService } from '../../../../services/todo-list/todo-list-state.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-form-create-edit-task',
@@ -22,7 +24,9 @@ import { TodoListStateService } from '../../../../services/todo-list/todo-list-s
     FluidModule, 
     ButtonModule, 
     RadioButton,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './form-create-edit-task.component.html',
   styleUrl: './form-create-edit-task.component.scss'
 })
@@ -37,6 +41,7 @@ export class FormCreateEditTaskComponent implements OnInit {
     private formBilder: FormBuilder,
     private formValidation: FormValidationService,
     private todoListState: TodoListStateService,
+    private msnToast: MessageService,
   ){
     this.formTask = this.formBilder.group({
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
@@ -86,19 +91,13 @@ export class FormCreateEditTaskComponent implements OnInit {
   }
 
   onSubmitFormTaskCreate(values: FormTaskCreateModel){
-
-    console.warn('values', values);
-    console.warn('form.valid', this.formTask.valid);
-    
-    
     if(this.formTask.valid){
-
       this.todoListState.setListTasksState(values);
-
+      this.formTask.reset();
+      this.msnToast.add({ severity: 'success', summary: 'Tarefa Cadastrada', detail: 'Registros de tarefas foram cadastrados.', life: 4000 });
     } else {
       this.formTask.markAllAsTouched();
     }
-
   }
 
   onClear(){
