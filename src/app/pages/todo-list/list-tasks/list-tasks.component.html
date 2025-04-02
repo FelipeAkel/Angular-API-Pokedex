@@ -24,11 +24,11 @@
                 <th pSortableColumn="name" >
                     Tarefa <p-sortIcon field="name" />
                 </th>
-                <th pSortableColumn="priority" >
-                    Prioridade <p-sortIcon field="priority" />
+                <th pSortableColumn="idPriority" >
+                    Prioridade <p-sortIcon field="idPriority" />
                 </th>
-                <th pSortableColumn="status" >
-                    Status <p-sortIcon field="status" />
+                <th pSortableColumn="idDtatus" >
+                    Status <p-sortIcon field="idDtatus" />
                 </th>
                 <th pSortableColumn="dtExpiration" >
                     Data de vencimento <p-sortIcon field="dtExpiration" />
@@ -49,9 +49,18 @@
                 </td>
                 <td>{{task.id}}</td>
                 <td>{{task.name}}</td>
-                <td>{{task.priority}}</td>
                 <td>
-                    <p-tag [icon]="getIcon(task.status)" [value]="task.status" [severity]="getStatus(task.status)" [rounded]="true" />
+                    <p [ngClass]="getPriority(task.idPriority, 'font-color')">
+                        {{ getPriority(task.idPriority, 'value') }} 
+                    </p>
+                </td>
+                <td>
+                    <p-message 
+                        [icon]="getStatus(task.idStatus, 'icon')" 
+                        [severity]="getStatus(task.idStatus, 'severity')" variant="simple"
+                    >
+                        {{ getStatus(task.idStatus, 'value') }} 
+                    </p-message>
                 </td>
                 <td>{{task.dtExpiration}}</td>
             </tr>

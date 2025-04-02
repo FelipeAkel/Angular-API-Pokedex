@@ -14,6 +14,6 @@ export interface ListTasksModel extends FormTaskCreateModel {
 };
 
 export interface FormSelectModel {
-    id: number, // TODO mudar para number
+    id: number,
     name: string,
 };
