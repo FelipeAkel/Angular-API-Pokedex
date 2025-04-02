@@ -11,6 +11,8 @@
 <div class="card">
     <div class="font-semibold text-xl mb-4">Registros</div>
     
+    <p>Lista ordenada por ordem de Prioridade e depois por Status.</p>
+
     <p-table [value]="tasks" showGridlines [(selection)]="selectedTasks" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
@@ -27,8 +29,8 @@
                 <th pSortableColumn="idPriority" >
                     Prioridade <p-sortIcon field="idPriority" />
                 </th>
-                <th pSortableColumn="idDtatus" >
-                    Status <p-sortIcon field="idDtatus" />
+                <th pSortableColumn="idStatus" >
+                    Status <p-sortIcon field="idStatus" />
                 </th>
                 <th pSortableColumn="dtExpiration" >
                     Data de vencimento <p-sortIcon field="dtExpiration" />
@@ -42,16 +44,25 @@
                 </td>
                 <td>
                     <div class="flex flex-wrap gap-1">
-                        <p-button icon="pi pi-file-o" severity="info" [rounded]="true" />
-                        <p-button icon="pi pi-file-edit" severity="warn" [rounded]="true" />
-                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" />
+                        <p-button 
+                            icon="pi pi-file-o" severity="info" [rounded]="true" 
+                            pTooltip="Visualizar Registro" tooltipPosition="top" placeholder="Top"
+                        />
+                        <p-button 
+                            icon="pi pi-file-edit" severity="warn" [rounded]="true" 
+                            pTooltip="Editar Registro" tooltipPosition="top" placeholder="Top"
+                        />
+                        <p-button 
+                            icon="pi pi-trash" severity="danger" [rounded]="true"
+                            pTooltip="Excluir Registro" tooltipPosition="top" placeholder="Top"
+                        />
                     </div>
                 </td>
                 <td>{{task.id}}</td>
                 <td>{{task.name}}</td>
                 <td>
                     <p [ngClass]="getPriority(task.idPriority, 'font-color')">
-                        {{ getPriority(task.idPriority, 'value') }} 
+                        {{ getPriority(task.idPriority, 'namePriority') }} 
                     </p>
                 </td>
                 <td>
@@ -59,10 +70,12 @@
                         [icon]="getStatus(task.idStatus, 'icon')" 
                         [severity]="getStatus(task.idStatus, 'severity')" variant="simple"
                     >
-                        {{ getStatus(task.idStatus, 'value') }} 
+                        {{ getStatus(task.idStatus, 'nameStatus') }} 
                     </p-message>
                 </td>
-                <td>{{task.dtExpiration}}</td>
+                <td>
+                    <p>{{ task.dtExpiration | date:'dd/MM/yyyy' }} - <span class="font-bold">{{ calculateDaysUntil(task.dtExpiration) }}</span></p>
+                </td>
             </tr>
         </ng-template>
     </p-table>

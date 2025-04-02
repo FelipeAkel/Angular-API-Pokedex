@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { PokedexStateService } from './pokedex-state.service';
-import { mockPokedexFormFilter } from './pokedex-api.mock';
+import { mockPokedexFormFilter } from '../../mocks/pokedex-api.mock';
 
 describe('PokedexStateService', () => {
   let service: PokedexStateService;

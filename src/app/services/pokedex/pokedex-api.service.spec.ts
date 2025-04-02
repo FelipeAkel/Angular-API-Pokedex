@@ -4,7 +4,7 @@ import { PokedexApiService } from './pokedex-api.service';
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { mockApiSetListPokemon } from './pokedex-api.mock';
+import { mockApiSetListPokemon } from '../../mocks/pokedex-api.mock';
 import { of } from 'rxjs';
 
 describe('PokedexApiService', () => {

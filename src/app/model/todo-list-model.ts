@@ -2,15 +2,15 @@ export interface FormTaskCreateModel {
     name: string,
     idPriority: number,
     idStatus: number,
-    dtExpiration: string,
-    responsibleUser: string,
+    dtExpiration?: string,
+    responsibleUser?: string,
     dependencie: boolean,
     yesIdTaskDependencie?: number,
-    description: string
+    description?: string
 };
 
 export interface ListTasksModel extends FormTaskCreateModel {
-    id: string,
+    id: number,
 };
 
 export interface FormSelectModel {

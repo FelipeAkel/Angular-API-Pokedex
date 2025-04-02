@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PokedexFilterComponent } from './pokedex-filter.component';
 import { Validators } from '@angular/forms';
-import { mockPokedexFormFilter } from '../../../../services/pokedex/pokedex-api.mock';
+import { mockPokedexFormFilter } from '../../../../mocks/pokedex-api.mock';
 
 describe('PokedexFilterComponent', () => {
   let component: PokedexFilterComponent;

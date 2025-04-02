@@ -5,7 +5,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PokedexApiService } from '../../../../services/pokedex/pokedex-api.service';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';  // Importando o módulo para simular requisições HTTP
-import { mockItem, mockItemVazio } from '../../../../services/pokedex/pokedex-api.mock';
+import { mockItem, mockItemVazio } from '../../../../mocks/pokedex-api.mock';
 
 class MockDynamicDialogConfig {
   data = { id: 1 };  // Simulando que o dialog está recebendo o ID 1
