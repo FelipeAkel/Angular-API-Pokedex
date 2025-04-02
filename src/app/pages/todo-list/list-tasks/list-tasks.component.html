@@ -55,6 +55,7 @@
                         <p-button 
                             icon="pi pi-trash" severity="danger" [rounded]="true"
                             pTooltip="Excluir Registro" tooltipPosition="top" placeholder="Top"
+                            (onClick)="deleteTask(task.id)"
                         />
                     </div>
                 </td>
@@ -85,3 +86,6 @@
     </pre>
 
 </div>
+
+<p-toast />
+<p-confirmdialog />

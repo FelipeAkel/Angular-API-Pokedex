@@ -8,6 +8,9 @@ import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { Message } from 'primeng/message';
 import { Tooltip } from 'primeng/tooltip';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 import { FormListFilterComponent } from "../component/form-list-filter/form-list-filter.component";
 import { ListTasksModel } from '../../../model/todo-list-model';
@@ -27,6 +30,12 @@ import { mockListTasks } from '../../../mocks/todo-list.mock';
     SplitButtonModule,
     Message,
     Tooltip,
+    ToastModule,
+    ConfirmDialog,
+  ],
+  providers: [
+    ConfirmationService,
+    MessageService,
   ],
   templateUrl: './list-tasks.component.html',
   styleUrl: './list-tasks.component.scss'
@@ -49,12 +58,14 @@ export class ListTasksComponent {
   public selectedTasks!: ListTasksModel[];
 
   constructor(
-    private todoListState: TodoListStateService
+    private todoListState: TodoListStateService,
+    private confirmationService: ConfirmationService,
+    private msnToast: MessageService
   ) {}
 
   ngOnInit() {
     this.todoListState.listTasksState$.subscribe((values) => {
-            // TODO Retirar o mockListTasks e colocar o values;
+            // TODO Retirar o mockListTasks e colocar o values; 
       // Ordenação por Prioridade e Status (Descrescente)
       const listOrderByPriorityAndStatus = mockListTasks.sort((a, b) => {
         if(b.idPriority === a.idPriority) {
@@ -134,6 +145,31 @@ export class ListTasksComponent {
     } else {
       return 'É hoje!';
     }
+  }
+
+  deleteTask(id: Event) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja deletar este registro?',
+      header: 'Delete de Registro',
+      icon: 'pi pi-info-circle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+          label: 'Cancelar',
+          severity: 'secondary',
+          outlined: true,
+      },
+      acceptButtonProps: {
+          label: 'Deletar',
+          severity: 'danger',
+      },
+      accept: () => {
+
+          console.warn('deleteTask ID', id);
+
+          this.msnToast.add({ severity: 'info', summary: 'Delete Confirmado', detail: 'Registro deletado com sucesso' });
+      },
+      reject: () => { },
+  });
   }
 
 }
