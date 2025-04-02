@@ -8,10 +8,11 @@ import { ButtonModule } from 'primeng/button';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormValidationService, validatorBoolean, validatorDate } from '../../../../services/form-validation.service';
 import { distinctUntilChanged, take } from 'rxjs';
-import { FormSelect, FormTaskCreateModel } from '../../../../model/todo-list-model';
+import { FormSelectModel, FormTaskCreateModel } from '../../../../model/todo-list-model';
 import { TodoListStateService } from '../../../../services/todo-list/todo-list-state.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { mockPriority, mockStatus } from '../../../../mocks/todo-list.mock';
 
 @Component({
   selector: 'app-form-create-edit-task',
@@ -36,7 +37,9 @@ export class FormCreateEditTaskComponent implements OnInit {
   public checked: boolean = false;
   public dtExpiration: Date | undefined;
   public countCaracteresDescription: number = 1000;
-  public listTasks: FormSelect[] = [];
+  public listTasks: FormSelectModel[] = [];
+  public listPriority: FormSelectModel[] = mockPriority;
+  public listStatus: FormSelectModel[] = mockStatus;
 
   constructor(
     private formBilder: FormBuilder,
@@ -46,18 +49,18 @@ export class FormCreateEditTaskComponent implements OnInit {
   ){
     this.formTask = this.formBilder.group({
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
-      priority: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      idPriority: [, [Validators.required]],
+      idStatus: [, [Validators.required]],
       dtExpiration: ['', [validatorDate()]],
       responsibleUser: ['', [Validators.maxLength(70)]],
       dependencie: [false, [Validators.required, validatorBoolean()]],
-      yesIdTaskDependencie: [''],
+      yesIdTaskDependencie: [],
       description: ['', [Validators.maxLength(1000)]],
     });
   };
 
   ngOnInit(): void {
-
+    
     // Caso Dependência mude de valor validações serão alteradas
     this.formTask.controls['dependencie'].valueChanges
       .pipe(distinctUntilChanged())
@@ -78,7 +81,6 @@ export class FormCreateEditTaskComponent implements OnInit {
     });
 
     this.onListTasks();
-
   }
 
   isFieldInvalid(field: string): boolean | undefined {
@@ -110,7 +112,7 @@ export class FormCreateEditTaskComponent implements OnInit {
   onListTasks() {
     this.todoListState.listTasksState$
       .pipe(take(1))
-      .subscribe((values: FormSelect[]) => {
+      .subscribe((values: FormSelectModel[]) => {
         this.listTasks = values;
     });
   }

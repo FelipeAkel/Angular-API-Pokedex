@@ -14,38 +14,33 @@
             </p-message>
         </div>
         <div class="field col-12 md:col-3">
-            <label for="priority" class="required" >Prioridade</label>
+            <label for="idPriority" class="required" >Prioridade</label>
             <select 
                 class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
                 style="appearance: auto"
-                id="priority" 
-                formControlName="priority"
+                id="idPriority" 
+                formControlName="idPriority"
             >
                 <option value="" disabled selected ></option>
-                <option value="Baixa" >Baixa</option>
-                <option value="Média" >Média</option>
-                <option value="Alta" >Alta</option>
-                <option value="Urgente">Urgente</option>
+                <option *ngFor="let priority of listPriority" [ngValue]="priority.id" > {{ priority.name }} </option>
             </select>
-            <p-message *ngIf="isFieldInvalid('priority')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('priority') }}
+            <p-message *ngIf="isFieldInvalid('idPriority')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('idPriority') }}
             </p-message>
         </div>
         <div class="field col-12 md:col-3">
-            <label for="status" class="required" >Status</label>
+            <label for="idStatus" class="required" >Status</label>
             <select 
                 class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
                 style="appearance: auto"
-                id="status" 
-                formControlName="status"
+                id="idStatus" 
+                formControlName="idStatus"
             >
                 <option value="" disabled selected ></option>
-                <option value="Pendente" >Pendente</option>
-                <option value="Em Andamento" >Em Andamento</option>
-                <option value="Concluída" >Concluída</option>
+                <option *ngFor="let status of listStatus" [ngValue]="status.id" > {{ status.name }} </option>
             </select>
-            <p-message *ngIf="isFieldInvalid('status')" severity="error" variant="simple" size="small">
-                {{ getErrorMessage('status') }}
+            <p-message *ngIf="isFieldInvalid('idStatus')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('idStatus') }}
             </p-message>
         </div>
         <div class="field col-12 md:col-3">
@@ -99,7 +94,7 @@
                 formControlName="yesIdTaskDependencie"
             >
                 <option value="" disabled selected ></option>
-                <option *ngFor="let task of listTasks" [value]="task.id" > {{task.name}} </option>
+                <option *ngFor="let task of listTasks" [ngValue]="task.id" > {{task.name}} </option>
             </select>
             <p-message *ngIf="listTasks.length === 0" severity="warn" variant="simple" size="small" icon="pi pi-exclamation-circle">
                 Nenhuma tarefa cadastrada.
@@ -135,7 +130,7 @@
                 label="Cadastrar" 
                 [rounded]="true" 
                 icon="pi pi-save"
-                (onClick)="onSubmitFormTaskCreate(this.formTask.value)"
+                (onClick)="onSubmitFormTaskCreate(formTask.value)"
             />
             <p-button 
                 class="m-2" 
