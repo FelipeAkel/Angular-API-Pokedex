@@ -147,7 +147,7 @@ export class ListTasksComponent {
     }
   }
 
-  deleteTask(id: Event) {
+  deleteTask(id: number) {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja deletar este registro?',
       header: 'Delete de Registro',
@@ -163,10 +163,8 @@ export class ListTasksComponent {
           severity: 'danger',
       },
       accept: () => {
-
-          console.warn('deleteTask ID', id);
-
-          this.msnToast.add({ severity: 'info', summary: 'Delete Confirmado', detail: 'Registro deletado com sucesso' });
+        this.todoListState.deleteTaskState(id)
+        this.msnToast.add({ severity: 'info', summary: 'Delete Confirmado', detail: 'Registro deletado com sucesso' });
       },
       reject: () => { },
   });
