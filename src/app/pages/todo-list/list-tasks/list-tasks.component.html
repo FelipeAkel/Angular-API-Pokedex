@@ -20,9 +20,6 @@
                 <th style="width: 180px;">
                     Ações
                 </th>
-                <th pSortableColumn="id" >
-                    ID <p-sortIcon field="id" />
-                </th>
                 <th pSortableColumn="name" >
                     Tarefa <p-sortIcon field="name" />
                 </th>
@@ -47,6 +44,7 @@
                         <p-button 
                             icon="pi pi-file-o" severity="info" [rounded]="true" 
                             pTooltip="Visualizar Registro" tooltipPosition="top" placeholder="Top"
+                            (onClick)="detailsTask(task.id)"
                         />
                         <p-button 
                             icon="pi pi-file-edit" severity="warn" [rounded]="true" 
@@ -59,7 +57,6 @@
                         />
                     </div>
                 </td>
-                <td>{{task.id}}</td>
                 <td>{{task.name}}</td>
                 <td>
                     <p [ngClass]="getPriority(task.idPriority, 'font-color')">

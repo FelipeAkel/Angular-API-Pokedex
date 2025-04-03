@@ -11,12 +11,14 @@ import { Tooltip } from 'primeng/tooltip';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { DialogService } from 'primeng/dynamicdialog';
 
 import { FormListFilterComponent } from "../component/form-list-filter/form-list-filter.component";
 import { ListTasksModel } from '../../../model/todo-list-model';
 import { TodoListStateService } from '../../../services/todo-list/todo-list-state.service';
 import { PriorityEnum, StatusEnum } from '../../../enum/todo-list.enum';
 import { mockListTasks } from '../../../mocks/todo-list.mock';
+import { DetailsTaskComponent } from '../component/details-task/details-task.component';
 
 @Component({
   selector: 'app-list-tasks',
@@ -36,6 +38,7 @@ import { mockListTasks } from '../../../mocks/todo-list.mock';
   providers: [
     ConfirmationService,
     MessageService,
+    DialogService
   ],
   templateUrl: './list-tasks.component.html',
   styleUrl: './list-tasks.component.scss'
@@ -60,7 +63,8 @@ export class ListTasksComponent {
   constructor(
     private todoListState: TodoListStateService,
     private confirmationService: ConfirmationService,
-    private msnToast: MessageService
+    private msnToast: MessageService,
+    private dialogService: DialogService,
   ) {}
 
   ngOnInit() {
@@ -110,13 +114,13 @@ export class ListTasksComponent {
     if(typeReturn === 'font-color') {
       switch(idPriority) {
         case 1:
-          return 'text-purple-200 hover:text-purple-300 font-bold';
+          return 'text-pink-200 hover:text-pink-300 font-bold';
         case 2:
-          return 'text-purple-400 hover:text-purple-500 font-bold';
+          return 'text-pink-400 hover:text-pink-500 font-bold';
         case 3:
-          return 'text-purple-600 hover:text-purple-700 font-bold';
+          return 'text-pink-600 hover:text-pink-700 font-bold';
         case 4:
-          return 'text-purple-800 hover:text-purple-900 font-bold';
+          return 'text-pink-800 hover:text-pink-900 font-bold';
         default:
           return 'text-primary-500 hover:text-primary-700 font-bold';
       }
@@ -126,7 +130,7 @@ export class ListTasksComponent {
     return undefined;
   }
 
-  calculateDaysUntil(dateString: string): string {
+  calculateDaysUntil(dateString: string | undefined): string {
     if (!dateString) return '';
 
     const today = new Date();
@@ -145,6 +149,21 @@ export class ListTasksComponent {
     } else {
       return 'É hoje!';
     }
+  }
+
+  detailsTask(id: number) {
+    const registerTask = this.tasks.find(f => f.id === id);
+    this.dialogService.open(DetailsTaskComponent, {
+      data: { registerTask },
+      header: 'Detalhes da Tarefa',
+      width: '60%',
+      height: '80%',
+      closable: true,                     // Icone fechar modal
+      modal: true,                        // Background mais escuro
+      dismissableMask: true,              // Clicar fora do modal fecha o dialog
+      maskStyleClass: 'backdrop-blur-sm', // Background esfumaçado 
+    });
+    
   }
 
   deleteTask(id: number) {
