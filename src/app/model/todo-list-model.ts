@@ -17,3 +17,8 @@ export interface FormSelectModel {
     id: number,
     name: string,
 };
+
+export interface DependencieTaksModel {
+    id?: number,
+    name?: string,
+};

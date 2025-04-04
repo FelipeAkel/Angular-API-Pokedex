@@ -24,4 +24,10 @@ export class TodoListStateService {
     this.listTasksState.next(updatedTasks);
   }
 
+  getTaskId(id: number) {
+    const currentTasks = this.listTasksState.value;
+    const findTask = currentTasks.find( task => task.id === id );
+    return findTask;
+  }
+
 }

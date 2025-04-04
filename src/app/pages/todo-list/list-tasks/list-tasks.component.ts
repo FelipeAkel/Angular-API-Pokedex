@@ -69,9 +69,8 @@ export class ListTasksComponent {
 
   ngOnInit() {
     this.todoListState.listTasksState$.subscribe((values) => {
-            // TODO Retirar o mockListTasks e colocar o values; 
       // Ordenação por Prioridade e Status (Descrescente)
-      const listOrderByPriorityAndStatus = mockListTasks.sort((a, b) => {
+      const listOrderByPriorityAndStatus = values.sort((a, b) => {
         if(b.idPriority === a.idPriority) {
           return b.idStatus - a.idStatus;
         }

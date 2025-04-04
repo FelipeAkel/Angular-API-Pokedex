@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ListTasksModel } from '../../../../model/todo-list-model';
-import { PriorityEnum, StatusEnum } from '../../../../enum/todo-list.enum';
+import { DependencieTaksModel, ListTasksModel } from '../../../../model/todo-list-model';
 import { ListTasksComponent } from '../../list-tasks/list-tasks.component';
 import { Message } from 'primeng/message';
+import { TodoListStateService } from '../../../../services/todo-list/todo-list-state.service';
 
 
 @Component({
@@ -19,19 +19,31 @@ import { Message } from 'primeng/message';
 export class DetailsTaskComponent implements OnInit {
 
   public detailsTask: ListTasksModel;
-  // public dependencieNameTaks: string;
+  public dependencieTaks: DependencieTaksModel;
 
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    public listTasksComponent: ListTasksComponent
+    public listTasksComponent: ListTasksComponent,
+    public todoListStateService: TodoListStateService,
   ) {
     this.detailsTask = config.data.registerTask;
-    // this.dependencieNameTaks = '';
+    this.dependencieTaks = {
+      id: undefined,
+      name: '',
+    };
   }
 
   ngOnInit(): void {
     
+    if(this.detailsTask.yesIdTaskDependencie != undefined && this.detailsTask.yesIdTaskDependencie > 0){
+      const task = this.todoListStateService.getTaskId(this.detailsTask.yesIdTaskDependencie);
+      this.dependencieTaks = {
+        id: task.id,
+        name: task.name,
+      };
+    }
+
   }
 
 }
