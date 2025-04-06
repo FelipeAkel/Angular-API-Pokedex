@@ -49,6 +49,7 @@
                         <p-button 
                             icon="pi pi-file-edit" severity="warn" [rounded]="true" 
                             pTooltip="Editar Registro" tooltipPosition="top" placeholder="Top"
+                            (onClick)="editTask(task.id)"
                         />
                         <p-button 
                             icon="pi pi-trash" severity="danger" [rounded]="true"

@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Message } from 'primeng/message';
@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormValidationService, validatorBoolean, validatorDate } from '../../../../services/form-validation.service';
 import { distinctUntilChanged, take } from 'rxjs';
-import { FormSelectModel, FormTaskCreateModel } from '../../../../model/todo-list-model';
+import { FormSelectModel, FormTaskCreateModel, ListTasksModel } from '../../../../model/todo-list-model';
 import { TodoListStateService } from '../../../../services/todo-list/todo-list-state.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -33,6 +33,8 @@ import { mockPriority, mockStatus } from '../../../../mocks/todo-list.mock';
 })
 export class FormCreateEditTaskComponent implements OnInit {
 
+  @Input() selectedEditTasks!: ListTasksModel;
+
   public formTask: FormGroup;
   public checked: boolean = false;
   public dtExpiration: Date | undefined;
@@ -40,6 +42,7 @@ export class FormCreateEditTaskComponent implements OnInit {
   public listTasks: FormSelectModel[] = [];
   public listPriority: FormSelectModel[] = mockPriority;
   public listStatus: FormSelectModel[] = mockStatus;
+  public updateTask: boolean = false;
 
   constructor(
     private formBilder: FormBuilder,
@@ -60,6 +63,11 @@ export class FormCreateEditTaskComponent implements OnInit {
   };
 
   ngOnInit(): void {
+
+    if(this.selectedEditTasks) {
+      this.formTask.patchValue(this.selectedEditTasks);
+      this.updateTask = true;
+    }
     
     // Caso Dependência mude de valor validações serão alteradas
     this.formTask.controls['dependencie'].valueChanges
@@ -98,8 +106,17 @@ export class FormCreateEditTaskComponent implements OnInit {
     if(this.formTask.valid){
       this.todoListState.setListTasksState(values);
       this.formTask.reset();
-      this.msnToast.add({ severity: 'success', summary: 'Tarefa Cadastrada', detail: 'Registros de tarefas foram cadastrados.', life: 4000 });
+      this.msnToast.add({ severity: 'success', summary: 'Tarefa Cadastrada', detail: 'Registro de tarefa foi cadastrado.', life: 4000 });
       this.onListTasks();
+    } else {
+      this.formTask.markAllAsTouched();
+    }
+  }
+
+  onSubmitFormTaskEdit(values: FormTaskCreateModel) {
+    if(this.formTask.valid){
+      this.todoListState.updateTaskState(this.selectedEditTasks.id, values);
+      this.msnToast.add({ severity: 'success', summary: 'Tarefa Atualizada', detail: "Registro de tarefas foi atualizado.", life: 4000 });
     } else {
       this.formTask.markAllAsTouched();
     }

@@ -1,7 +1,7 @@
 export enum StatusEnum {
-    Concluída = 1,
+    Pendente = 1,
     'Em Andamento' = 2,
-    Pendente = 3,
+    Concluída = 3,
 }
 
 export enum PriorityEnum {

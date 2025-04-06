@@ -19,6 +19,7 @@ import { TodoListStateService } from '../../../services/todo-list/todo-list-stat
 import { PriorityEnum, StatusEnum } from '../../../enum/todo-list.enum';
 import { mockListTasks } from '../../../mocks/todo-list.mock';
 import { DetailsTaskComponent } from '../component/details-task/details-task.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-tasks',
@@ -65,6 +66,7 @@ export class ListTasksComponent {
     private confirmationService: ConfirmationService,
     private msnToast: MessageService,
     private dialogService: DialogService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -84,22 +86,22 @@ export class ListTasksComponent {
     if(typeReturn === 'icon') {
       switch(idStatus) {
         case 1:
-          return 'pi pi-check';
+          return 'pi pi-flag';
         case 2:
           return 'pi pi-chart-line';
         case 3:
-          return 'pi pi-flag';
+          return 'pi pi-check';
         default:
           return 'pi pi-folder';
       }
     } else if(typeReturn === 'severity') {
       switch(idStatus) {
         case 1:
-          return "success";
+          return "error";
         case 2:
           return "warn";
         case 3:
-          return "error";
+          return "success";
         default:
           return "secondary";
       }
@@ -165,6 +167,10 @@ export class ListTasksComponent {
     
   }
 
+  editTask(id: number) {
+    this.router.navigate(['pages/tasks/edit-task', id]);
+  }
+
   deleteTask(id: number) {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja deletar este registro?',
@@ -172,13 +178,13 @@ export class ListTasksComponent {
       icon: 'pi pi-info-circle',
       rejectLabel: 'Cancel',
       rejectButtonProps: {
-          label: 'Cancelar',
-          severity: 'secondary',
-          outlined: true,
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
       },
       acceptButtonProps: {
-          label: 'Deletar',
-          severity: 'danger',
+        label: 'Deletar',
+        severity: 'danger',
       },
       accept: () => {
         this.todoListState.deleteTaskState(id)

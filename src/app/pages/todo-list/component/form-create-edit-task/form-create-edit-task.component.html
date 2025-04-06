@@ -126,11 +126,20 @@
 
         <div class="flex flex-row flex-wrap mt-2">
             <p-button 
+                *ngIf="updateTask == false"
                 class="m-2" 
                 label="Cadastrar" 
                 [rounded]="true" 
                 icon="pi pi-save"
                 (onClick)="onSubmitFormTaskCreate(formTask.value)"
+            />
+            <p-button 
+                *ngIf="updateTask == true"
+                class="m-2" 
+                label="Atualizar" 
+                [rounded]="true" 
+                icon="pi pi-file-edit"
+                (onClick)="onSubmitFormTaskEdit(formTask.value)"
             />
             <p-button 
                 class="m-2" 
@@ -144,5 +153,9 @@
 
     </div>
 </form>
+
+<pre>
+    {{ this.formTask.value | json }}
+</pre>
 
 <p-toast />
