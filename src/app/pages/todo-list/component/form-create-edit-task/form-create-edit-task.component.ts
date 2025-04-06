@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormValidationService, validatorBoolean, validatorDate } from '../../../../services/form-validation.service';
 import { distinctUntilChanged, take } from 'rxjs';
-import { FormSelectModel, FormTaskCreateModel, ListTasksModel } from '../../../../model/todo-list-model';
+import { FormSelectModel, FormTaskModel, ListTasksModel } from '../../../../model/todo-list-model';
 import { TodoListStateService } from '../../../../services/todo-list/todo-list-state.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -102,7 +102,7 @@ export class FormCreateEditTaskComponent implements OnInit {
     return this.formValidation.getErrorMessage(this.formTask.get(field), labelName);
   }
 
-  onSubmitFormTaskCreate(values: FormTaskCreateModel){
+  onSubmitFormTaskCreate(values: FormTaskModel){
     if(this.formTask.valid){
       this.todoListState.setListTasksState(values);
       this.formTask.reset();
@@ -113,10 +113,10 @@ export class FormCreateEditTaskComponent implements OnInit {
     }
   }
 
-  onSubmitFormTaskEdit(values: FormTaskCreateModel) {
+  onSubmitFormTaskEdit(values: FormTaskModel) {
     if(this.formTask.valid){
       this.todoListState.updateTaskState(this.selectedEditTasks.id, values);
-      this.msnToast.add({ severity: 'success', summary: 'Tarefa Atualizada', detail: "Registro de tarefas foi atualizado.", life: 4000 });
+      this.msnToast.add({ severity: 'success', summary: 'Tarefa Atualizada', detail: "Registro de tarefa foi atualizado.", life: 4000 });
     } else {
       this.formTask.markAllAsTouched();
     }

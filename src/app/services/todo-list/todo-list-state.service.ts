@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FormTaskCreateModel } from '../../model/todo-list-model';
+import { FormTaskModel } from '../../model/todo-list-model';
 import { mockListTasks } from '../../mocks/todo-list.mock';
 
 @Injectable({
@@ -11,14 +11,14 @@ export class TodoListStateService {
   private listTasksState = new BehaviorSubject<any[]>([]); // TODO any
   listTasksState$ = this.listTasksState.asObservable();
 
-  setListTasksState(values: FormTaskCreateModel): void {
+  setListTasksState(values: FormTaskModel): void {
     const newTask = { id: Date.now(), ...values };
     const currentTasks = this.listTasksState.value;
     const updatedTasks = [...currentTasks, newTask];
     this.listTasksState.next(updatedTasks);
   }
 
-  updateTaskState(id: number, values: FormTaskCreateModel) {
+  updateTaskState(id: number, values: FormTaskModel) {
     const currentTasks = this.listTasksState.value;
     const findIndex = currentTasks.findIndex( task => task.id === id );
 
