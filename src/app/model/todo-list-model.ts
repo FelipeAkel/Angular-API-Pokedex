@@ -22,3 +22,9 @@ export interface DependencieTaksModel {
     id?: number,
     name?: string,
 };
+
+export interface FormFilterTaskModel {
+    nameTask?: string,
+    idPriority?: number,
+    idStatus?:number,
+};

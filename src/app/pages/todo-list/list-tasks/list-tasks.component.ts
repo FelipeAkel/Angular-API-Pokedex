@@ -58,6 +58,7 @@ export class ListTasksComponent {
       icon: 'pi pi-fw pi-list', label: 'Listar Tarefas',
     }
   ];
+  private tasksOriginal!: ListTasksModel[];
   public tasks!: ListTasksModel[];
   public selectedTasks!: ListTasksModel[];
 
@@ -78,8 +79,12 @@ export class ListTasksComponent {
         }
         return b.idPriority - a.idPriority;
       });
-      this.tasks = listOrderByPriorityAndStatus;
+      this.tasksOriginal = listOrderByPriorityAndStatus;
+      this.tasks = this.tasksOriginal;
     });
+
+    this.filterTasks();
+
   }
 
   getStatus(idStatus: number, typeReturn: string): string | undefined {
@@ -192,6 +197,22 @@ export class ListTasksComponent {
       },
       reject: () => { },
   });
+  }
+
+  filterTasks() {
+    this.todoListState.formFilterTaskState$.subscribe((values) => {
+
+      if(!values.nameTask && !values.idPriority && !values.idStatus) {
+        this.tasks = [...this.tasksOriginal];
+        return;
+      } 
+
+      this.tasks = this.tasksOriginal.filter(task => 
+        (values.nameTask == null || task.name.toLowerCase().includes(values.nameTask.toLowerCase())) &&
+        (values.idPriority == null || task.idPriority === values.idPriority) &&
+        (values.idStatus == null || task.idStatus === values.idStatus)
+      );
+    });
   }
 
 }

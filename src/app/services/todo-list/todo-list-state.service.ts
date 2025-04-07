@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FormTaskModel } from '../../model/todo-list-model';
+import { FormFilterTaskModel, FormTaskModel } from '../../model/todo-list-model';
 import { mockListTasks } from '../../mocks/todo-list.mock';
 
 @Injectable({
@@ -10,6 +10,9 @@ export class TodoListStateService {
 
   private listTasksState = new BehaviorSubject<any[]>([]); // TODO any
   listTasksState$ = this.listTasksState.asObservable();
+
+  private formFilterTaskState = new BehaviorSubject<any>({});
+  formFilterTaskState$ = this.formFilterTaskState.asObservable();
 
   setListTasksState(values: FormTaskModel): void {
     const newTask = { id: Date.now(), ...values };
@@ -40,6 +43,14 @@ export class TodoListStateService {
     const currentTasks = this.listTasksState.value;
     const findTask = currentTasks.find( task => task.id === id );
     return findTask;
+  }
+
+  setFormFilterTask(values: FormFilterTaskModel): void {
+    this.formFilterTaskState.next(values);
+  }
+
+  resetFormFilterTask(): void {
+    this.formFilterTaskState.next({});
   }
 
 }

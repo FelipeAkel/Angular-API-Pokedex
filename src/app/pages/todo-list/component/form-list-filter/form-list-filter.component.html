@@ -7,6 +7,7 @@
                 id="nameTask" 
                 formControlName="nameTask"
                 type="text" 
+                maxlength="70"
             >
             <p-message *ngIf="isFieldInvalid('nameTask')" severity="error" variant="simple" size="small">
                 {{ getErrorMessage('nameTask') }}
@@ -46,6 +47,9 @@
         <div class="field col-12 mt-2 mb-0" *ngIf="formFilterTask.invalid === true && formFilterTask.touched">
             <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Preencher os campos do formulário corretamente</p-message>
         </div>
+        <div class="field col-12 mt-2 mb-0" *ngIf="formFilterTaskEmpty === true">
+            <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Preencher pelo menos um dos campos do formulário</p-message>
+        </div>
 
         <div class="field col-12 flex-wrap mt-2">
             <p-button 
@@ -67,6 +71,4 @@
     </div>
 </form>
 
-<pre>
-    {{ this.formFilterTask.value | json }}
-</pre>
+<p-toast />

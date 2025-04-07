@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FormSelectModel } from '../../../../model/todo-list-model';
+import { FormFilterTaskModel, FormSelectModel } from '../../../../model/todo-list-model';
 import { TodoListApiService } from '../../../../services/todo-list/todo-list-api.service';
 import { CommonModule } from '@angular/common';
 import { FormValidationService } from '../../../../services/form-validation.service';
+import { TodoListStateService } from '../../../../services/todo-list/todo-list-state.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-form-list-filter',
@@ -14,7 +17,9 @@ import { FormValidationService } from '../../../../services/form-validation.serv
     ReactiveFormsModule, 
     FormsModule,
     Message, 
-    ButtonModule],
+    ButtonModule,
+    ToastModule
+  ],
   templateUrl: './form-list-filter.component.html',
   styleUrl: './form-list-filter.component.scss'
 })
@@ -23,22 +28,30 @@ export class FormListFilterComponent implements OnInit {
   public formFilterTask: FormGroup; 
   public listPriority: FormSelectModel[] = [];
   public listStatus: FormSelectModel[] = [];
+  public formFilterTaskEmpty: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private todoListApiService: TodoListApiService,
     private formValidation:FormValidationService,
+    private todoListStateService: TodoListStateService,
+    private msnToast: MessageService,
   ) {
     this.formFilterTask = this.formBuilder.group({
-      nameTask: ['', [Validators.required]],
-      idPriority: [, [Validators.required]],
-      idStatus: [, [Validators.required]],
+      nameTask: [null, [Validators.minLength(5), Validators.maxLength(70)]],
+      idPriority: [null, [Validators.nullValidator]],
+      idStatus: [null, [Validators.nullValidator]],
     });
   }
 
   ngOnInit(): void {
     this.getListPriority();
     this.getListStatus();
+
+    this.todoListStateService.formFilterTaskState$.subscribe((values) => {
+      this.formFilterTask.patchValue(values);
+    });
+
   }
 
   getListPriority() {
@@ -64,9 +77,17 @@ export class FormListFilterComponent implements OnInit {
     return this.formValidation.getErrorMessage(this.formFilterTask.get(field), labelName);
   }
 
-  onSubmitFilterTask(values: any) {
+  onSubmitFilterTask(values: FormFilterTaskModel) {
+
+    if(!values.nameTask && !values.idPriority && !values.idStatus) {
+      this.formFilterTaskEmpty = true;
+      return;
+    } 
+    this.formFilterTaskEmpty = false;
+
     if(this.formFilterTask.valid) {
-      console.warn('valido', values);
+      this.todoListStateService.setFormFilterTask(values);
+      this.msnToast.add({ severity: 'info', summary: 'Filtro Aplicado', detail: 'Lista de tarefas filtrada' });
     } else {
       this.formFilterTask.markAllAsTouched();
     }
@@ -74,6 +95,8 @@ export class FormListFilterComponent implements OnInit {
 
   onClear() {
     this.formFilterTask.reset();
+    this.todoListStateService.resetFormFilterTask();
+    this.formFilterTaskEmpty = false;
   }
 
 }

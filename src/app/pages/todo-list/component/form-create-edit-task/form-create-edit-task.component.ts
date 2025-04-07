@@ -53,14 +53,14 @@ export class FormCreateEditTaskComponent implements OnInit {
     private todoListApiService: TodoListApiService,
   ){
     this.formTask = this.formBilder.group({
-      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
-      idPriority: [, [Validators.required]],
-      idStatus: [, [Validators.required]],
-      dtExpiration: ['', [validatorDate()]],
-      responsibleUser: ['', [Validators.maxLength(70)]],
+      name: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
+      idPriority: [null, [Validators.required]],
+      idStatus: [null, [Validators.required]],
+      dtExpiration: [null, [validatorDate()]],
+      responsibleUser: [null, [Validators.maxLength(70)]],
       dependencie: [false, [Validators.required, validatorBoolean()]],
       yesIdTaskDependencie: [],
-      description: ['', [Validators.maxLength(1000)]],
+      description: [null, [Validators.maxLength(1000)]],
     });
   };
 
