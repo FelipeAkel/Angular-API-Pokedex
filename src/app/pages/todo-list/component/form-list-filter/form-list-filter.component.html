@@ -1,59 +1,72 @@
-<div class="formgrid grid">
-    <div class="field col-12 md:col-3">
-        <label for="inNameTask" class="required" >Nome da Tarefa</label>
-        <input 
-            class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            id="inNameTask" 
-            type="text" 
-        >
-        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-    </div>
-    <div class="field col-12 md:col-3">
-        <label for="inPriority" class="required" >Prioridade</label>
-        <select 
-            class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
-            id="inPriority" 
-            style="appearance: auto"
-        >
-            <option></option>
-            <option value="Baixa" >Baixa</option>
-            <option value="Média" >Média</option>
-            <option value="Alta" >Alta</option>
-        </select>
-        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-    </div>
-    <div class="field col-12 md:col-3">
-        <label for="inStatus" class="required" >Status</label>
-        <select 
-            class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
-            id="inStatus" 
-            style="appearance: auto"
-        >
-            <option></option>
-            <option value="Pendente" >Pendente</option>
-            <option value="Em Andamento" >Em Andamento</option>
-            <option value="Concluída" >Concluída</option>
-        </select>
-        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
-    </div>
+<form class="field items-center gap-1" [formGroup]="formFilterTask" > 
+    <div class="formgrid grid">
+        <div class="field col-12 md:col-3">
+            <label for="nameTask" class="required" >Nome da Tarefa</label>
+            <input 
+                class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                id="nameTask" 
+                formControlName="nameTask"
+                type="text" 
+            >
+            <p-message *ngIf="isFieldInvalid('nameTask')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('nameTask') }}
+            </p-message>
+        </div>
+        <div class="field col-12 md:col-3">
+            <label for="idPriority" class="required" >Prioridade</label>
+            <select 
+                class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
+                id="idPriority" 
+                formControlName="idPriority"
+                style="appearance: auto"
+            >
+                <option value="" selected disabled ></option>
+                <option *ngFor="let priority of listPriority" [ngValue]="priority.id" > {{ priority.name }} </option>
+            </select>
+            <p-message *ngIf="isFieldInvalid('idPriority')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('idPriority') }}
+            </p-message>
+        </div>
+        <div class="field col-12 md:col-3">
+            <label for="idStatus" class="required" >Status</label>
+            <select 
+                class="w-full text-base text-color p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
+                id="idStatus" 
+                formControlName="idStatus"
+                style="appearance: auto"
+            >
+                <option value="" disabled selected ></option>
+                <option *ngFor="let status of listStatus" [ngValue]="status.id" > {{ status.name }} </option>
+            </select>
+            <p-message *ngIf="isFieldInvalid('idStatus')" severity="error" variant="simple" size="small">
+                {{ getErrorMessage('idStatus') }}
+            </p-message>
+        </div>
 
-    <!-- <div class="field col-12 mt-2 mb-0">
-        <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Preencher os campos do formulário corretamente</p-message>
-    </div>
+        <div class="field col-12 mt-2 mb-0" *ngIf="formFilterTask.invalid === true && formFilterTask.touched">
+            <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Preencher os campos do formulário corretamente</p-message>
+        </div>
 
-    <div class="flex flex-row flex-wrap mt-2">
-        <p-button 
-            class="m-2" 
-            label="Pesquisar" 
-            [rounded]="true" 
-            icon="pi pi-search"
-        />
-        <p-button 
-            class="m-2" 
-            label="Limpar" 
-            [rounded]="true" 
-            icon="pi pi-trash" 
-            severity="secondary" 
-        />
-    </div> -->
-</div>
+        <div class="field col-12 flex-wrap mt-2">
+            <p-button 
+                class="m-2" 
+                label="Pesquisar" 
+                [rounded]="true" 
+                icon="pi pi-search"
+                (onClick)="onSubmitFilterTask(this.formFilterTask.value)"
+            />
+            <p-button 
+                class="m-2" 
+                label="Limpar" 
+                [rounded]="true" 
+                icon="pi pi-trash" 
+                severity="secondary" 
+                (onClick)="onClear()"
+            />
+        </div>
+    </div>
+</form>
+
+<pre>
+    {{ this.formFilterTask.value | json }}
+</pre>
