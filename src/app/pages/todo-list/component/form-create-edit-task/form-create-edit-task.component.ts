@@ -13,6 +13,7 @@ import { TodoListStateService } from '../../../../services/todo-list/todo-list-s
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { mockPriority, mockStatus } from '../../../../mocks/todo-list.mock';
+import { TodoListApiService } from '../../../../services/todo-list/todo-list-api.service';
 
 @Component({
   selector: 'app-form-create-edit-task',
@@ -40,8 +41,8 @@ export class FormCreateEditTaskComponent implements OnInit {
   public dtExpiration: Date | undefined;
   public countCaracteresDescription: number = 1000;
   public listTasks: FormSelectModel[] = [];
-  public listPriority: FormSelectModel[] = mockPriority;
-  public listStatus: FormSelectModel[] = mockStatus;
+  public listPriority: FormSelectModel[] = [];
+  public listStatus: FormSelectModel[] = [];
   public updateTask: boolean = false;
 
   constructor(
@@ -49,6 +50,7 @@ export class FormCreateEditTaskComponent implements OnInit {
     private formValidation: FormValidationService,
     private todoListState: TodoListStateService,
     private msnToast: MessageService,
+    private todoListApiService: TodoListApiService,
   ){
     this.formTask = this.formBilder.group({
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
@@ -63,6 +65,9 @@ export class FormCreateEditTaskComponent implements OnInit {
   };
 
   ngOnInit(): void {
+
+    this.getListPriority();
+    this.getListStatus();
 
     if(this.selectedEditTasks) {
       this.formTask.patchValue(this.selectedEditTasks);
@@ -89,6 +94,18 @@ export class FormCreateEditTaskComponent implements OnInit {
     });
 
     this.onListTasks();
+  }
+
+  getListPriority() {
+    this.todoListApiService.getListPriority.subscribe(( res ) => {
+      this.listPriority = res;
+    });
+  }
+
+  getListStatus() {
+    this.todoListApiService.getListStatus.subscribe(( res ) => {      
+      this.listStatus = res
+    });
   }
 
   isFieldInvalid(field: string): boolean | undefined {
