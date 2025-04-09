@@ -13,6 +13,21 @@
     
     <p>Lista ordenada por ordem de Prioridade e depois por Status.</p>
 
+    <div class="flex justify-center p-2" *ngIf="selectedTasks && selectedTasks.length > 0">
+        <p-button class="p-1" label="Pendente" [rounded]="true" severity="danger" icon="pi pi-flag" 
+            (onClick)="onSelectedTasks(selectedTasks, 1)"
+        />
+        <p-button class="p-1" label="Em Andamento" [rounded]="true" severity="warn" icon="pi pi-chart-line"
+            (onClick)="onSelectedTasks(selectedTasks, 2)"
+        />
+        <p-button class="p-1" label="Concluída" [rounded]="true" severity="success" icon="pi pi-check" 
+            (onClick)="onSelectedTasks(selectedTasks, 3)"
+        />
+        <p-button class="p-1" label="Deletar Registro" [rounded]="true" severity="secondary" icon="pi pi-trash" 
+            (onClick)="onSelectedTasks(selectedTasks, 'allDelete')"
+        />
+    </div>
+
     <p-table [value]="tasks" showGridlines [(selection)]="selectedTasks" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FormFilterTaskModel, FormTaskModel } from '../../model/todo-list-model';
+import { FormFilterTaskModel, FormTaskModel, ListTasksModel } from '../../model/todo-list-model';
 import { mockListTasks } from '../../mocks/todo-list.mock';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class TodoListStateService {
   setListTasksState(values: FormTaskModel): void {
     const newTask = { id: Date.now(), ...values };
     const currentTasks = this.listTasksState.value;
-    const updatedTasks = [...currentTasks, newTask];
+    const updatedTasks = [...currentTasks,...mockListTasks, newTask];
     this.listTasksState.next(updatedTasks);
   }
 
@@ -33,10 +33,27 @@ export class TodoListStateService {
     }
   }
 
+  updateStatusTasks(values: ListTasksModel[], idStatusUpdate: number) {
+    const currentTasks = this.listTasksState.value;
+    
+    const updatedTasks = currentTasks.map( task => {
+      const taskToUpdate = values.find( v => v.id === task.id );
+      return taskToUpdate ? {...task, idStatus: idStatusUpdate } : task;
+    });
+
+    this.listTasksState.next(updatedTasks);
+  }
+  
+
   deleteTaskState(id: number): void {
     const currentTasks = this.listTasksState.value;
     const updatedTasks = currentTasks.filter( task => task.id !== id);
     this.listTasksState.next(updatedTasks);
+  }
+
+  deleteTaskSelected(values: ListTasksModel[]): void {
+    console.warn('deleteTaskSelected', values);
+    
   }
 
   getTaskId(id: number) {

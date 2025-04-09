@@ -193,14 +193,16 @@ export class ListTasksComponent {
       },
       accept: () => {
         this.todoListState.deleteTaskState(id)
-        this.msnToast.add({ severity: 'info', summary: 'Delete Confirmado', detail: 'Registro deletado com sucesso' });
+        this.msnToast.add({ severity: 'warn', summary: 'Delete Confirmado', detail: 'Registro deletado com sucesso' });
       },
       reject: () => { },
-  });
+    });
   }
 
   filterTasks() {
     this.todoListState.formFilterTaskState$.subscribe((values) => {
+
+      this.selectedTasks = [];
 
       if(!values.nameTask && !values.idPriority && !values.idStatus) {
         this.tasks = [...this.tasksOriginal];
@@ -212,6 +214,93 @@ export class ListTasksComponent {
         (values.idPriority == null || task.idPriority === values.idPriority) &&
         (values.idStatus == null || task.idStatus === values.idStatus)
       );
+    });
+  }
+
+  onSelectedTasks(values: ListTasksModel[], idStatusOrAllDelete: number | string) {
+
+    const msnArray = {
+      message: '',
+      header: '',
+      icon: '',
+      label: '',
+      severity: '',
+      msnToastSeverity: '',
+      msnToastSummary: '',
+      msnToastDetail: '',
+    };
+    
+    if(Number(idStatusOrAllDelete)) {
+      const nomeStatus = this.getStatus(Number(idStatusOrAllDelete), 'nameStatus');
+      const icone = this.getStatus(Number(idStatusOrAllDelete), 'icon');
+      let severity = this.getStatus(Number(idStatusOrAllDelete), 'severity');
+      severity = severity === 'error' ? 'danger' : severity; // Não existe btn com severity error e sim danger!
+
+      msnArray.message = "Deseja atualizar o status dos registros selecionados para '" + nomeStatus + "'?";
+      msnArray.header = "Atualizar o status dos registros?";
+      msnArray.icon = "" + icone;
+      msnArray.label = "Atualizar registros";
+      msnArray.severity = "" + severity;
+      msnArray.msnToastSeverity = "info";
+      msnArray.msnToastSummary = "Registros Atualizados",
+      msnArray.msnToastDetail = "Os registros selecionados foram atualizados",
+
+      this.onMsnConfirmedSelectedTasks(values, msnArray, 'updateStatus', Number(idStatusOrAllDelete));
+
+    } else if(idStatusOrAllDelete === 'allDelete') {
+      msnArray.message = "Deseja deletar todos os registros selecionados?";
+      msnArray.header = "Deletar os registros?";
+      msnArray.icon = "pi pi-trash";
+      msnArray.label = "Deletar registros";
+      msnArray.severity = "danger";
+      msnArray.msnToastSeverity = "warn";
+      msnArray.msnToastSummary = "Registros Deletados",
+      msnArray.msnToastDetail = "Os registros selecionados foram deletados",
+
+      this.onMsnConfirmedSelectedTasks(values, msnArray, 'deleteTasks');
+      
+    } else {
+      this.msnToast.add({ severity: 'error', summary: 'Erro de Sistema', detail: 'Não foi possivel identificar sua execução' });
+      return;
+    }
+
+  }
+
+  onMsnConfirmedSelectedTasks(values: ListTasksModel[], msnArray: any, typeAction: string, idStatusUpdate?: number) {
+    this.confirmationService.confirm({
+      message: msnArray.message,
+      header: msnArray.header,
+      icon: msnArray.icon,
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: msnArray.label,
+        icon: msnArray.icon,
+        severity: msnArray.severity,
+      },
+      accept: () => {
+        if(typeAction === 'updateStatus') {
+          this.todoListState.updateStatusTasks(values, Number(idStatusUpdate));
+        } else if(typeAction === 'deleteTasks') {
+          this.todoListState.deleteTaskSelected(values);
+        } else {
+          this.msnToast.add({ severity: 'error', summary: 'Erro de Sistema', detail: 'Não foi possivel identificar sua execução' });
+          return;
+        }
+
+        this.msnToast.add({ 
+          severity: msnArray.msnToastSeverity, 
+          summary: msnArray.msnToastSummary, 
+          detail: msnArray.msnToastDetail
+        });
+
+        this.selectedTasks = [];
+      },
+      reject: () => { },
     });
   }
 

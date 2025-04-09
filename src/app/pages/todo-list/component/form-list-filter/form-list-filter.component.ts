@@ -78,7 +78,6 @@ export class FormListFilterComponent implements OnInit {
   }
 
   onSubmitFilterTask(values: FormFilterTaskModel) {
-
     if(!values.nameTask && !values.idPriority && !values.idStatus) {
       this.formFilterTaskEmpty = true;
       return;
