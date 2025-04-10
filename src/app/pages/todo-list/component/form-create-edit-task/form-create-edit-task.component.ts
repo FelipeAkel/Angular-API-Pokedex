@@ -71,6 +71,9 @@ export class FormCreateEditTaskComponent implements OnInit {
     this.getListStatus();
 
     if(this.selectedEditTasks) {
+      this.dtExpiration = this.selectedEditTasks.dtExpiration 
+        ? new Date(this.selectedEditTasks.dtExpiration) 
+        : undefined;
       this.formTask.patchValue(this.selectedEditTasks);
       this.updateTask = true;
     }
