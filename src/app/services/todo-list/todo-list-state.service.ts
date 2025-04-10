@@ -35,15 +35,12 @@ export class TodoListStateService {
 
   updateStatusTasks(values: ListTasksModel[], idStatusUpdate: number) {
     const currentTasks = this.listTasksState.value;
-    
     const updatedTasks = currentTasks.map( task => {
       const taskToUpdate = values.find( v => v.id === task.id );
       return taskToUpdate ? {...task, idStatus: idStatusUpdate } : task;
     });
-
     this.listTasksState.next(updatedTasks);
   }
-  
 
   deleteTaskState(id: number): void {
     const currentTasks = this.listTasksState.value;
@@ -52,8 +49,10 @@ export class TodoListStateService {
   }
 
   deleteTaskSelected(values: ListTasksModel[]): void {
-    console.warn('deleteTaskSelected', values);
-    
+    const idsToDelete = values.map( task => task.id );
+    const currentTasks = this.listTasksState.value;
+    const updatedTasks = currentTasks.filter( task => !idsToDelete.includes(task.id));
+    this.listTasksState.next(updatedTasks);
   }
 
   getTaskId(id: number) {

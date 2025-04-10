@@ -75,7 +75,7 @@ export class ListTasksComponent {
       // Ordenação por Prioridade e Status (Descrescente)
       const listOrderByPriorityAndStatus = values.sort((a, b) => {
         if(b.idPriority === a.idPriority) {
-          return b.idStatus - a.idStatus;
+          return a.idStatus - b.idStatus;
         }
         return b.idPriority - a.idPriority;
       });
