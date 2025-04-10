@@ -12,12 +12,12 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { DialogService } from 'primeng/dynamicdialog';
+import { FieldsetModule } from 'primeng/fieldset';
 
 import { FormListFilterComponent } from "../component/form-list-filter/form-list-filter.component";
 import { ListTasksModel } from '../../../model/todo-list-model';
 import { TodoListStateService } from '../../../services/todo-list/todo-list-state.service';
 import { PriorityEnum, StatusEnum } from '../../../enum/todo-list.enum';
-import { mockListTasks } from '../../../mocks/todo-list.mock';
 import { DetailsTaskComponent } from '../component/details-task/details-task.component';
 import { Router } from '@angular/router';
 
@@ -35,6 +35,7 @@ import { Router } from '@angular/router';
     Tooltip,
     ToastModule,
     ConfirmDialog,
+    FieldsetModule,
   ],
   providers: [
     ConfirmationService,
@@ -61,6 +62,7 @@ export class ListTasksComponent {
   private tasksOriginal!: ListTasksModel[];
   public tasks!: ListTasksModel[];
   public selectedTasks!: ListTasksModel[];
+  public loading: boolean = false;
 
   constructor(
     private todoListState: TodoListStateService,
@@ -302,6 +304,17 @@ export class ListTasksComponent {
       },
       reject: () => { },
     });
+  }
+
+  createMassOfData() {
+    this.loading = true;
+
+    setTimeout(() => {
+        this.loading = false
+        this.todoListState.setMassOfData();
+        this.msnToast.add({ severity: 'success', summary: 'Tarefas Criadas', detail: 'Massa de dados criadas com sucesso' });
+    }, 1000);
+
   }
 
 }

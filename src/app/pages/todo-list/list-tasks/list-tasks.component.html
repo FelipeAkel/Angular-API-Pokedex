@@ -11,6 +11,12 @@
 <div class="card">
     <div class="font-semibold text-xl mb-4">Registros</div>
     
+    <div class="col-offset-3 col-6" *ngIf="this.tasks.length == 0">
+        <p-fieldset class="p-4" legend="Criar Registros Automaticamente">
+            <p-button label="Cria uma massa de dados de tarefas" icon="pi pi-list" [loading]="loading" (onClick)="createMassOfData()" fluid />
+        </p-fieldset>
+    </div>
+    
     <p>Lista ordenada por ordem de Prioridade e depois por Status.</p>
 
     <div class="flex justify-center p-2" *ngIf="selectedTasks && selectedTasks.length > 0">

@@ -120,7 +120,7 @@ export const mockListTasks: ListTasksModel[] =  [
     },
     {
         id: 1743619925041,
-        name: "Conteúdo de Variáveis ",
+        name: "Conteúdo de Variáveis",
         idPriority: 3,
         idStatus: 3,
         dtExpiration: "2025-02-10T03:00:00.000Z",
@@ -131,7 +131,7 @@ export const mockListTasks: ListTasksModel[] =  [
     },
         {
         id: 1743619925049,
-        name: "Somente dados Required ",
+        name: "Somente dados obrigatórios",
         idPriority: 4,
         idStatus: 2,
         dtExpiration: undefined,

@@ -69,4 +69,8 @@ export class TodoListStateService {
     this.formFilterTaskState.next({});
   }
 
+  setMassOfData(): void {
+    this.listTasksState.next([...mockListTasks]);
+  }
+
 }
