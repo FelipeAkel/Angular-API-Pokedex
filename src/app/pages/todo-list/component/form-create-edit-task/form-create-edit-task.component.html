@@ -148,6 +148,15 @@
                 severity="secondary" 
                 (onClick)="onClear()"
             />
+            <p-button 
+                *ngIf="updateTask == true"
+                class="m-2" 
+                label="Voltar para lista de tarefas" 
+                [rounded]="true" 
+                icon="pi pi-list"
+                severity="info" 
+                (onClick)="routePageListTasks()"
+            />
         </div>
 
     </div>

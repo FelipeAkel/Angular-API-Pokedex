@@ -39,7 +39,7 @@ export class AppMenu {
                                 routerLink: ['/pages/tasks/create-task'],
                             },
                             {
-                                label: 'Listar Tarefas',
+                                label: 'Lista de Tarefas',
                                 icon: 'pi pi-fw pi-list',
                                 routerLink: ['/pages/tasks/list-tasks'],
                             }

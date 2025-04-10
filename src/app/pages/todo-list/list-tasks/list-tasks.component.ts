@@ -56,7 +56,7 @@ export class ListTasksComponent {
       icon: 'pi pi-fw pi-address-book', label: 'Tarefas',
     },
     {
-      icon: 'pi pi-fw pi-list', label: 'Listar Tarefas',
+      icon: 'pi pi-fw pi-list', label: 'Lista de Tarefas',
     }
   ];
   public tasksOriginal!: ListTasksModel[];
@@ -191,6 +191,7 @@ export class ListTasksComponent {
       },
       acceptButtonProps: {
         label: 'Deletar',
+        icon: 'pi pi-trash',
         severity: 'danger',
       },
       accept: () => {

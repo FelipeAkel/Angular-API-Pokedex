@@ -12,8 +12,8 @@ import { FormSelectModel, FormTaskModel, ListTasksModel } from '../../../../mode
 import { TodoListStateService } from '../../../../services/todo-list/todo-list-state.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { mockPriority, mockStatus } from '../../../../mocks/todo-list.mock';
 import { TodoListApiService } from '../../../../services/todo-list/todo-list-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-create-edit-task',
@@ -51,6 +51,7 @@ export class FormCreateEditTaskComponent implements OnInit {
     private todoListState: TodoListStateService,
     private msnToast: MessageService,
     private todoListApiService: TodoListApiService,
+    private router: Router,
   ){
     this.formTask = this.formBilder.group({
       name: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
@@ -149,6 +150,11 @@ export class FormCreateEditTaskComponent implements OnInit {
       .subscribe((values: FormSelectModel[]) => {
         this.listTasks = values;
     });
+  }
+
+  routePageListTasks() {
+    this.updateTask = false;
+    this.router.navigate(['pages/tasks/list-tasks']);
   }
 
 }
