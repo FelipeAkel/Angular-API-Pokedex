@@ -8,7 +8,7 @@ import { mockListTasks } from '../../mocks/todo-list.mock';
 })
 export class TodoListStateService {
 
-  private listTasksState = new BehaviorSubject<any[]>([]); // TODO any
+  private listTasksState = new BehaviorSubject<any[]>([]);
   listTasksState$ = this.listTasksState.asObservable();
 
   private formFilterTaskState = new BehaviorSubject<any>({});
@@ -17,7 +17,7 @@ export class TodoListStateService {
   setListTasksState(values: FormTaskModel): void {
     const newTask = { id: Date.now(), ...values };
     const currentTasks = this.listTasksState.value;
-    const updatedTasks = [...currentTasks,...mockListTasks, newTask];
+    const updatedTasks = [...currentTasks, newTask];
     this.listTasksState.next(updatedTasks);
   }
 

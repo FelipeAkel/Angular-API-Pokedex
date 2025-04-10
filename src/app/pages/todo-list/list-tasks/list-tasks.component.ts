@@ -59,7 +59,7 @@ export class ListTasksComponent {
       icon: 'pi pi-fw pi-list', label: 'Listar Tarefas',
     }
   ];
-  private tasksOriginal!: ListTasksModel[];
+  public tasksOriginal!: ListTasksModel[];
   public tasks!: ListTasksModel[];
   public selectedTasks!: ListTasksModel[];
   public loading: boolean = false;
