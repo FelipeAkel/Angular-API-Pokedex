@@ -23,7 +23,7 @@ describe('PokedexFilterComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`(U) ao executar getErrorMessage(), deveria apresentar menssagem de erro`, () => {
+  it(`(U) ao executar getErrorMessage(), deveria apresentar mensagem de erro`, () => {
     const mockField = 'inNamePokemon';
     const mockLabelName = 'Pesquisar Pokemon';
     const mockErrorMessage = 'O campo Pesquisar Pokemon é obrigatório.';

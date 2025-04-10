@@ -94,7 +94,7 @@ export const mockListTasks: ListTasksModel[] =  [
         responsibleUser: "Felipe Akel Carvalho Florentino",
         dependencie: true,
         yesIdTaskDependencie: 1743619265209,
-        description: "Testes unitários são conteúdo para um profissional completo."
+        description: "Testes unitários é importante para um profissional completo."
     },
     {
         id: 1743619712435,
