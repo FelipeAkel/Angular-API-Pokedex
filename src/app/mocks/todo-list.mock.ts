@@ -1,4 +1,4 @@
-import { FormFilterTaskModel, FormSelectModel, ListTasksModel } from "../model/todo-list-model";
+import { FormFilterTaskModel, FormSelectModel, FormTaskModel, ListTasksModel } from "../model/todo-list-model";
 
 export const mockPriority: FormSelectModel[] = [
     {
@@ -160,3 +160,23 @@ export const mockFormListFilterValido: FormFilterTaskModel = {
     idStatus: 2
 };
 
+export const mockFormCreateEditValido: FormTaskModel = {
+    name: "Teste Unitário em Angular",
+    idPriority: 4,
+    idStatus: 2,
+    dtExpiration: "2025-05-25T03:00:00.000Z",
+    responsibleUser: "Felipe Akel Carvalho Florentino",
+    dependencie: false,
+    yesIdTaskDependencie: undefined,
+    description: "Descrição da atividade de testes unitários com Jasmine do Angular"
+}
+
+export const mockFormCreateEditInvalido: FormTaskModel = {
+    name: '',
+    idPriority: 0,
+    idStatus: 0,
+    responsibleUser: undefined,
+    dependencie: false,
+    yesIdTaskDependencie: undefined,
+    description: undefined
+}
