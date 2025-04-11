@@ -60,10 +60,7 @@ export class PokemonDetailsComponent implements OnInit {
     );
   }
 
-  formattedTypes(item: any): string {
-
-    console.warn('teste', item);
-    
+  formattedTypes(item: any): string {    
     return item.types
       ?.map((type: any) => 
         type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1).toLowerCase()

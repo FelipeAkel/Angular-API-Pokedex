@@ -38,10 +38,12 @@ export class DetailsTaskComponent implements OnInit {
     
     if(this.detailsTask.yesIdTaskDependencie != undefined && this.detailsTask.yesIdTaskDependencie > 0){
       const task = this.todoListStateService.getTaskId(this.detailsTask.yesIdTaskDependencie);
-      this.dependencieTaks = {
-        id: task.id,
-        name: task.name,
-      };
+      if (task) {
+        this.dependencieTaks = {
+          id: task.id,
+          name: task.name,
+        };
+      }
     }
 
   }
