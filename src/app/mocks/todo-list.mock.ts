@@ -1,4 +1,4 @@
-import { FormSelectModel, ListTasksModel } from "../model/todo-list-model";
+import { FormFilterTaskModel, FormSelectModel, ListTasksModel } from "../model/todo-list-model";
 
 export const mockPriority: FormSelectModel[] = [
     {
@@ -141,3 +141,22 @@ export const mockListTasks: ListTasksModel[] =  [
         description: undefined
     }
 ];
+
+export const mockFormListFilterVazio: FormFilterTaskModel = {
+    nameTask: undefined,
+    idPriority: undefined,
+    idStatus: undefined
+};
+
+export const mockFormListFilterInvalido: FormFilterTaskModel = {
+    nameTask: "tare",
+    idPriority: 1,
+    idStatus: 2
+};
+
+export const mockFormListFilterValido: FormFilterTaskModel = {
+    nameTask: "Formulários",
+    idPriority: 1,
+    idStatus: 2
+};
+
