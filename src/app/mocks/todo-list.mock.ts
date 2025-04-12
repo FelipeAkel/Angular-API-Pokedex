@@ -180,3 +180,33 @@ export const mockFormCreateEditInvalido: FormTaskModel = {
     yesIdTaskDependencie: undefined,
     description: undefined
 }
+
+export const mockMsnArray = {
+    message: '',
+    header: '',
+    icon: '',
+    label: '',
+    severity: '',
+    msnToastSeverity: '',
+    msnToastSummary: '',
+    msnToastDetail: '',
+};
+
+export const mockMsnArrayUpdateTask = {
+    header: "Atualizar o status dos registros?",
+    label: "Atualizar registros",
+    msnToastSeverity: "info",
+    msnToastSummary: "Registros Atualizados",
+    msnToastDetail: "Os registros selecionados foram atualizados",
+}
+
+export const mockMsnArrayDeleteTask = {
+    message: "Deseja deletar todos os registros selecionados?",
+    header: "Deletar os registros?",
+    icon: "pi pi-trash",
+    label: "Deletar registros",
+    severity: "danger",
+    msnToastSeverity: "warn",
+    msnToastSummary: "Registros Deletados",
+    msnToastDetail: "Os registros selecionados foram deletados",
+} 

@@ -20,6 +20,7 @@ import { TodoListStateService } from '../../../services/todo-list/todo-list-stat
 import { PriorityEnum, StatusEnum } from '../../../enum/todo-list.enum';
 import { DetailsTaskComponent } from '../component/details-task/details-task.component';
 import { Router } from '@angular/router';
+import { mockMsnArray, mockMsnArrayDeleteTask, mockMsnArrayUpdateTask } from '../../../mocks/todo-list.mock';
 
 @Component({
   selector: 'app-list-tasks',
@@ -221,17 +222,7 @@ export class ListTasksComponent {
   }
 
   onSelectedTasks(values: ListTasksModel[], idStatusOrAllDelete: number | string) {
-
-    const msnArray = {
-      message: '',
-      header: '',
-      icon: '',
-      label: '',
-      severity: '',
-      msnToastSeverity: '',
-      msnToastSummary: '',
-      msnToastDetail: '',
-    };
+    let msnArray = mockMsnArray;
     
     if(Number(idStatusOrAllDelete)) {
       const nomeStatus = this.getStatus(Number(idStatusOrAllDelete), 'nameStatus');
@@ -239,32 +230,21 @@ export class ListTasksComponent {
       let severity = this.getStatus(Number(idStatusOrAllDelete), 'severity');
       severity = severity === 'error' ? 'danger' : severity; // Não existe btn com severity error e sim danger!
 
-      msnArray.message = "Deseja atualizar o status dos registros selecionados para '" + nomeStatus + "'?";
-      msnArray.header = "Atualizar o status dos registros?";
-      msnArray.icon = "" + icone;
-      msnArray.label = "Atualizar registros";
-      msnArray.severity = "" + severity;
-      msnArray.msnToastSeverity = "info";
-      msnArray.msnToastSummary = "Registros Atualizados",
-      msnArray.msnToastDetail = "Os registros selecionados foram atualizados",
+      msnArray = {
+        ...mockMsnArrayUpdateTask,
+        message: "Deseja atualizar o status dos registros selecionados para '" + nomeStatus + "'?",
+        icon: "" + icone,
+        severity: "" + severity,
+      };
 
       this.onMsnConfirmedSelectedTasks(values, msnArray, 'updateStatus', Number(idStatusOrAllDelete));
 
     } else if(idStatusOrAllDelete === 'allDelete') {
-      msnArray.message = "Deseja deletar todos os registros selecionados?";
-      msnArray.header = "Deletar os registros?";
-      msnArray.icon = "pi pi-trash";
-      msnArray.label = "Deletar registros";
-      msnArray.severity = "danger";
-      msnArray.msnToastSeverity = "warn";
-      msnArray.msnToastSummary = "Registros Deletados",
-      msnArray.msnToastDetail = "Os registros selecionados foram deletados",
-
+      msnArray = mockMsnArrayDeleteTask;
       this.onMsnConfirmedSelectedTasks(values, msnArray, 'deleteTasks');
-      
+
     } else {
       this.msnToast.add({ severity: 'error', summary: 'Erro de Sistema', detail: 'Não foi possivel identificar sua execução' });
-      return;
     }
 
   }

@@ -4,7 +4,7 @@ import { ListTasksComponent } from './list-tasks.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject, of } from 'rxjs';
-import { mockListTasks } from '../../../mocks/todo-list.mock';
+import { mockListTasks, mockMsnArray, mockMsnArrayDeleteTask, mockMsnArrayUpdateTask } from '../../../mocks/todo-list.mock';
 import { PriorityEnum, StatusEnum } from '../../../enum/todo-list.enum';
 import { DetailsTaskComponent } from '../component/details-task/details-task.component';
 
@@ -145,9 +145,9 @@ fdescribe('ListTasksComponent', () => {
     component['todoListState'].listTasksState$ = mockSubject.asObservable();
 
     component.ngOnInit();
-    component.detailsTask(1743619313717);
+    component.detailsTask(mockListTasks[1].id);
 
-    const registerTask = component.tasks.find( f => f.id === 1743619313717 );
+    const registerTask = component.tasks.find( f => f.id === mockListTasks[1].id );
 
     expect(component['dialogService'].open).toHaveBeenCalledWith(
       DetailsTaskComponent,
@@ -171,20 +171,67 @@ fdescribe('ListTasksComponent', () => {
   });
   
   it(`(U) ao executar deleteTask() deveria deletar o registro`, () => {
-    spyOn(component['confirmationService'], 'confirm').and.callFake((params: any) => {
-    if (params && params.accept) {
-      params.accept(); // Simula o clique no botão "Deletar"
-    }
-  });
-
-    // spyOn(component['todoListState'], 'deleteTaskState');
+    const confirmSpy = spyOn(component['confirmationService'], 'confirm').and.callThrough(); // Simulando o click de confirmação do confirmationService
+    spyOn(component['todoListState'], 'deleteTaskState');
+    spyOn(component['msnToast'], 'add');
 
     component.deleteTask(mockListTasks[1].id);
 
+    confirmSpy.calls.first().args[0].accept?.(); // Clicke de confirmação
+    confirmSpy.calls.first().args[0].reject?.(); // Clique de cancelar
+
     expect(component['confirmationService'].confirm).toHaveBeenCalled();
-    // expect(component['todoListState'].deleteTaskState).toHaveBeenCalled();
-    expect(1).toEqual(456);
+    expect(component['todoListState'].deleteTaskState).toHaveBeenCalledWith(mockListTasks[1].id);
+    expect(component['msnToast'].add).toHaveBeenCalledWith({ severity: 'warn', summary: 'Delete Confirmado', detail: 'Registro deletado com sucesso' });
   });
 
+  it(`(U) ao executar onSelectedTasks(), com valor inexistente de idStatusOrAllDelete`, () => {
+    spyOn(component['msnToast'], 'add');
 
+    const values = mockListTasks.filter( f => f.idStatus === 2);
+    component.onSelectedTasks(values, 'Valor_inexistente');
+
+    expect(component['msnToast'].add).toHaveBeenCalledWith({ severity: 'error', summary: 'Erro de Sistema', detail: 'Não foi possivel identificar sua execução' });
+  });
+  
+  it(`(U) ao executar onSelectedTasks(), com objetivo de atualizar o status dos registros selecionados`, () => {
+    spyOn(component, 'onMsnConfirmedSelectedTasks');
+
+    const values = mockListTasks.filter( f => f.idStatus === 2);
+    let idStatusOrAllDelete = 1;
+
+    component.onSelectedTasks(values, idStatusOrAllDelete);
+    // Executado duas vezes para verifica a condicional: severity = severity === 'error' ? 'danger' : severity;
+    idStatusOrAllDelete = 3;
+    component.onSelectedTasks(values, idStatusOrAllDelete);
+
+    let msnArray = mockMsnArray;
+    const nomeStatus = component.getStatus(Number(idStatusOrAllDelete), 'nameStatus');
+    const icone = component.getStatus(Number(idStatusOrAllDelete), 'icon');
+    let severity = component.getStatus(Number(idStatusOrAllDelete), 'severity');
+    severity = severity === 'error' ? 'danger' : severity; // Não existe btn com severity error e sim danger!
+
+    msnArray = {
+        ...mockMsnArrayUpdateTask,
+        message: "Deseja atualizar o status dos registros selecionados para '" + nomeStatus + "'?",
+        icon: "" + icone,
+        severity: "" + severity,
+      };
+
+    expect(component.onMsnConfirmedSelectedTasks).toHaveBeenCalledWith(values, msnArray, 'updateStatus', Number(idStatusOrAllDelete));
+  });
+
+  it(`(U) ao executar onSelectedTasks(), com objetivo de deletar os registros selecionados`, () => {
+    spyOn(component, 'onMsnConfirmedSelectedTasks');
+
+    const values = mockListTasks.filter( f => f.id === 2 );
+    const idStatusOrAllDelete = 'allDelete';
+    const msnArray = mockMsnArrayDeleteTask;
+    
+    component.onSelectedTasks(values, idStatusOrAllDelete);
+
+    expect(component.onMsnConfirmedSelectedTasks).toHaveBeenCalledWith(values, msnArray, 'deleteTasks');
+  });
+  
+  // expect(1).toEqual(22999);
 });
