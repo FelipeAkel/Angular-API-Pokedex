@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { ListTasksComponent } from './list-tasks.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject, of } from 'rxjs';
-import { mockListTasks, mockMsnArray, mockMsnArrayDeleteTask, mockMsnArrayUpdateTask } from '../../../mocks/todo-list.mock';
+import { mockFormListFilterValido, mockFormListFilterVazio, mockListTasks, mockMsnArray, mockMsnArrayDeleteTask, mockMsnArrayUpdateTask, mockStatus } from '../../../mocks/todo-list.mock';
 import { PriorityEnum, StatusEnum } from '../../../enum/todo-list.enum';
 import { DetailsTaskComponent } from '../component/details-task/details-task.component';
 
-fdescribe('ListTasksComponent', () => {
+describe('ListTasksComponent', () => {
   let component: ListTasksComponent;
   let fixture: ComponentFixture<ListTasksComponent>;
 
@@ -185,6 +185,30 @@ fdescribe('ListTasksComponent', () => {
     expect(component['msnToast'].add).toHaveBeenCalledWith({ severity: 'warn', summary: 'Delete Confirmado', detail: 'Registro deletado com sucesso' });
   });
 
+  it(`(U) ao executar filterTasks() com os filtros vazios`, () => {
+    const mockSubject = new BehaviorSubject(mockFormListFilterVazio);
+    component['todoListState'].formFilterTaskState$ = mockSubject.asObservable();
+
+    component.tasksOriginal = mockListTasks;
+    component.filterTasks();    
+
+    expect(component.selectedTasks.length).toEqual(0);
+    expect(component.tasks.length).toEqual(10);
+    expect(component.tasks).toEqual(mockListTasks);
+  });
+
+  it(`(U) ao executar filterTasks() deveria filtrar a lista de tarefas de acordo com os filtros selecionados`, () => {
+    const mockSubject = new BehaviorSubject(mockFormListFilterValido);
+    component['todoListState'].formFilterTaskState$ = mockSubject.asObservable();
+
+    component.tasksOriginal = mockListTasks;
+    component.filterTasks();    
+
+    expect(component.selectedTasks.length).toEqual(0);
+    expect(component.tasks.length).toEqual(1);
+    expect(component.tasks[0]).toEqual(mockListTasks[1]);
+  });
+
   it(`(U) ao executar onSelectedTasks(), com valor inexistente de idStatusOrAllDelete`, () => {
     spyOn(component['msnToast'], 'add');
 
@@ -212,11 +236,11 @@ fdescribe('ListTasksComponent', () => {
     severity = severity === 'error' ? 'danger' : severity; // Não existe btn com severity error e sim danger!
 
     msnArray = {
-        ...mockMsnArrayUpdateTask,
-        message: "Deseja atualizar o status dos registros selecionados para '" + nomeStatus + "'?",
-        icon: "" + icone,
-        severity: "" + severity,
-      };
+      ...mockMsnArrayUpdateTask,
+      message: "Deseja atualizar o status dos registros selecionados para '" + nomeStatus + "'?",
+      icon: "" + icone,
+      severity: "" + severity,
+    };
 
     expect(component.onMsnConfirmedSelectedTasks).toHaveBeenCalledWith(values, msnArray, 'updateStatus', Number(idStatusOrAllDelete));
   });
@@ -232,6 +256,85 @@ fdescribe('ListTasksComponent', () => {
 
     expect(component.onMsnConfirmedSelectedTasks).toHaveBeenCalledWith(values, msnArray, 'deleteTasks');
   });
+
+  it(`(U) ao executar onMsnConfirmedSelectedTasks() com typeAction com valor inválido`, () => {
+    const values = mockListTasks.filter(f => f.id === 2);
+    const msnArray = mockMsnArrayDeleteTask;
+    const typeAction = 'valor_invalido';
+    const confirmSpy = spyOn(component['confirmationService'], 'confirm').and.callThrough();
+
+    spyOn(component['msnToast'], 'add');
+
+    component.onMsnConfirmedSelectedTasks(values, msnArray, typeAction);
+
+    confirmSpy.calls.first().args[0].accept?.();
+    confirmSpy.calls.first().args[0].reject?.();
+
+    expect(component['msnToast'].add).toHaveBeenCalledWith({ severity: 'error', summary: 'Erro de Sistema', detail: 'Não foi possivel identificar sua execução' });
+  });
+
+  it(`(U) ao executar onMsnConfirmedSelectedTasks() confirmando a ação de deletar registros`, () => {
+    const values = mockListTasks.filter(f => f.id === 2);
+    const msnArray = mockMsnArrayDeleteTask;
+    const typeAction = 'deleteTasks';
+    const confirmSpy = spyOn(component['confirmationService'], 'confirm').and.callThrough();
+
+    spyOn(component['msnToast'], 'add');
+    spyOn(component['todoListState'], 'deleteTaskSelected');
+
+    component.onMsnConfirmedSelectedTasks(values, msnArray, typeAction);
+
+    confirmSpy.calls.first().args[0].accept?.();
+
+    expect(component['todoListState'].deleteTaskSelected).toHaveBeenCalledWith(values);
+    expect(component['msnToast'].add).toHaveBeenCalledWith({ 
+      severity: mockMsnArrayDeleteTask.msnToastSeverity, 
+      summary: mockMsnArrayDeleteTask.msnToastSummary, 
+      detail: mockMsnArrayDeleteTask.msnToastDetail }
+    );
+    expect(component.selectedTasks.length).toEqual(0);
+  });
   
-  // expect(1).toEqual(22999);
+  it(`(U) ao executar onMsnConfirmedSelectedTasks() confirmando a ação de alterar status`, () => {
+    const values = mockListTasks.filter(f => f.id === 2);
+    const typeAction = 'updateStatus';
+    const idStatusUpdate = mockStatus[2].id;
+    const confirmSpy = spyOn(component['confirmationService'], 'confirm').and.callThrough();
+    let msnArray = mockMsnArray;
+    msnArray = {
+      ...mockMsnArrayUpdateTask,
+      message: "Deseja atualizar o status dos registros selecionados para Concluída?",
+      icon: "pi pi-check",
+      severity: "success",
+    };
+
+    spyOn(component['todoListState'], 'updateStatusTasks');
+    spyOn(component['msnToast'], 'add');
+
+    component.onMsnConfirmedSelectedTasks(values, msnArray, typeAction, idStatusUpdate);
+    
+    confirmSpy.calls.first().args[0].accept?.();
+
+    expect(component['todoListState'].updateStatusTasks).toHaveBeenCalledWith(values, Number(idStatusUpdate));
+    expect(component['msnToast'].add).toHaveBeenCalledWith({
+      severity: msnArray.msnToastSeverity, 
+      summary: msnArray.msnToastSummary, 
+      detail: msnArray.msnToastDetail
+    });
+    expect(component.selectedTasks.length).toEqual(0);
+  });
+
+  it(`(U) ao executar createMassOfData(), para criar uma massa de dados de tarefas`, fakeAsync(() => {
+    spyOn(component['todoListState'], 'setMassOfData');
+    spyOn(component['msnToast'], 'add');
+    
+    component.createMassOfData();
+    
+    expect(component.loading).toBeTrue();
+    tick(1000); // Simula a passagem do tempo do setTimeout
+    expect(component.loading).toBeFalse();
+    expect(component['todoListState'].setMassOfData).toHaveBeenCalled();
+    expect(component['msnToast'].add).toHaveBeenCalledWith({ severity: 'success', summary: 'Tarefas Criadas', detail: 'Massa de dados criadas com sucesso' });
+  }));
+  
 });

@@ -156,8 +156,8 @@ export const mockFormListFilterInvalido: FormFilterTaskModel = {
 
 export const mockFormListFilterValido: FormFilterTaskModel = {
     nameTask: "Formulários",
-    idPriority: 1,
-    idStatus: 2
+    idPriority: 4,
+    idStatus: 3
 };
 
 export const mockFormCreateEditValido: FormTaskModel = {
