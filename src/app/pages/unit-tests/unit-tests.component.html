@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="font-semibold text-xl mb-4">Testes Unitários</div>
+    <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+</div>
+
+<p-card >
+    <ng-template #title> Cobertura de testes deste projeto </ng-template>
+    <ng-template #subtitle> Live Server </ng-template>
+    <p>
+        Abaixo a visualização da porcentagem de cobertura do código TypeScript de cada arquivo e suas funcionalidades.
+    </p>
+
+    <div class="flex justify-center">
+        <p class="text-red-tests-200 font-bold">
+            Statements   : 12.27% ( 47/383 )<br>
+            Branches     : 3.2% ( 4/125 )<br>
+            Functions    : 1.72% ( 2/116 )<br>
+            Lines        : 11.14% ( 41/368 )
+        </p>
+        <p-divider layout="vertical" align="center" type="dashed" >
+            <b>Antes <br>e<br>Depois</b>
+        </p-divider>
+        <p class="text-green-tests-200 font-bold">
+            Statements   : 97.65% ( 374/383 )<br>
+            Branches     : 96% ( 120/125 )<br>
+            Functions    : 94.82% ( 110/116 )<br>
+            Lines        : 97.55% ( 359/368 )
+        </p>
+    </div>
+
+    <ng-template #footer>
+        <div class="card flex justify-center">
+            <p-imagecompare class="shadow-lg rounded-2xl">
+                <ng-template #left>
+                    <img src="https://raw.githubusercontent.com/FelipeAkel/Angular-API-Pokedex/refs/heads/main/src/assets/image/tests/unit-tests-success.png" />
+                </ng-template>
+                <ng-template #right>
+                    <img src="https://raw.githubusercontent.com/FelipeAkel/Angular-API-Pokedex/refs/heads/main/src/assets/image/tests/unit-tests-error.png" />
+                </ng-template>
+            </p-imagecompare>
+        </div>
+    </ng-template>
+</p-card>

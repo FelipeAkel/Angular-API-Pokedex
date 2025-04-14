@@ -11,5 +11,5 @@ export const appRoutes: Routes = [
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
         ]
     },
-    { path: '**', redirectTo: '/pages/pokedex' } // Erro 404 - página não encontrada
+    { path: '**', redirectTo: '/pages/notfound' } // Erro 404 - página não encontrada
 ];

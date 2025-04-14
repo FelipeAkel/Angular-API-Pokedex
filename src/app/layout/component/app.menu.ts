@@ -46,9 +46,9 @@ export class AppMenu {
                         ]
                     },
                     {
-                        label: 'Página em branco',
-                        icon: 'pi pi-fw pi-circle-off',
-                        routerLink: ['/pages/empty'],
+                        label: 'Testes Unitários', 
+                        icon: 'pi pi-fw pi-chart-bar', 
+                        routerLink: ['/pages/unit-tests'] 
                     },
                 ]
             }
