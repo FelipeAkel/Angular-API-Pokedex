@@ -64,10 +64,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "sakai-ng:build:production"
+                            "buildTarget": "Angular-API-Pokedex:build:production"
                         },
                         "development": {
-                            "buildTarget": "sakai-ng:build:development"
+                            "buildTarget": "Angular-API-Pokedex:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -97,10 +97,7 @@
                     }
                 },
                 "deploy": {
-                    "builder": "angular-cli-ghpages:deploy",
-                    "options": {
-                        "buildTarget": "Angular-API-Pokedex:build:production"
-                    }
+                    "builder": "angular-cli-ghpages:deploy"
                 }
             }
         }
