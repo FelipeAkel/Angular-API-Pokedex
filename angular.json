@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "sakai-ng": {
+        "Angular-API-Pokedex": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/sakai-ng",
+                        "outputPath": "dist/Angular-API-Pokedex",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": [
@@ -97,7 +97,10 @@
                     }
                 },
                 "deploy": {
-                  "builder": "angular-cli-ghpages:deploy"
+                    "builder": "angular-cli-ghpages:deploy",
+                    "options": {
+                        "buildTarget": "Angular-API-Pokedex:build:production"
+                    }
                 }
             }
         }
