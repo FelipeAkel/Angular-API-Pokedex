@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="font-semibold text-xl mb-4">Arquitetura do Projeto</div>
+    <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+</div>
+
+<div class="card">
+    <div class="font-semibold text-xl mb-4">Organização das pastas, arquivos e responsabilidades</div>
+
+    <div class="grid">
+        <div class="col">
+            <p>
+                Baseada em boas práticas para facilitar a manutenção, escalabilidade e reutilização de códigos.
+            </p>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="col-8 col-offset-2">
+
+            <p-treetable class="m-1" [value]="dataArchitectureDesign" showGridlines [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+                <ng-template #header>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-rowNode let-rowData="rowData">
+                    <tr [ttRow]="rowNode">
+                        <td>
+                            <p-treeTableToggler [rowNode]="rowNode" />
+                            {{ rowData.name }}
+                        </td>
+                        <td>
+                            <i class="{{ rowData.icon }}" 
+                                [ngClass]="rowData.icon == 'pi pi-fw pi-folder-open' ? 'color-folder-open' : 'color-folder-close' "
+                            ></i> 
+                            {{ rowData.type }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-treetable>
+
+        </div>
+    </div>
+
+</div>
+
+

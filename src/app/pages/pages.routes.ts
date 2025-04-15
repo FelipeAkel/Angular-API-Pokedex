@@ -5,6 +5,7 @@ import { CreateTaskComponent } from './todo-list/create-task/create-task.compone
 import { ListTasksComponent } from './todo-list/list-tasks/list-tasks.component';
 import { EditTaskComponent } from './todo-list/edit-task/edit-task.component';
 import { UnitTestsComponent } from './unit-tests/unit-tests.component';
+import { ArchitectureDesignComponent } from './architecture-design/architecture-design.component';
 
 export default [
     { path: 'notfound', component: Notfound },
@@ -13,4 +14,5 @@ export default [
     { path: 'tasks/edit-task/:id', component: EditTaskComponent },
     { path: 'tasks/list-tasks', component: ListTasksComponent },
     { path: 'unit-tests', component: UnitTestsComponent },
+    { path: 'architecture-design', component: ArchitectureDesignComponent }
 ] as Routes;

@@ -50,6 +50,11 @@ export class AppMenu {
                         icon: 'pi pi-fw pi-chart-bar', 
                         routerLink: ['/pages/unit-tests'] 
                     },
+                    {
+                        label: 'Arquitetura do Projeto',
+                        icon: 'pi pi-fw pi-share-alt',
+                        routerLink: ['/pages/architecture-design']
+                    }
                 ]
             }
         ];
