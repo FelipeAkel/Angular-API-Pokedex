@@ -518,6 +518,36 @@
         "children":[  
             {
                 "data":{  
+                    "name":"architecture-designer",
+                    "type":"Pasta",
+                    "icon":"pi pi-fw pi-folder-open"
+                },
+                "children": [
+                    {
+                        "data":{
+                            "name":"architecture-designer-api.service.spec.ts",
+                            "type":"TypeScript - Testes Unitários",
+                            "icon":"pi pi-fw pi-file-check"
+                        }
+                    },
+                    {
+                        "data":{
+                            "name":"architecture-designer.api.ts",
+                            "type":"TypeScript",
+                            "icon":"pi pi-fw pi-file"
+                        }
+                    },
+                    {
+                        "data":{  
+                            "name":"list-architecture.json",
+                            "type":"Json",
+                            "icon":"pi pi-spin pi-spinner-dotted"
+                        }
+                    }
+                ]
+            }, 
+            {
+                "data":{  
                     "name":"pokedex",
                     "type":"Pasta",
                     "icon":"pi pi-fw pi-folder-open"

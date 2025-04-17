@@ -32,7 +32,7 @@
                         </td>
                         <td>
                             <i class="{{ rowData.icon }}" 
-                                [ngClass]="rowData.icon == 'pi pi-fw pi-folder-open' ? 'color-folder-open' : 'color-folder-close' "
+                                [ngClass]="getIconClass(rowData.icon)"
                             ></i> 
                             {{ rowData.type }}
                         </td>
