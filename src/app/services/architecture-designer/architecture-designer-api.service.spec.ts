@@ -32,10 +32,11 @@ describe('ArchitectureDesignerApiService', () => {
     expect(service).toBeTruthy();
   });
   
-  it(`(U) ao executar getListArchitecture(), deveria recuperar os dados da API via GET`, () => {
+  it(`(U) ao executar getListArchitecture(), deveria recuperar os dados da API via GET`, (done) => {
     
     service.getListArchitecture.subscribe((values) => {
       expect(values).toEqual(mockArchitectureDesign);
+      done();
     });
 
     const req = httpMock.expectOne(
@@ -43,6 +44,7 @@ describe('ArchitectureDesignerApiService', () => {
     );
 
     expect(req.request.method).toBe('GET');
+    req.flush(mockArchitectureDesign);
   });
 
 });
