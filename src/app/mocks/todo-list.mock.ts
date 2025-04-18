@@ -129,7 +129,7 @@ export const mockListTasks: ListTasksModel[] =  [
         yesIdTaskDependencie: undefined,
         description: "Variáveis do tipo LET podem ter seus valores alterados; \nVariáveis do tipo CONST não podem ter seus valores alterados; "
     },
-        {
+    {
         id: 1743619925049,
         name: "Somente dados obrigatórios",
         idPriority: 4,

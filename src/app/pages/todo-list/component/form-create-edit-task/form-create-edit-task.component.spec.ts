@@ -120,7 +120,17 @@ describe('FormCreateEditTaskComponent', () => {
   });
 
   it(`(U) deveria definir no dtExpiration o valor undefined quando dtExpiration não estiver presente em selectedEditTasks`, () => {
-    component.selectedEditTasks = mockListTasks[9] as ListTasksModel;
+    component.selectedEditTasks = {
+        id: 1743619925049,
+        name: "Somente dados obrigatórios",
+        idPriority: 4,
+        idStatus: 2,
+        dtExpiration: undefined,
+        responsibleUser: undefined,
+        dependencie: false,
+        yesIdTaskDependencie: undefined,
+        description: undefined
+    } as ListTasksModel;
     component.ngOnInit();
     expect(component.dtExpiration).toBeUndefined();
   });
