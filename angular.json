@@ -99,7 +99,8 @@
                 "deploy": {
                     "builder": "angular-cli-ghpages:deploy",
                     "options": {
-                        "baseHref": "/"
+                        "baseHref": "/",
+                        "repo": "https://github.com/FelipeAkel/Angular-API-Pokedex.git"
                     }
                 }
             }
