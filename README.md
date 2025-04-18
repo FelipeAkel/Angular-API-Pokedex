@@ -1,24 +1,28 @@
 <p align="center"><img src="src/assets/image/readme/angular-api-pokedex.png" width="400"></p>
 
-<p align="center"><a href="https://felipeakel.github.io/Angular-API-Pokedex/" target="_blank" >Visualize o sistema com o GitHub Pages</a></p>
+<p align="center"><a href="https://felipeakel.github.io/Angular-API-Pokedex/" target="_blank" ><b>Visualize o sistema com o GitHub Pages</b></a></p>
 
 ## :rocket: Sobre o API Pokedex em Angular
 
-O API Pokedex trata-se de um website desenvolvido no framework front-end, Angular, com o objetivo consumir dados de uma API REST. O sistema contém uma arquitetura de componentes modularizados e escalavel. Dessa forma, padrões de boas práticas e Teste Unitário foram importantes para atingir essa qualidade.
+O API Pokedex trata-se de um website desenvolvido no framework front-end, Angular, com o objetivo consumir dados de uma API REST e gerenciar uma lista de Tarefas (criando, editando, excluindo entre outras ações). O sistema contém uma arquitetura de componentes modularizados e escalavel. Dessa forma, padrões de boas práticas e Teste Unitário foram importantes para atingir essa qualidade.
 
-Destaca-se, que o sistema é composto de bibliotecas consolidadas no mercado de trabalho e compatíveis com as últimas versões do Angular. Dessa forma, garantes uma uniformidade de templates dos componentes criados e a confiabilidade de layouts responsivos para dispositivos módeis e desktops.
+Destaca-se, que o sistema é composto de bibliotecas consolidadas no mercado de trabalho e compatíveis com as últimas versões do Angular. Com isso, garante uma uniformidade do template dos componentes criados e a confiabilidade de layouts responsivos para dispositivos móveis e desktops.
 
 ### :small_blue_diamond: Layout Sistema
 - [Pokedex](src/assets/image/readme/Pag-Pokedex.png)
 - [Detalhes Pokemon](src/assets/image/readme/Pag-Detalhes.png)
-- [MSN Erro de API](src/assets/image/readme/Pag-Detalhes-Error.png)
+- [MSN Erro de API Pokemon](src/assets/image/readme/Pag-Detalhes-Error.png)
+- [Cadastro de Tarefa](src/assets/image/readme/Pag-Cadastrar-Tarefa.png)
+- [Lista de Tarefa](src/assets/image/readme/Pag-Lista-Tarefas.png)
+- [Testes Unitários](src/assets/image/readme/Pag-Testes-Unitarios.png)
+- ...
 
 ### :small_blue_diamond: Cobertura de Testes Unitários
-- [All files](src/assets//image//readme/Angular-API-Pokedex-Testes.png)
-    - Statements   : 90.9% ( 90/99 )
-    - Branches     : 90.62% ( 29/32 )
-    - Functions    : 85% ( 34/40 )
-    - Lines        : 90.72% ( 88/97 )
+- [All files](https://felipeakel.github.io/Angular-API-Pokedex/pages/unit-tests)
+    - Statements   : 97.77% ( 395/404 )
+    - Branches     : 96.24% ( 128/133 )
+    - Functions    : 95.08% ( 116/122 )
+    - Lines        : 97.68% ( 380/389 )
 
 ## :computer: Tecnologias utilizadas
 
@@ -54,4 +58,4 @@ Se você descobrir uma vulnerabilidade de segurança do sistema, envie uma mensa
 
 ## :page_facing_up: Licença
 
-Este Portfólio desenvolvido em Angular utiliza a licença MIT.
+Este Projeto foi desenvolvido em Angular e utiliza a licença MIT.
